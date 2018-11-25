@@ -1,0 +1,5 @@
+.dossier-table-wrapper #tbody {
+    height: 500px;
+    display: grid;
+    overflow: auto;
+}

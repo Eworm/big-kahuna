@@ -1,0 +1,4 @@
+routes:
+  /:
+    as: addons.menu_editor
+    uses: index

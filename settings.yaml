@@ -1,0 +1,21 @@
+fields:
+  menus:
+    type: grid
+    add_row: New menu item
+    fields:
+        label:
+            type: text
+        url:
+            type: relate
+            mode: tags
+            max_items: 1
+            collection: pages
+  my_pages_field:
+    type: pages
+    display: Test
+  my_pages:
+    type: checkboxes
+    options:
+      donuts: Donuts
+      icecream: Ice Cream
+      brownies: Brownies
