@@ -34,18 +34,19 @@ class MenusController extends Controller
             // 'title'         => 'My Awesome Site',
             // 'home_page_url' => 'https://my-awesome-site.com/',
             // 'feed_url'      => 'https://my-awesome-site.com/cp/addons/menus/json',
-            'items'         => [$this->getItems()]
+            'items'         => $this->getItems()
         ];
     }
 
     private function getItems()
     {
-        return Entry::whereCollection('blog')->map(function ($entry) {
+        $index = 0;
+        return Entry::whereCollection('blog')->map(function ($entry) use (&$index) {
 
             return [
                 'id'                => $entry->id(),
                 'url'               => $entry->url(),
-                "order"             => 2,
+                "order"             => $index++,
                 "title"             => $entry->get('title'),
                 "uri"               => "",
                 "extension"         => "",
@@ -60,6 +61,6 @@ class MenusController extends Controller
                 "items"             => []
             ];
 
-        })->all();
+        });
     }
 }
