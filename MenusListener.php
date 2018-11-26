@@ -34,9 +34,8 @@ class MenusListener extends Listener
      */
     public function injectMenuStyles()
     {
-        // $html = $this->js->tag('uikit-2.27.5/js/uikit.min.js');
-        // $html .= $this->css->tag('uikit-2.27.5/css/uikit.min');
         $html = $this->css->tag('styles');
+        $html .= $this->js->tag('test.json');
         return $html;
     }
 }

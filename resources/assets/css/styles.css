@@ -3,3 +3,7 @@
     display: grid;
     overflow: auto;
 }
+
+.branches .has-collection {
+    display: none !important;
+}

@@ -81,113 +81,60 @@
 
         <div class="col-md-7">
 
-            <div class="card flush">
+            <div class="page-tree">
 
-                <div class="page-tree">
+                <page-tree inline-template v-cloak>
 
-                    {{-- <script type="application/json">
-                    {
-                      "nestables": [
-                        {
-                          "id": "72c016c6-cc0a-4928-b53b-3275f3f6da0a",
-                          "order": 1,
-                          "title": "About Me",
-                          "url": "/about",
-                          "uri": "/about",
-                          "extension": "md",
-                          "edit_url": "http://statamic.localhost/cp/pages/edit/about",
-                          "create_child_url": "http://statamic.localhost/cp/pages/create/about",
-                          "slug": "about",
-                          "published": true,
-                          "has_entries": false,
-                          "create_entry_url": "http://statamic.localhost/cp/collections/entries//create",
-                          "entries_url": "http://statamic.localhost/cp/collections/entries",
-                          "collapsed": false,
-                          "items": []
-                        },
-                        {
-                          "id": "60962021-f154-4cd2-a1d7-035a12b6da9e",
-                          "order": 2,
-                          "title": "My Magical Blogventure",
-                          "url": "/blog",
-                          "uri": "/blog",
-                          "extension": "md",
-                          "edit_url": "http://statamic.localhost/cp/pages/edit/blog",
-                          "create_child_url": "http://statamic.localhost/cp/pages/create/blog",
-                          "slug": "blog",
-                          "published": true,
-                          "has_entries": true,
-                          "create_entry_url": "http://statamic.localhost/cp/collections/entries/blog/create",
-                          "entries_url": "http://statamic.localhost/cp/collections/entries/blog",
-                          "collapsed": false,
-                          "items": []
-                        },
-                        {
-                          "id": "3cd2d431-699c-417c-8d57-9183cd17a6fc",
-                          "order": 3,
-                          "title": "Gallery",
-                          "url": "/gallery",
-                          "uri": "/gallery",
-                          "extension": "md",
-                          "edit_url": "http://statamic.localhost/cp/pages/edit/gallery",
-                          "create_child_url": "http://statamic.localhost/cp/pages/create/gallery",
-                          "slug": "gallery",
-                          "published": true,
-                          "has_entries": false,
-                          "create_entry_url": "http://statamic.localhost/cp/collections/entries//create",
-                          "entries_url": "http://statamic.localhost/cp/collections/entries",
-                          "collapsed": false,
-                          "items": []
-                        },
-                        {
-                          "id": "26a4ce21-d768-440d-806b-213918df0ee0",
-                          "order": 4,
-                          "title": "Favorite Things",
-                          "url": "/things",
-                          "uri": "/things",
-                          "extension": "md",
-                          "edit_url": "http://statamic.localhost/cp/pages/edit/things",
-                          "create_child_url": "http://statamic.localhost/cp/pages/create/things",
-                          "slug": "things",
-                          "published": true,
-                          "has_entries": true,
-                          "create_entry_url": "http://statamic.localhost/cp/collections/entries/things/create",
-                          "entries_url": "http://statamic.localhost/cp/collections/entries/things",
-                          "collapsed": false,
-                          "items": []
-                        },
-                        {
-                          "id": "de627bca-7595-429e-9b41-ad58703916d7",
-                          "order": 5,
-                          "title": "Contact",
-                          "url": "/contact",
-                          "uri": "/contact",
-                          "extension": "md",
-                          "edit_url": "http://statamic.localhost/cp/pages/edit/contact",
-                          "create_child_url": "http://statamic.localhost/cp/pages/create/contact",
-                          "slug": "contact",
-                          "published": true,
-                          "has_entries": false,
-                          "create_entry_url": "http://statamic.localhost/cp/collections/entries//create",
-                          "entries_url": "http://statamic.localhost/cp/collections/entries",
-                          "collapsed": false,
-                          "items": []
-                        }
-                      ]
-                    }
-                    </script> --}}
-
-                    <page-tree inline-template v-cloak>
+                    <div id="pages">
 
                         <div :class="{'page-tree': true, 'show-urls': showUrls}">
+                            <div class="loading" v-if="loading">
+                                <span class="icon icon-circular-graph animation-spin"></span> Loading
+                            </div>
 
-                            <branches :pages="pages" :depth="1" :sortable="isSortable" :dirty="changed"></branches>
+                            <div class="saving" v-if="saving">
+                                <div class="inner">
+                                    <i class="icon icon-circular-graph animation-spin"></i> Saving
+                                </div>
+                            </div>
+
+                            {{-- Keeping this or else drag & drop won't work --}}
+                            <ul class="tree-home list-unstyled" v-if="!loading">
+                            </ul>
+
+                            <branches
+                                :pages="pages"
+                                :depth="1"
+                                :sortable="isSortable"
+                                :dirty="!dirty">
+                            </branches>
+
+                            {{-- <branches :pages="childPages"
+                                      :depth="depth + 1"
+                                      :parent-url="url"
+                                      :collapsed.sync="collapsed"
+                                      :sortable="sortable"
+                                      :dirty="dirty"
+                                      v-if="!home">
+                            </branches> --}}
 
                         </div>
 
-                    </page-tree>
+                        <create-page :locale="locale"></create-page>
+                        <mount-collection></mount-collection>
+                        <audio v-el:click>
+                            <source src="/index.php/_resources/cp/audio/click.mp3" type="audio/mp3">
+                        </audio>
+                        <audio v-el:card_drop>
+                            <source src="/index.php/_resources/cp/audio/card_drop.mp3" type="audio/mp3">
+                        </audio>
+                        <audio v-el:card_set>
+                            <source src="/index.php/_resources/cp/audio/card_set.mp3" type="audio/mp3">
+                        </audio>
 
-                </div>
+                    </div>
+
+                </page-tree>
 
             </div>
 
