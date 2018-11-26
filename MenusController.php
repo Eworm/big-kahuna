@@ -5,9 +5,6 @@ namespace Statamic\Addons\Menus;
 use Statamic\API\Page;
 use Statamic\API\Collection;
 use Statamic\API\Entry;
-// use Statamic\Data\Content\ContentCollection;
-// use Statamic\Data\Entries\Entry;
-// use Statamic\Data\Entries\EntryCollection;
 use Statamic\Extend\Controller;
 
 class MenusController extends Controller
@@ -28,5 +25,39 @@ class MenusController extends Controller
             'collections' => $collections,
             'entries' => $entries
         ]);
+    }
+
+    public function json()
+    {
+        return [
+            'version'       => 'https://jsonfeed.org/version/1',
+            'title'         => 'My Awesome Site',
+            'home_page_url' => 'https://my-awesome-site.com/',
+            'feed_url'      => 'https://my-awesome-site.com/cp/addons/menus/json',
+            'items'         => $this->getItems()
+        ];
+    }
+
+    private function getItems()
+    {
+        return Entry::whereCollection('blog')->map(function ($entry) {
+            return [
+                'id'                => $url = $entry->url(),
+                'url'               => $url,
+                "order"             => 2,
+                "title"             => $entry->get('title'),
+                "uri"               => "/blog",
+                "extension"         => "md",
+                "edit_url"          => "",
+                "create_child_url"  => "",
+                "slug"              => "blog",
+                "published"         => true,
+                "has_entries"       => true,
+                "create_entry_url"  => "",
+                "entries_url"       => "",
+                "collapsed"         => false,
+                "items"             => []
+            ];
+        })->all();
     }
 }

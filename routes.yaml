@@ -2,3 +2,4 @@ routes:
   /:
     as: addons.menu_editor
     uses: index
+  /json: MenusController@json

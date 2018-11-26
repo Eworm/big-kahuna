@@ -3,6 +3,7 @@
 @section('content')
 
     <script>
+    
         var pages = [
             @foreach ($pages as $index => $page)
             {
@@ -58,9 +59,9 @@
                         <tfoot>
                             <tr>
                                 <td colspan="2">
-                                    <button  type="button" class="btn float-left">
+                                    {{-- <button  type="button" class="btn float-left">
                                         Select all
-                                    </button>
+                                    </button> --}}
                                     <button type="button" class="btn btn-primary add-row float-right">
                                     Add to menu
                                     <i class="icon icon-plus icon-right"></i>
@@ -141,6 +142,5 @@
         </div>
 
     </div>
-
 
 @endsection
