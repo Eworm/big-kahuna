@@ -34,8 +34,11 @@ class MenusListener extends Listener
      */
     public function injectMenuStyles()
     {
+        echo '<pre>';
+        var_dump($this);
+        echo '</pre>';
         $html = $this->css->tag('styles');
-        $html .= $this->js->tag('test.json');
+        // $html .= $this->js->tag('test.json');
         return $html;
     }
 }
