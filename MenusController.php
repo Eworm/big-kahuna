@@ -16,41 +16,42 @@ class MenusController extends Controller
      */
     public function index()
     {
-        $pages = Page::all(); // Returns PageCollection
-        $collections = Collection::all(); // Returns Illuminate\Support\Collection
-        $entries = Entry::all(); // Returns EntryCollection
+        $pages          = Page::all(); // Returns PageCollection
+        $collections    = Collection::all(); // Returns Illuminate\Support\Collection
+        $entries        = Entry::all(); // Returns EntryCollection
 
         return $this->view('index', [
-            'pages' => $pages,
-            'collections' => $collections,
-            'entries' => $entries
+            'pages'         => $pages,
+            'collections'   => $collections,
+            'entries'       => $entries
         ]);
     }
 
     public function json()
     {
         return [
-            'version'       => 'https://jsonfeed.org/version/1',
-            'title'         => 'My Awesome Site',
-            'home_page_url' => 'https://my-awesome-site.com/',
-            'feed_url'      => 'https://my-awesome-site.com/cp/addons/menus/json',
-            'items'         => $this->getItems()
+            // 'version'       => 'https://jsonfeed.org/version/1',
+            // 'title'         => 'My Awesome Site',
+            // 'home_page_url' => 'https://my-awesome-site.com/',
+            // 'feed_url'      => 'https://my-awesome-site.com/cp/addons/menus/json',
+            'items'         => [$this->getItems()]
         ];
     }
 
     private function getItems()
     {
         return Entry::whereCollection('blog')->map(function ($entry) {
+
             return [
-                'id'                => $url = $entry->url(),
-                'url'               => $url,
+                'id'                => $entry->id(),
+                'url'               => $entry->url(),
                 "order"             => 2,
                 "title"             => $entry->get('title'),
-                "uri"               => "/blog",
-                "extension"         => "md",
+                "uri"               => "",
+                "extension"         => "",
                 "edit_url"          => "",
                 "create_child_url"  => "",
-                "slug"              => "blog",
+                "slug"              => "",
                 "published"         => true,
                 "has_entries"       => true,
                 "create_entry_url"  => "",
@@ -58,6 +59,7 @@ class MenusController extends Controller
                 "collapsed"         => false,
                 "items"             => []
             ];
+
         })->all();
     }
 }

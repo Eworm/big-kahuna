@@ -3,7 +3,7 @@
 @section('content')
 
     <script>
-    
+
         var pages = [
             @foreach ($pages as $index => $page)
             {
@@ -104,7 +104,7 @@
                             </ul>
 
                             <branches
-                                :pages="pages"
+                                :pages="items"
                                 :depth="1"
                                 :sortable="isSortable"
                                 :dirty="!dirty">
