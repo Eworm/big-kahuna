@@ -25,14 +25,14 @@
             </div>
         </div>
 
-        <branches :pages="childPages"
+        <mybranches :pages="childPages"
                   :depth="depth + 1"
                   :parent-url="url"
                   :collapsed.sync="collapsed"
                   :sortable="sortable"
                   :dirty="dirty"
                   v-if="!home">
-        </branches>
+        </mybranches>
     </li>
 </template>
 
