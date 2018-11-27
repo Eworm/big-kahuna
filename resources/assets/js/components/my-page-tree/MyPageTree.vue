@@ -168,7 +168,11 @@ export default {
             var pages = JSON.parse(JSON.stringify(self.pages));
             pages = self.updateOrderIndexes(pages);
 
-            this.$http.post(cp_url('/pages'), { pages: pages }).success(function(data) {
+            console.log('Saving..');
+            console.log(pages);
+
+            // this.$http.post(cp_url('/pages'), { pages: pages }).success(function(data) {
+            this.$http.post('http://statamic.localhost/cp/addons/menus/save', { pages: pages }).success(function(data) {
                 self.getPages();
                 self.changed = false;
                 self.saving = false;
@@ -181,8 +185,8 @@ export default {
 
             return _.map(pages, function(item, i) {
                 // Recursively iterate over any children
-                if (item.pages.length) {
-                    item.pages = self.updateOrderIndexes(item.pages);
+                if (item.items.length) {
+                    item.items = self.updateOrderIndexes(item.items);
                 }
 
                 // We need the 1-based indexes
