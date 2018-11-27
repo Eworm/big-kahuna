@@ -35,7 +35,38 @@
 
         <div class="col-md-5">
 
-            <menus-fieldtype></menus-fieldtype>
+            <div class="card flush">
+                        <div class="dossier-table-wrapper">
+                        <table class="dossier has-checkboxes">
+                        <thead>
+                        <tr>
+                        <th colspan="2">
+                        Content
+                        </th>
+                        </tr>
+                        <tr>
+                        <th colspan="2">
+                        <input v-model="query" type="search" placeholder="Search for a page, entry or collection" class="form-control">
+                        </th>
+                        </tr>
+                        </thead>
+                        <tbody id="tbody">
+
+            <tr is="menus-fieldtype" colspan="2"></tr>
+
+        </tbody>
+        <tfoot>
+        <tr>
+        <td colspan="2">
+        <button type="button" class="btn btn-primary add-row float-right">
+        Add to menu
+        <i class="icon icon-plus icon-right"></i>
+        </button>
+        </td>
+        </tfoot>
+        </table>
+        </div>
+        </div>
 
         </div>
 
@@ -48,7 +79,7 @@
                     <div id="pages">
 
                         <div :class="{'page-tree': true, 'show-urls': showUrls}">
-                            
+
                             <div class="loading" v-if="loading">
                                 <span class="icon icon-circular-graph animation-spin"></span> Loading
                             </div>
@@ -59,6 +90,9 @@
                                 </div>
                             </div>
 
+                            {{-- Keeping this or else drag & drop won't work --}}
+                            <ul class="tree-home list-unstyled" v-if="!loading">
+                            </ul>
                             <mybranches
                                 :pages="pages"
                                 :depth="1"
