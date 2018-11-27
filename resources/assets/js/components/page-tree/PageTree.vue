@@ -1,20 +1,20 @@
 <script>
 import Branch from './Branch.vue';
 import Branches from './Branches.vue';
-import CreatePage from './CreatePage.vue';
-import MountCollection from './MountCollection.vue';
+// import CreatePage from './CreatePage.vue';
+// import MountCollection from './MountCollection.vue';
 // import HasLocaleSelector from '../HasLocaleSelector';
 // import HasShowDraftsSelector from '../HasShowDraftsSelector';
 
 export default {
 
-    mixins: [HasShowDraftsSelector, HasLocaleSelector],
+    // mixins: [HasShowDraftsSelector, HasLocaleSelector],
 
     components: {
         Branches,
         Branch,
-        CreatePage,
-        MountCollection,
+        // CreatePage,
+        // MountCollection,
     },
 
     data: function() {
@@ -53,8 +53,8 @@ export default {
 
     ready: function() {
         this.getPages();
-        this.bindLocaleWatcher();
-        this.bindShowDraftsWatcher();
+        // this.bindLocaleWatcher();
+        // this.bindShowDraftsWatcher();
         Mousetrap.bindGlobal('mod+s', (e) => {
             e.preventDefault();
             this.save();
@@ -236,9 +236,9 @@ export default {
             });
         },
 
-        createPage: function(parent) {
-            this.$broadcast('pages.create', parent);
-        },
+        // createPage: function(parent) {
+        //     this.$broadcast('pages.create', parent);
+        // },
 
         onShowDraftsChanged() {
             this.getPages();

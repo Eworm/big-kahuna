@@ -2,7 +2,7 @@ Vue.component('menus-fieldtype', {
 
     mixins: [Fieldtype],
 
-    template: `<tr v-for="(index, page) of pages">
+    template: `<tr v-for="(index, page) of allpages">
                 <td class="checkbox-col">
                 <input type="checkbox" id="checkbox-{{index}}">
                 <label for="checkbox-{{index}}"></label>
@@ -15,7 +15,7 @@ Vue.component('menus-fieldtype', {
 
     data: function() {
         return {
-            pages
+            allpages
         };
     },
 

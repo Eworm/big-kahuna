@@ -4,7 +4,7 @@
 
     <script>
 
-        var pages = [
+        var allpages = [
             @foreach ($pages as $index => $page)
             {
                 "id": "{{$index}}",
@@ -108,7 +108,7 @@
                             </script> --}}
 
                             <branches
-                                :pages="items"
+                                :pages="pages"
                                 :depth="1"
                                 :sortable="isSortable"
                                 :dirty="!dirty">

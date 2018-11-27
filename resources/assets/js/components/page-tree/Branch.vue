@@ -2,17 +2,12 @@
     <li class="branch" :class="{ draft: !published }" :data-depth="depth">
         <div class="branch-row w-full flex items-center">
 
-            <div v-if="home" class="w-6 home-handle">
-                <i class="icon icon-home mx-auto opacity-25"></i>
-            </div>
-
             <div v-if="!home && sortable" :class="['page-move drag-handle w-6 h-full', {'cursor-not-allowed opacity-50': isSingleTopLevelPage}]"></div>
 
             <div class="flex items-center flex-1 p-1">
 
                 <div class="page-text">
-                    <a :href="editUrl" class="page-title">{{ title }}</a>
-                    <a :href="editUrl" class="page-url">{{ url }}</a>
+                    <span class="page-title">{{ title }}</span>
                 </div>
 
                 <div class="w-6 opacity-25 hover:opacity-50 page-toggle-container ml-px" v-if="hasChildren">
@@ -26,27 +21,6 @@
                     <a :href="createEntryUrl">{{ translate('cp.add') }}</a>
                     <span class="mx-sm text-grey text-xxs">{{ translate('cp.or') }}</span>
                     <a :href="entriesUrl">{{ translate('cp.edit') }}</a>
-                </div>
-            </div>
-
-            <div class="branch-meta flex items-center pr-1" v-if="! dirty">
-                <div class="page-actions" v-if="can('pages:create') || can('pages:delete')">
-                    <a :href="url" :title="url" class="page-action text-grey-dark px-sm bloop" target="_blank">
-                        <svg-icon name="visit" class="opacity-25 hover:opacity-75 h-4 w-4"></svg-icon>
-                    </a>
-                    <div class="btn-group page-action action-more px-sm">
-                        <i class="icon icon-dots-three-vertical opacity-25 hover:opacity-75" data-toggle="dropdown"></i>
-                        <ul class="dropdown-menu">
-                            <li v-if="can('pages:create')"><a href="" @click.prevent="createPage">{{ translate('cp.create_page_button') }}</a></li>
-                            <li v-if="can('super')">
-                                <a href="" @click.prevent="mountCollection" v-if="!hasEntries">{{ translate('cp.mount_collection') }}</a>
-                                <a href="" @click.prevent="unmountCollection" v-if="hasEntries">{{ translate('cp.unmount_collection') }}</a>
-                            </li>
-                            <li v-if="can('pages:create')"><a href="" @click.prevent="duplicatePage">{{ translate('cp.duplicate') }}</a></li>
-                            <li v-if="can('pages:create') && can('pages:delete')" class="divider"></li>
-                            <li v-if="can('pages:delete')" class="warning"><a href="" @click.prevent="deletePage">{{ translate('cp.delete') }}</a></li>
-                        </ul>
-                    </div>
                 </div>
             </div>
         </div>
