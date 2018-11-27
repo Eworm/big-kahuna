@@ -64,14 +64,14 @@ export default {
     methods: {
 
         getPages: function() {
-            this.pages = [];
+            this.items = [];
             this.loading = true;
             // var url = cp_url('/pages/get?locale='+this.locale+'&drafts='+(this.showDrafts ? 1 : 0));
             var url = 'http://statamic.localhost/cp/addons/menus/json';
 
             this.$http.get(url, function(data) {
-                this.arePages = data.pages.length > 0;
-                this.pages = data.pages;
+                this.arePages = data.items.length > 0;
+                this.pages = data.items;
                 this.loading = false;
 
                 this.$nextTick(function() {

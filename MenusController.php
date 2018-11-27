@@ -35,7 +35,7 @@ class MenusController extends Controller
             // 'title'         => 'My Awesome Site',
             // 'home_page_url' => 'https://my-awesome-site.com/',
             // 'feed_url'      => 'https://my-awesome-site.com/cp/addons/menus/json',
-            'pages'         => $this->getItems()
+            'items'         => $this->getItems()
         ];
     }
 
