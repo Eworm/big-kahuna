@@ -31,10 +31,6 @@ class MenusController extends Controller
     public function json()
     {
         return [
-            // 'version'       => 'https://jsonfeed.org/version/1',
-            // 'title'         => 'My Awesome Site',
-            // 'home_page_url' => 'https://my-awesome-site.com/',
-            // 'feed_url'      => 'https://my-awesome-site.com/cp/addons/menus/json',
             'pages'         => $this->getItems()
         ];
     }

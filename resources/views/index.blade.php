@@ -48,6 +48,7 @@
                     <div id="pages">
 
                         <div :class="{'page-tree': true, 'show-urls': showUrls}">
+                            
                             <div class="loading" v-if="loading">
                                 <span class="icon icon-circular-graph animation-spin"></span> Loading
                             </div>
@@ -57,10 +58,6 @@
                                     <i class="icon icon-circular-graph animation-spin"></i> Saving
                                 </div>
                             </div>
-
-                            {{-- Keeping this or else drag & drop won't work --}}
-                            <ul class="tree-home list-unstyled" v-if="!loading">
-                            </ul>
 
                             <mybranches
                                 :pages="pages"
