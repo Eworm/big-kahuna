@@ -32,7 +32,7 @@ class MenusController extends Controller
     {
         return [
             'pages'         => $this->getItems(),
-            'pages1'        => $this->storage->getJSON('test')
+            // 'pages1'        => $this->storage->getJSON('test')
         ];
     }
 
