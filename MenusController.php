@@ -31,8 +31,8 @@ class MenusController extends Controller
     public function json()
     {
         return [
-            'pages'         => $this->getItems(),
-            // 'pages1'        => $this->storage->getJSON('test')
+            // $this->getItems(),
+            'pages'        => $this->storage->getJSON('pages')
         ];
     }
 
