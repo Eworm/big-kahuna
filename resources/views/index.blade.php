@@ -35,48 +35,7 @@
 
         <div class="col-md-5">
 
-            <div class="card flush">
-                <div class="dossier-table-wrapper">
-                    <table class="dossier has-checkboxes">
-                        <thead>
-                            <tr>
-                                <th colspan="2">
-                                    Content
-                                </th>
-
-                            </tr>
-                            <tr>
-                                <th colspan="2">
-                                    <input v-model="query" type="search" placeholder="Search for a page, entry or collection" class="form-control">
-                                </th>
-                            </tr>
-                        </thead>
-                        <tbody id="tbody">
-
-                            <tr is="menus-fieldtype" colspan="2"></tr>
-
-                        </tbody>
-                        <tfoot>
-                            <tr>
-                                <td colspan="2">
-                                    {{-- <button  type="button" class="btn float-left">
-                                        Select all
-                                    </button> --}}
-                                    <button type="button" class="btn btn-primary add-row float-right">
-                                    Add to menu
-                                    <i class="icon icon-plus icon-right"></i>
-                                </button>
-                                </td>
-                        </tfoot>
-                    </table>
-                </div>
-            </div>
-
-            <div class="card flush">
-                <div class="head">
-                    Aangepaste links
-                </div>
-            </div>
+            <menus-fieldtype></menus-fieldtype>
 
         </div>
 
@@ -109,6 +68,10 @@
                                 :sortable="isSortable"
                                 :dirty="!dirty">
                             </mybranches>
+
+                            <pre>
+                            @{{ pages | json }}
+                        </pre>
 
                         </div>
 
