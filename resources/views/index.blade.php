@@ -27,8 +27,16 @@
 
     </script>
 
-    <div class="flexy mb-24">
-        <h1>Menu editor</h1>
+    <div class="flex items-center flex-wrap mb-3">
+        <h1 class="w-full text-center mb-2 md:mb-0 md:text-left md:w-auto md:flex-1">Menu editor</h1>
+        <div class="controls flex flex-wrap justify-center md:block items-center w-full md:w-auto">
+            <div class="btn-group btn-group-primary ml-1">
+                <button type="button" class="btn btn-primary">
+                    Save Changes
+                </button>
+
+            </div>
+        </div>
     </div>
 
     <div class="row">
