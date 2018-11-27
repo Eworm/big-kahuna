@@ -23,15 +23,15 @@ export default {
 
     computed: {
 
-        homeEditUrl() {
-            let url = cp_url('pages/edit');
-
-            if (this.locale !== Object.keys(Statamic.locales)[0]) {
-                url += '?locale=' + this.locale;
-            }
-
-            return url;
-        },
+        // homeEditUrl() {
+        //     let url = cp_url('pages/edit');
+        //
+        //     if (this.locale !== Object.keys(Statamic.locales)[0]) {
+        //         url += '?locale=' + this.locale;
+        //     }
+        //
+        //     return url;
+        // },
 
         hasChildren() {
             return _.some(this.pages, page => page.pages.length);
@@ -45,8 +45,6 @@ export default {
 
     ready: function() {
         this.getPages();
-        // this.bindLocaleWatcher();
-        // this.bindShowDraftsWatcher();
         Mousetrap.bindGlobal('mod+s', (e) => {
             e.preventDefault();
             this.save();
@@ -58,7 +56,6 @@ export default {
         getPages: function() {
             this.pages = [];
             this.loading = true;
-            // var url = cp_url('/pages/get?locale='+this.locale+'&drafts='+(this.showDrafts ? 1 : 0));
             var url = 'http://statamic.localhost/cp/addons/menus/json';
 
             this.$http.get(url, function(data) {
@@ -163,39 +160,6 @@ export default {
             return page;
         },
 
-        expandAll: function() {
-            this.$els.card_set.play();
-            this.toggleAll(false);
-        },
-
-        collapseAll: function() {
-            this.$els.card_drop.play();
-            this.toggleAll(true);
-        },
-
-        toggleAll: function(collapsed, pages) {
-            var self = this;
-
-            pages = pages || self.pages;
-
-            _.each(pages, function(page) {
-                Vue.set(page, 'collapsed', collapsed);
-                if (page.pages.length) {
-                    self.toggleAll(collapsed, page.pages);
-                }
-            });
-        },
-
-        toggleUrls: function() {
-            this.showUrls = !this.showUrls;
-
-            if (this.showUrls) {
-                this.show = "titles";
-            } else {
-                this.show = "urls";
-            }
-        },
-
         save: function() {
             var self = this;
 
@@ -228,10 +192,6 @@ export default {
             });
         },
 
-        // createPage: function(parent) {
-        //     this.$broadcast('pages.create', parent);
-        // },
-
         onShowDraftsChanged() {
             this.getPages();
         },
@@ -243,16 +203,16 @@ export default {
     },
 
     events: {
-        'pages.create': function(parent) {
-            this.$broadcast('pages.create', parent);
-        },
-        'pages.mount': function(id) {
-            this.$broadcast('pages.mount', id);
-        },
-        'pages.unmount': function(id) {
-            this.saving = true;
-            this.$broadcast('pages.unmount', id);
-        },
+        // 'pages.create': function(parent) {
+        //     this.$broadcast('pages.create', parent);
+        // },
+        // 'pages.mount': function(id) {
+        //     this.$broadcast('pages.mount', id);
+        // },
+        // 'pages.unmount': function(id) {
+        //     this.saving = true;
+        //     this.$broadcast('pages.unmount', id);
+        // },
         'page.deleted': function () {
             if (this.pages.length > 1) {
                 return;

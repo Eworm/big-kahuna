@@ -27,64 +27,71 @@
 
     </script>
 
-    <div class="flex items-center flex-wrap mb-3">
-        <h1 class="w-full text-center mb-2 md:mb-0 md:text-left md:w-auto md:flex-1">Menu editor</h1>
-        <div class="controls flex flex-wrap justify-center md:block items-center w-full md:w-auto">
-            <div class="btn-group btn-group-primary ml-1">
-                <button type="button" class="btn btn-primary">
-                    Save Changes
-                </button>
+    <my-page-tree inline-template v-cloak>
 
+        <div id="pages">
+
+            <div class="flex items-center flex-wrap mb-3">
+
+            <h1 class="w-full text-center mb-2 md:mb-0 md:text-left md:w-auto md:flex-1">Menu editor</h1>
+
+            <div class="controls flex flex-wrap justify-center md:block items-center w-full md:w-auto">
+                <div class="btn-group btn-group-primary ml-1" v-if="arePages && changed">
+                    <button type="button" class="btn btn-primary" v-if="! saving" @click="save">
+                        Save Changes
+                    </button>
+                    <span class="btn btn-primary btn-has-icon-right disabled" v-if="saving">
+                        Saving <i class="icon icon-circular-graph animation-spin"></i>
+                    </span>
+                </div>
             </div>
+
         </div>
-    </div>
 
-    <div class="row">
+            <div class="row">
 
-        <div class="col-md-5">
+                <div class="col-md-5">
 
-            <div class="card flush">
+                    <div class="card flush">
                         <div class="dossier-table-wrapper">
-                        <table class="dossier has-checkboxes">
-                        <thead>
-                        <tr>
-                        <th colspan="2">
-                        Content
-                        </th>
-                        </tr>
-                        <tr>
-                        <th colspan="2">
-                        <input v-model="query" type="search" placeholder="Search for a page, entry or collection" class="form-control">
-                        </th>
-                        </tr>
-                        </thead>
-                        <tbody id="tbody">
+                            <table class="dossier has-checkboxes">
+                                <thead>
+                                    <tr>
+                                        <th colspan="2">
+                                            Content
+                                        </th>
+                                    </tr>
+                                    <tr>
+                                        <th colspan="2">
+                                            <input v-model="query" type="search" placeholder="Search for a page, entry or collection" class="form-control">
+                                        </th>
+                                    </tr>
+                                </thead>
+                                <tbody id="tbody">
 
-            <tr is="menus-fieldtype" colspan="2"></tr>
+                                    <tr is="menus-fieldtype" colspan="2"></tr>
 
-        </tbody>
-        <tfoot>
-        <tr>
-        <td colspan="2">
-        <button type="button" class="btn btn-primary add-row float-right">
-        Add to menu
-        <i class="icon icon-plus icon-right"></i>
-        </button>
-        </td>
-        </tfoot>
-        </table>
-        </div>
-        </div>
+                                </tbody>
+                                <tfoot>
+                                    <tr>
+                                        <td colspan="2">
+                                            <button type="button" class="btn btn-primary add-row float-right">
+                                                Add to menu
+                                                <i class="icon icon-plus icon-right"></i>
+                                            </button>
+                                        </td>
+                                    </tr>
+                                </tfoot>
+                            </table>
+                        </div>
 
-        </div>
+                    </div>
 
-        <div class="col-md-7">
+                </div>
 
-            <div class="page-tree">
+                <div class="col-md-7">
 
-                <my-page-tree inline-template v-cloak>
-
-                    <div id="pages">
+                    <div class="page-tree">
 
                         <div :class="{'page-tree': true, 'show-urls': showUrls}">
 
@@ -127,12 +134,12 @@
 
                     </div>
 
-                </my-page-tree>
+                </div>
 
             </div>
-
+            
         </div>
 
-    </div>
+    </my-page-tree>
 
 @endsection
