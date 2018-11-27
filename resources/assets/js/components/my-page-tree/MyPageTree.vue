@@ -1,20 +1,12 @@
 <script>
-import Branch from './Branch.vue';
-import Branches from './Branches.vue';
-// import CreatePage from './CreatePage.vue';
-// import MountCollection from './MountCollection.vue';
-// import HasLocaleSelector from '../HasLocaleSelector';
-// import HasShowDraftsSelector from '../HasShowDraftsSelector';
+import MyBranch from './MyBranch.vue';
+import MyBranches from './MyBranches.vue';
 
 export default {
 
-    // mixins: [HasShowDraftsSelector, HasLocaleSelector],
-
     components: {
-        Branches,
-        Branch,
-        // CreatePage,
-        // MountCollection,
+        MyBranches,
+        MyBranch,
     },
 
     data: function() {
@@ -42,7 +34,7 @@ export default {
         },
 
         hasChildren() {
-            return _.some(this.pages, page => page.items.length);
+            return _.some(this.pages, page => page.pages.length);
         },
 
         isSortable() {
@@ -64,14 +56,14 @@ export default {
     methods: {
 
         getPages: function() {
-            this.items = [];
+            this.pages = [];
             this.loading = true;
             // var url = cp_url('/pages/get?locale='+this.locale+'&drafts='+(this.showDrafts ? 1 : 0));
             var url = 'http://statamic.localhost/cp/addons/menus/json';
 
             this.$http.get(url, function(data) {
-                this.arePages = data.items.length > 0;
-                this.pages = data.items;
+                this.arePages = data.pages.length > 0;
+                this.pages = data.pages;
                 this.loading = false;
 
                 this.$nextTick(function() {
@@ -164,7 +156,7 @@ export default {
 
             page.url = url + '/' + page.slug;
 
-            page.items = _.map(page.items, function(child) {
+            page.pages = _.map(page.pages, function(child) {
                 return self.updateDroppedUrl(child, page.url);
             });
 
@@ -188,8 +180,8 @@ export default {
 
             _.each(pages, function(page) {
                 Vue.set(page, 'collapsed', collapsed);
-                if (page.items.length) {
-                    self.toggleAll(collapsed, page.items);
+                if (page.pages.length) {
+                    self.toggleAll(collapsed, page.pages);
                 }
             });
         },
@@ -225,8 +217,8 @@ export default {
 
             return _.map(pages, function(item, i) {
                 // Recursively iterate over any children
-                if (item.items.length) {
-                    item.items = self.updateOrderIndexes(item.items);
+                if (item.pages.length) {
+                    item.pages = self.updateOrderIndexes(item.pages);
                 }
 
                 // We need the 1-based indexes

@@ -1,6 +1,6 @@
 <template>
     <ul :class="classes">
-        <branch v-for="page in items"
+        <branch v-for="page in pages"
                 :branch-index="$index"
                 :uuid="page.id"
                 :title="page.title || page.slug"

@@ -1,1 +1,1 @@
-Vue.component('page-tree', require('./components/page-tree/PageTree.vue'));
+Vue.component('my-page-tree', require('./components/my-page-tree/MyPageTree.vue'));

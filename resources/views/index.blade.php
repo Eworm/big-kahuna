@@ -84,7 +84,7 @@
 
             <div class="page-tree">
 
-                <page-tree inline-template v-cloak>
+                <my-page-tree inline-template v-cloak>
 
                     <div id="pages">
 
@@ -103,21 +103,15 @@
                             <ul class="tree-home list-unstyled" v-if="!loading">
                             </ul>
 
-                            {{-- <script type="application/json">
-                            var items = {"items":{!!$items!!}};
-                            </script> --}}
-
-                            <branches
+                            <mybranches
                                 :pages="pages"
                                 :depth="1"
                                 :sortable="isSortable"
                                 :dirty="!dirty">
-                            </branches>
+                            </mybranches>
 
                         </div>
 
-                        <create-page :locale="locale"></create-page>
-                        <mount-collection></mount-collection>
                         <audio v-el:click>
                             <source src="/index.php/_resources/cp/audio/click.mp3" type="audio/mp3">
                         </audio>
@@ -130,7 +124,7 @@
 
                     </div>
 
-                </page-tree>
+                </my-page-tree>
 
             </div>
 
