@@ -54,15 +54,15 @@ Vue.component('menus-fieldtype', {
         add: function() {
 
             console.log('Adding..');
+            console.log(this.allpages);
 
             //https://vuejs.org/v2/guide/reactivity.html
             // Vue.set(vm.pages, 'b', 2)
             // this.$set(this.pages, 'b', 2)
-            console.log(this.allpages);
-            this.allpages = Object.assign({}, this.allpages, {
-                a: 1,
-                b: 2
-            })
+            // this.allpages = Object.assign({}, this.allpages, {
+            //     a: 1,
+            //     b: 2
+            // })
 
 
             // var self = this;
