@@ -103,21 +103,16 @@
                             <ul class="tree-home list-unstyled" v-if="!loading">
                             </ul>
 
+                            {{-- <script type="application/json">
+                            var items = {"items":{!!$items!!}};
+                            </script> --}}
+
                             <branches
                                 :pages="items"
                                 :depth="1"
                                 :sortable="isSortable"
                                 :dirty="!dirty">
                             </branches>
-
-                            {{-- <branches :pages="childPages"
-                                      :depth="depth + 1"
-                                      :parent-url="url"
-                                      :collapsed.sync="collapsed"
-                                      :sortable="sortable"
-                                      :dirty="dirty"
-                                      v-if="!home">
-                            </branches> --}}
 
                         </div>
 

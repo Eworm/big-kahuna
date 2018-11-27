@@ -23,7 +23,8 @@ class MenusController extends Controller
         return $this->view('index', [
             'pages'         => $pages,
             'collections'   => $collections,
-            'entries'       => $entries
+            'entries'       => $entries,
+            'items'         => $this->getItems()
         ]);
     }
 
@@ -34,7 +35,7 @@ class MenusController extends Controller
             // 'title'         => 'My Awesome Site',
             // 'home_page_url' => 'https://my-awesome-site.com/',
             // 'feed_url'      => 'https://my-awesome-site.com/cp/addons/menus/json',
-            'items'         => $this->getItems()
+            'pages'         => $this->getItems()
         ];
     }
 
