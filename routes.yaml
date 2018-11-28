@@ -4,5 +4,6 @@ routes:
     as: addons.menu_editor
     uses: index
   /json: MenusController@json
+  /allpages: MenusController@allpages
   # POST request to /cp/addons/addon-name/save using the save method
   post@save: MenusController@save

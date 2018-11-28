@@ -17,26 +17,27 @@ Vue.component('menus-fieldtype', {
                 </thead>
                 <tbody id="tbody">
                 <tr v-for="(index, page) of allpages">
-                        <td class="checkbox-col">
+                    <td class="checkbox-col">
                         <input type="checkbox" id="checkbox-{{index}}">
                         <label for="checkbox-{{index}}"></label>
-                        </td>
-                        <td class="cell-title first-cell">
+                    </td>
+                    <td class="cell-title first-cell">
                         <span class="column-label"></span>
                         {{ page.title }} <span class="text-muted">({{page.type}})</span>
-                        </td>
-                        </tr></tbody>
-                        <tfoot>
-                            <tr>
-                                <td colspan="2">
-                                    <button type="button" class="btn btn-primary add-row float-right" @click="add">
-                                        Add to menu
-                                        <i class="icon icon-plus icon-right"></i>
-                                    </button>
-                                </td>
-                            </tr>
-                        </tfoot>
-                    </table>`,
+                    </td>
+                </tr>
+            </tbody>
+            <tfoot>
+                <tr>
+                    <td colspan="2">
+                        <button type="button" class="btn btn-primary add-row float-right" @click="add">
+                            Add to menu
+                            <i class="icon icon-plus icon-right"></i>
+                        </button>
+                    </td>
+                </tr>
+            </tfoot>
+        </table>`,
 
     data: function() {
         return {

@@ -29,6 +29,13 @@ class MenusController extends Controller
         ]);
     }
 
+    public function allpages()
+    {
+        return [
+            'allpages'        => $this->getItems(),
+        ];
+    }
+
     public function json()
     {
         return [
@@ -40,24 +47,12 @@ class MenusController extends Controller
     private function getItems()
     {
         $index = 0;
-        return Entry::whereCollection('blog')->map(function ($entry) use (&$index) {
+        return Entry::all()->map(function ($entry) use (&$index) {
 
             return [
                 'id'                => $entry->id(),
-                'url'               => $entry->url(),
-                "order"             => $index++,
                 "title"             => $entry->get('title'),
-                "uri"               => "",
-                "extension"         => "",
-                "edit_url"          => "",
-                "create_child_url"  => "",
-                "slug"              => "",
-                "published"         => true,
-                "has_entries"       => true,
-                "create_entry_url"  => "",
-                "entries_url"       => "",
-                "collapsed"         => false,
-                "items"             => []
+                "type"              => 'Pages'
             ];
 
         });

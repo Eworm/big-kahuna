@@ -1,10 +1,12 @@
 <script>
+import MyFilter from './MyFilter.vue';
 import MyBranch from './MyBranch.vue';
 import MyBranches from './MyBranches.vue';
 
 export default {
 
     components: {
+        MyFilter,
         MyBranches,
         MyBranch,
     },
@@ -17,6 +19,7 @@ export default {
             showUrls: false,
             show: "urls",
             pages: [],
+            allpages: [],
             arePages: true
         }
     },

@@ -4,26 +4,7 @@
 
     <script>
 
-        var allpages = [
-            @foreach ($pages as $index => $page)
-            {
-                "id": "{{$index}}",
-                "title": "{{ $page->get('title') }}",
-                "type": "pages",
-            },
-            @endforeach
-            @foreach ($collections as $collection)
-            @foreach ($entries as $index => $entry)
-            @if (strtolower($collection->get('title')) == $entry->collectionName())
-            {
-                "id": "{{$index}}",
-                "title": "{{ $entry->get('title') }}",
-                "type": "{{$entry->collectionName()}}",
-            },
-            @endif
-            @endforeach
-            @endforeach
-        ]
+        var allpages = []
 
     </script>
 
@@ -33,30 +14,33 @@
 
             <div class="flex items-center flex-wrap mb-3">
 
-            <h1 class="w-full text-center mb-2 md:mb-0 md:text-left md:w-auto md:flex-1">Menu editor</h1>
+                <h1 class="w-full text-center mb-2 md:mb-0 md:text-left md:w-auto md:flex-1">Menu editor</h1>
 
-            <div class="controls flex flex-wrap justify-center md:block items-center w-full md:w-auto">
-                <div class="btn-group btn-group-primary ml-1" v-if="arePages && changed">
-                    <button type="button" class="btn btn-primary" v-if="! saving" @click="save">
-                        Save Changes
-                    </button>
-                    <span class="btn btn-primary btn-has-icon-right disabled" v-if="saving">
-                        Saving <i class="icon icon-circular-graph animation-spin"></i>
-                    </span>
+                <div class="controls flex flex-wrap justify-center md:block items-center w-full md:w-auto">
+                    <div class="btn-group btn-group-primary ml-1" v-if="arePages && changed">
+                        <button type="button" class="btn btn-primary" v-if="! saving" @click="save">
+                            Save Changes
+                        </button>
+                        <span class="btn btn-primary btn-has-icon-right disabled" v-if="saving">
+                            Saving <i class="icon icon-circular-graph animation-spin"></i>
+                        </span>
+                    </div>
                 </div>
-            </div>
 
-        </div>
+            </div>
 
             <div class="row">
 
                 <div class="col-md-5">
 
                     <div class="card flush">
-                        
+
                         <div class="dossier-table-wrapper">
 
-                            <menus-fieldtype></menus-fieldtype>
+                            {{-- <menus-fieldtype></menus-fieldtype> --}}
+                            <myfilter
+                                :pages="allpages">
+                            </myfilter>
 
                         </div>
 
