@@ -171,7 +171,6 @@ export default {
             console.log('Saving..');
             console.log(pages);
 
-            // this.$http.post(cp_url('/pages'), { pages: pages }).success(function(data) {
             this.$http.post('http://statamic.localhost/cp/addons/menus/save', { pages: pages }).success(function(data) {
                 self.getPages();
                 self.changed = false;
