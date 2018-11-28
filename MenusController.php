@@ -6,6 +6,7 @@ use Statamic\API\Page;
 use Statamic\API\Collection;
 use Statamic\API\Entry;
 use Statamic\Extend\Controller;
+use Statamic\API\Content;
 use Statamic\Contracts\Data\Pages\PageTreeReorderer;
 
 class MenusController extends Controller
@@ -29,33 +30,72 @@ class MenusController extends Controller
         ]);
     }
 
+    /**
+     * Return all content as json
+     *
+     * @return json
+     */
     public function allpages()
     {
         return [
-            'allpages'        => $this->getItems(),
+            'allpages' => $this->getItems(),
         ];
     }
 
+    /**
+     * Return all pages as json
+     *
+     * @return json
+     */
     public function json()
     {
         return [
-            // $this->getItems(),
-            'pages'        => $this->storage->getJSON('pages')
+            'pages' => $this->storage->getJSON('pages')
         ];
     }
 
+    /**
+     * Return all content as json
+     *
+     * @return json
+     */
     private function getItems()
     {
-        $index = 0;
-        return Entry::all()->map(function ($entry) use (&$index) {
+        return Content::all()->map(function ($entry) {
 
-            return [
-                'id'                => $entry->id(),
-                "title"             => $entry->get('title'),
-                "type"              => 'Pages'
-            ];
+            if ($entry->contentType() == 'page') {
+                return [
+                    'id'        => $entry->id(),
+                    "title"     => $entry->get('title'),
+                    "type"      => 'Pages',
+                ];
+            } elseif ($entry->contentType() == 'entry') {
+                return [
+                    'id'        => $entry->id(),
+                    "title"     => $entry->get('title'),
+                    "type"      => $entry->collectionName(),
+                ];
+            }
 
         });
+    }
+
+    /**
+     * Get the content type
+     *
+     * @return string
+     */
+    public function contentType()
+    {
+        if ($this instanceof Page) {
+            return 'page';
+        } elseif ($this instanceof Entry) {
+            return 'entry';
+        } elseif ($this instanceof Term) {
+            return 'term';
+        } elseif ($this instanceof GlobalSet) {
+            return 'globals';
+        }
     }
 
     /**
