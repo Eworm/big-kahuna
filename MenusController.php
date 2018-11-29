@@ -19,14 +19,14 @@ class MenusController extends Controller
      */
     public function index(Request $request)
     {
-        $pages          = Page::all(); // Returns PageCollection
-        $collections    = Collection::all(); // Returns Illuminate\Support\Collection
-        $entries        = Entry::all(); // Returns EntryCollection
+        // $pages          = Page::all(); // Returns PageCollection
+        // $collections    = Collection::all(); // Returns Illuminate\Support\Collection
+        // $entries        = Entry::all(); // Returns EntryCollection
 
         return $this->view('index', [
-            'pages'         => $pages,
-            'collections'   => $collections,
-            'entries'       => $entries,
+            // 'pages'         => $pages,
+            // 'collections'   => $collections,
+            // 'entries'       => $entries,
             'items'         => $this->getItems($request)
         ]);
     }
@@ -68,7 +68,7 @@ class MenusController extends Controller
 
             $items = $items->filter(function($item) use ($request)
             {
-                if (strpos($item->get('title'), $request->q) !== false) {
+                if (stripos($item->get('title'), $request->q) !== false) {
                     return true;
                 }
                 return false;
@@ -89,6 +89,18 @@ class MenusController extends Controller
                     'id'        => $entry->id(),
                     "title"     => $entry->get('title'),
                     "type"      => $entry->collectionName(),
+                ];
+            } elseif ($entry->contentType() == 'term') {
+                return [
+                    'id'        => $entry->id(),
+                    "title"     => $entry->id(),
+                    "type"      => 'Term',
+                ];
+            } elseif ($entry->contentType() == 'globals') {
+                return [
+                    'id'        => $entry->id(),
+                    "title"     => $entry->get('title'),
+                    "type"      => 'Globals',
                 ];
             }
 

@@ -35,7 +35,6 @@
             </tr>
         </tfoot>
     </table>
-    <pre>{{allpages}}</pre>
 </template>
 <script>
 export default {
@@ -51,7 +50,6 @@ export default {
     },
 
     ready: function() {
-        console.log('ready');
         this.getPages();
     },
 
@@ -66,7 +64,6 @@ export default {
     watch: {
 
         searchTerm: function() {
-            // this.searchTerm.length ? this.getFilter() : this.getPages();
             this.getPages()
         },
 
@@ -76,11 +73,6 @@ export default {
 
         getPages: _.debounce(
             function () {
-                // this.allpages = [];
-                // this.loading = true;
-                // console.log('getPages');
-                // console.log(this);
-                // console.log(this.allpages);
                 var url = 'http://statamic.localhost/cp/addons/menus/allpages';
 
                 if (this.searchTerm.length > 0) {
@@ -88,11 +80,9 @@ export default {
                 }
 
                 this.$http.get(url, function(data) {
-                    // this.arePages = data.allpages.length > 0;
-                    console.log(data);
                     this.allpages = data.allpages;
                 });
-            }, 500
+            }, 250
         ),
 
         add: function() {

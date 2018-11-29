@@ -65,10 +65,10 @@
                                 :dirty="!dirty">
                             </mybranches>
 
-                            <br>
+                            {{-- <br>
                             <pre>
                             @{{ pages | json }}
-                            </pre>
+                            </pre> --}}
 
                         </div>
 
