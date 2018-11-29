@@ -20,8 +20,17 @@ export default {
             show: "urls",
             pages: [],
             allpages: [],
-            arePages: true
+            arePages: true,
+            name: []
         }
+    },
+
+    created() {
+        this.$eventHub.$on('append-links', this.changeName)
+    },
+
+    beforeDestroy(){
+        this.$eventHub.$off('append-links');
     },
 
     computed: {
@@ -56,7 +65,17 @@ export default {
 
     methods: {
 
-        getPages: function() {
+        changeName(name)
+        {
+            // name will be automatically transported to the parameter.
+            this.name = name;
+            console.log(this.pages);
+            console.log(name);
+            this.pages.push.apply(this.pages, name);
+        },
+
+        getPages: function()
+        {
             this.pages = [];
             this.loading = true;
             var url = 'http://statamic.localhost/cp/addons/menus/json';

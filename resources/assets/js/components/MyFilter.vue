@@ -15,7 +15,7 @@
         <tbody id="tbody">
             <tr v-for="(index, page) in allpages">
                 <td class="checkbox-col">
-                    <input type="checkbox" id="checkbox-{{index}}">
+                    <input type="checkbox" id="checkbox-{{index}}" @change="handleChange($event)">
                     <label for="checkbox-{{index}}"></label>
                 </td>
                 <td class="cell-title first-cell">
@@ -37,6 +37,7 @@
     </table>
 </template>
 <script>
+
 export default {
 
     data() {
@@ -44,7 +45,8 @@ export default {
         return {
 
             allpages: [],
-            searchTerm: ''
+            searchTerm: '',
+            possibleLinks: []
 
         };
     },
@@ -67,6 +69,10 @@ export default {
             this.getPages()
         },
 
+        addLink: function() {
+            // console.log('Toggle');
+        }
+
     },
 
     methods: {
@@ -88,8 +94,20 @@ export default {
         add: function() {
 
             console.log('Adding..');
-            console.log(this.allpages);
+            this.$eventHub.$emit('append-links', this.possibleLinks);
 
+        },
+
+        handleChange: function(e) {
+
+            if (e.target.checked == true){
+                // Add selected page
+                var obj = {"id":"82f60ba2-6c16-4889-8420-d1c8e7adfa3d","url":"\/","order":5,"title":"Testpage","uri":"","extension":"","edit_url":"","create_child_url":"","slug":"","published":true,"has_entries":true,"create_entry_url":"","entries_url":"","collapsed":false,"items":[],"pages":[]};
+                this.possibleLinks.push(obj);
+                console.log(this.possibleLinks);
+            } else {
+                // Remove selected page
+            }
         },
 
     }
