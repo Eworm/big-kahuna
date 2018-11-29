@@ -68,7 +68,7 @@ class MenusController extends Controller
 
             $items = $items->filter(function($item) use ($request)
             {
-                if (stripos($item->get('title'), $request->q) !== false) {
+                if (stripos($item->get('title'), $request->q) !== false || stripos($item->id(), $request->q) !== false) {
                     return true;
                 }
                 return false;
