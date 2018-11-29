@@ -1,15 +1,6 @@
-#page-tree {
-    overflow: hidden;
-}
-
 .dossier-table-wrapper #tbody {
     height: 300px;
-    display: flex;
-    flex-direction: column;
+    display: block;
     overflow: auto;
     -webkit-overflow-scrolling: touch;
-}
-
-.branches .has-collection {
-    display: none !important;
 }
