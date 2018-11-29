@@ -1,6 +1,7 @@
 .dossier-table-wrapper #tbody {
     height: 300px;
-    display: block;
+    display: flex;
+    flex-direction: column;
     overflow: auto;
     -webkit-overflow-scrolling: touch;
 }

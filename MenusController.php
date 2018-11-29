@@ -96,12 +96,6 @@ class MenusController extends Controller
                     "title"     => $entry->id(),
                     "type"      => 'Term',
                 ];
-            } elseif ($entry->contentType() == 'globals') {
-                return [
-                    'id'        => $entry->id(),
-                    "title"     => $entry->get('title'),
-                    "type"      => 'Globals',
-                ];
             }
 
         });
