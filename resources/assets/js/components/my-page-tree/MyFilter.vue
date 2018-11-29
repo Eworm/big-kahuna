@@ -35,6 +35,7 @@
             </tr>
         </tfoot>
     </table>
+    <pre>{{allpages}}</pre>
 </template>
 <script>
 export default {
@@ -77,8 +78,8 @@ export default {
             function () {
                 // this.allpages = [];
                 // this.loading = true;
-                console.log('getPages');
-                console.log(this);
+                // console.log('getPages');
+                // console.log(this);
                 console.log(this.allpages);
                 var url = 'http://statamic.localhost/cp/addons/menus/allpages';
 
@@ -88,7 +89,7 @@ export default {
 
                 this.$http.get(url, function(data) {
                     // this.arePages = data.allpages.length > 0;
-                    console.log(data);
+                    // console.log(data);
                     this.allpages = data.allpages;
                 });
             }, 500
