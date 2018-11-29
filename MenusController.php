@@ -82,18 +82,21 @@ class MenusController extends Controller
                 return [
                     'id'        => $entry->id(),
                     "title"     => $entry->get('title'),
+                    "url"       => $entry->uri(),
                     "type"      => 'Pages',
                 ];
             } elseif ($entry->contentType() == 'entry') {
                 return [
                     'id'        => $entry->id(),
                     "title"     => $entry->get('title'),
+                    "url"       => $entry->uri(),
                     "type"      => $entry->collectionName(),
                 ];
             } elseif ($entry->contentType() == 'term') {
                 return [
                     'id'        => $entry->id(),
                     "title"     => $entry->id(),
+                    "url"       => $entry->uri(),
                     "type"      => 'Term',
                 ];
             }
