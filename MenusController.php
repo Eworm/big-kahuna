@@ -5,9 +5,10 @@ namespace Statamic\Addons\Menus;
 use Statamic\API\Page;
 use Statamic\API\Collection;
 use Statamic\API\Entry;
-use Statamic\Extend\Controller;
 use Statamic\API\Content;
 use Statamic\Contracts\Data\Pages\PageTreeReorderer;
+use Statamic\Extend\Controller;
+use Illuminate\Http\Request;
 
 class MenusController extends Controller
 {
@@ -16,7 +17,7 @@ class MenusController extends Controller
      *
      * @return mixed
      */
-    public function index()
+    public function index(Request $request)
     {
         $pages          = Page::all(); // Returns PageCollection
         $collections    = Collection::all(); // Returns Illuminate\Support\Collection
@@ -26,7 +27,7 @@ class MenusController extends Controller
             'pages'         => $pages,
             'collections'   => $collections,
             'entries'       => $entries,
-            'items'         => $this->getItems()
+            'items'         => $this->getItems($request)
         ]);
     }
 
@@ -35,10 +36,10 @@ class MenusController extends Controller
      *
      * @return json
      */
-    public function allpages()
+    public function allpages(Request $request)
     {
         return [
-            'allpages' => $this->getItems(),
+            'allpages' => $this->getItems($request),
         ];
     }
 
@@ -59,9 +60,23 @@ class MenusController extends Controller
      *
      * @return json
      */
-    private function getItems()
+    private function getItems($request)
     {
-        return Content::all()->map(function ($entry) {
+        $items = Content::all();
+
+        if ($request->has('q')) {
+
+            $items = $items->filter(function($item) use ($request)
+            {
+                if (strpos($item->get('title'), $request->q) !== false) {
+                    return true;
+                }
+                return false;
+            });
+
+        }
+
+        return $items->map(function ($entry) {
 
             if ($entry->contentType() == 'page') {
                 return [

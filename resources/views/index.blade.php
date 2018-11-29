@@ -31,10 +31,7 @@
 
                         <div class="dossier-table-wrapper">
 
-                            {{-- <menus-fieldtype></menus-fieldtype> --}}
-                            <myfilter
-                                :pages="allpages1">
-                            </myfilter>
+                            <myfilter></myfilter>
 
                         </div>
 

@@ -36,24 +36,22 @@
         </tfoot>
     </table>
 </template>
-
 <script>
 export default {
 
-    // data: function() {
-    //     allpages: {}
-    // },
+    data() {
 
-    data: {
-        allpages: {},
-        searchTerm: '',
-        activeFilter: '*',
-        activeFilterObj: {},
-        // repos: allpages
+        return {
+
+            allpages: [],
+            searchTerm: ''
+
+        };
     },
 
-    props: {
-        allpages: Array,
+    ready: function() {
+        console.log('ready');
+        this.getPages();
     },
 
     computed: {
@@ -61,49 +59,48 @@ export default {
         repoCount: function repoCount() {
             return this.allpages.length;
         },
-        // allpages: function allpages() {
-        // https://codepen.io/mattrothenberg/pen/dvNrLL
-        //     var self = this;
-        //     console.log(self);
-        //
-        //     return _.
-        //     chain(this.repos).
-        //     filter(function (repo) {
-        //         return repo.name.includes(self.searchTerm);
-        //     }).
-        //     filter(this.activeFilterObj).
-        //     value();
-        // }
-
-        // allpages: function() {
-        //     return this.getPages();
-        // }
 
     },
 
-    ready: function() {
-        this.getPages();
+    watch: {
+
+        searchTerm: function() {
+            // this.searchTerm.length ? this.getFilter() : this.getPages();
+            this.getPages()
+        },
+
     },
 
     methods: {
 
-        getPages: function() {
-            this.allpages = [];
-            this.loading = true;
-            var url = 'http://statamic.localhost/cp/addons/menus/allpages';
+        getPages: _.debounce(
+            function () {
+                // this.allpages = [];
+                // this.loading = true;
+                console.log('getPages');
+                console.log(this);
+                console.log(this.allpages);
+                var url = 'http://statamic.localhost/cp/addons/menus/allpages';
 
-            this.$http.get(url, function(data) {
-                this.arePages = data.allpages.length > 0;
-                this.allpages = data.allpages;
-            });
-        },
+                if (this.searchTerm.length > 0) {
+                    url = url + '?q=' + this.searchTerm;
+                }
+
+                this.$http.get(url, function(data) {
+                    // this.arePages = data.allpages.length > 0;
+                    console.log(data);
+                    this.allpages = data.allpages;
+                });
+            }, 500
+        ),
 
         add: function() {
 
             console.log('Adding..');
             console.log(this.allpages);
 
-        }
+        },
+
     }
 
 };
