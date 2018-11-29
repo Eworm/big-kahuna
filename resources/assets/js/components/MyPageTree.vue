@@ -72,6 +72,7 @@ export default {
             console.log(this.pages);
             console.log(name);
             this.pages.push.apply(this.pages, name);
+            this.changed = true;
         },
 
         getPages: function()
