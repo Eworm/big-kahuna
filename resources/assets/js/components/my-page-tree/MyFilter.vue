@@ -75,14 +75,14 @@ export default {
         //     value();
         // }
 
-        allpages: function() {
-            return this.getPages();
-        }
+        // allpages: function() {
+        //     return this.getPages();
+        // }
 
     },
 
     ready: function() {
-        // this.getPages();
+        this.getPages();
     },
 
     methods: {
