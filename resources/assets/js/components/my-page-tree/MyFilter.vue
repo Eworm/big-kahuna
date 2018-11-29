@@ -3,12 +3,12 @@
         <thead>
             <tr>
                 <th colspan="2">
-                    Content
+                    Content ({{ repoCount }})
                 </th>
             </tr>
             <tr>
                 <th colspan="2">
-                    <input type="search" placeholder="Search for a page, entry or collection" class="form-control">
+                    <input v-model="searchTerm" type="search" placeholder="Search for a page, entry or collection" class="form-control">
                 </th>
             </tr>
         </thead>
@@ -40,10 +40,16 @@
 <script>
 export default {
 
-    data: function() {
-        return {
-            allpages
-        }
+    // data: function() {
+    //     allpages: {}
+    // },
+
+    data: {
+        allpages: {},
+        searchTerm: '',
+        activeFilter: '*',
+        activeFilterObj: {},
+        // repos: allpages
     },
 
     props: {
@@ -51,10 +57,32 @@ export default {
     },
 
     computed: {
+
+        repoCount: function repoCount() {
+            return this.allpages.length;
+        },
+        // allpages: function allpages() {
+        // https://codepen.io/mattrothenberg/pen/dvNrLL
+        //     var self = this;
+        //     console.log(self);
+        //
+        //     return _.
+        //     chain(this.repos).
+        //     filter(function (repo) {
+        //         return repo.name.includes(self.searchTerm);
+        //     }).
+        //     filter(this.activeFilterObj).
+        //     value();
+        // }
+
+        allpages: function() {
+            return this.getPages();
+        }
+
     },
 
     ready: function() {
-        this.getPages();
+        // this.getPages();
     },
 
     methods: {

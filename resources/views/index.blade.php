@@ -2,12 +2,6 @@
 
 @section('content')
 
-    <script>
-
-        var allpages = []
-
-    </script>
-
     <my-page-tree inline-template v-cloak>
 
         <div id="pages">
@@ -39,7 +33,7 @@
 
                             {{-- <menus-fieldtype></menus-fieldtype> --}}
                             <myfilter
-                                :pages="allpages">
+                                :pages="allpages1">
                             </myfilter>
 
                         </div>
