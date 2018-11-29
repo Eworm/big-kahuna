@@ -27,15 +27,9 @@
 
                 <div class="col-md-5">
 
-                    <div class="card flush">
+                    <myfilter></myfilter>
 
-                        <div class="dossier-table-wrapper">
-
-                            <myfilter></myfilter>
-
-                        </div>
-
-                    </div>
+                    <mycustomlink></mycustomlink>
 
                 </div>
 

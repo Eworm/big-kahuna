@@ -1,5 +1,6 @@
 <script>
 import MyFilter from './MyFilter.vue';
+import MyCustomLink from './MyCustomLink.vue';
 import MyBranch from './MyBranch.vue';
 import MyBranches from './MyBranches.vue';
 
@@ -7,6 +8,7 @@ export default {
 
     components: {
         MyFilter,
+        MyCustomLink,
         MyBranches,
         MyBranch,
     },
