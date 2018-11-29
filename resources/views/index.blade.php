@@ -4,7 +4,7 @@
 
     <my-page-tree inline-template v-cloak>
 
-        <div id="pages">
+        <div id="page-tree">
 
             <div class="flex items-center flex-wrap mb-3">
 

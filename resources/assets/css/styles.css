@@ -1,8 +1,13 @@
+#page-tree {
+    overflow: hidden;
+}
+
 .dossier-table-wrapper #tbody {
     height: 300px;
     display: flex;
     flex-direction: column;
     overflow: auto;
+    -webkit-overflow-scrolling: touch;
 }
 
 .branches .has-collection {
