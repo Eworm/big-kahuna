@@ -37,23 +37,7 @@ export default {
             possibleLinks: [],
             customInfo: {},
             customtitle: '',
-            customurl: '',
-            obj: [{
-                "id":"",
-                "order":5,
-                "uri":"",
-                "extension":"",
-                "edit_url":"",
-                "create_child_url":"",
-                "slug":"",
-                "published":true,
-                "has_entries":true,
-                "create_entry_url":"",
-                "entries_url":"",
-                "collapsed":false,
-                "items":[],
-                "pages":[]
-            }]
+            customurl: ''
 
         };
     },
@@ -71,14 +55,27 @@ export default {
         add: function() {
 
             console.log('Adding..');
-            console.log(this.customtitle);
-            console.log(this.customurl);
-            this.customInfo.title = this.customtitle;
-            this.customInfo.url = this.customurl;
-            console.log(this.customInfo);
-            this.obj.push(this.obj, this.customInfo);
-            // console.log(this.obj);
-            this.possibleLinks.push(this.obj);
+
+            // Push new object in possibleLinks
+            this.possibleLinks.push({
+                id: 1,
+                "url": this.customurl,
+                "order": 1,
+                "title": this.customtitle,
+                "uri": "",
+                "extension": "",
+                "edit_url": "",
+                "create_child_url": "",
+                "slug": "",
+                "published": true,
+                "has_entries": true,
+                "create_entry_url": "",
+                "entries_url": "",
+                "collapsed": false,
+                "items": [],
+                "pages": []
+            });
+            console.log(this.possibleLinks);
             this.$eventHub.$emit('append-links', this.possibleLinks);
 
         },
