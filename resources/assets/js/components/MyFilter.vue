@@ -96,43 +96,19 @@ export default {
         ),
 
         add: function() {
-
-            console.log('Adding..');
             this.$eventHub.$emit('append-links', this.possibleLinks);
-
         },
 
         handleChange: function(e) {
 
             if (e.target.checked == true) {
 
-                // Add selected page
-                // var obj = {
-                //     "id":"82f60ba2-6c16-4889-8420-d1c8e7adfa3d",
-                //     "url":"\/",
-                //     "order":5,
-                //     "title":"Testpage",
-                //     "uri":"",
-                //     "extension":"",
-                //     "edit_url":"",
-                //     "create_child_url":"",
-                //     "slug":"",
-                //     "published":true,
-                //     "has_entries":true,
-                //     "create_entry_url":"",
-                //     "entries_url":"",
-                //     "collapsed":false,
-                //     "items":[],
-                //     "pages":[]
-                // };
-                console.log(this.allpages);
-                console.log(e.target.id);
-
+                // Find object by selected ID
                 const result = this.allpages.filter(function(el) {
                     return el.id == e.target.id
                 });
-                console.log(result[0].title);
 
+                // Push new object in possibleLinks
                 this.possibleLinks.push({
                     id: result[0].id,
                     "url": result[0].url,
@@ -151,11 +127,18 @@ export default {
                     "items": [],
                     "pages": []
                 });
-                console.log(this.possibleLinks);
 
             } else {
 
-                // Remove selected page
+                // Find object by selected ID
+                var index = this.possibleLinks.findIndex(function(item, i){
+                    return item.id === e.target.id
+                });
+
+                // Remove the object by index
+                if (index > -1) {
+                    this.possibleLinks.splice(index, 1);
+                }
 
             }
         },
