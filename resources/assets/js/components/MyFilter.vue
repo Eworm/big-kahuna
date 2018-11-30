@@ -17,8 +17,8 @@
                 <tbody id="tbody">
                     <tr v-for="(index, page) in allpages">
                         <td class="checkbox-col">
-                            <input type="checkbox" id="checkbox-{{index}}" @change="handleChange($event)">
-                            <label for="checkbox-{{index}}"></label>
+                            <input type="checkbox" id="{{page.id}}" value="{{page.id}}" @change="handleChange($event)">
+                            <label for="{{page.id}}"></label>
                         </td>
                         <td class="cell-title first-cell">
                             <span class="column-label"></span>
@@ -104,13 +104,59 @@ export default {
 
         handleChange: function(e) {
 
-            if (e.target.checked == true){
+            if (e.target.checked == true) {
+
                 // Add selected page
-                var obj = {"id":"82f60ba2-6c16-4889-8420-d1c8e7adfa3d","url":"\/","order":5,"title":"Testpage","uri":"","extension":"","edit_url":"","create_child_url":"","slug":"","published":true,"has_entries":true,"create_entry_url":"","entries_url":"","collapsed":false,"items":[],"pages":[]};
-                this.possibleLinks.push(obj);
+                // var obj = {
+                //     "id":"82f60ba2-6c16-4889-8420-d1c8e7adfa3d",
+                //     "url":"\/",
+                //     "order":5,
+                //     "title":"Testpage",
+                //     "uri":"",
+                //     "extension":"",
+                //     "edit_url":"",
+                //     "create_child_url":"",
+                //     "slug":"",
+                //     "published":true,
+                //     "has_entries":true,
+                //     "create_entry_url":"",
+                //     "entries_url":"",
+                //     "collapsed":false,
+                //     "items":[],
+                //     "pages":[]
+                // };
+                console.log(this.allpages);
+                console.log(e.target.id);
+
+                const result = this.allpages.filter(function(el) {
+                    return el.id == e.target.id
+                });
+                console.log(result[0].title);
+
+                this.possibleLinks.push({
+                    id: result[0].id,
+                    "url": result[0].url,
+                    "order": 1,
+                    "title": result[0].title,
+                    "uri": "",
+                    "extension": "",
+                    "edit_url": "",
+                    "create_child_url": "",
+                    "slug": "",
+                    "published": true,
+                    "has_entries": true,
+                    "create_entry_url": "",
+                    "entries_url": "",
+                    "collapsed": false,
+                    "items": [],
+                    "pages": []
+                });
                 console.log(this.possibleLinks);
+
             } else {
+
                 // Remove selected page
+
             }
         },
 
