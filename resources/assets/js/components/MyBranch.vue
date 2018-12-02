@@ -1,5 +1,5 @@
 <template>
-    <li class="branch" :class="{ draft: !published }" :data-depth="depth">
+    <li class="branch" :data-depth="depth">
         <div class="branch-row w-full flex items-center">
 
             <div class="page-move drag-handle w-6 h-full"></div>
@@ -63,23 +63,14 @@ export default {
         title: String,
         originalTitle: String,
         url: String,
-        published: {
-            type: Boolean,
-            default: true
-        },
         childPages: {
             type: Array,
             default: function() {
                 return [];
             }
         },
-        collapsed: Boolean,
         depth: Number,
         sortable: Boolean,
-        dirty: {
-            type: Boolean,
-            default: false
-        }
     },
 
     computed: {

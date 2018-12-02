@@ -24,7 +24,6 @@ export default {
             type: String,
             default: ''
         },
-        collapsed: Boolean,
         sortable: Boolean,
         dirty: {
             type: Boolean,

@@ -221,16 +221,6 @@ export default {
     },
 
     events: {
-        // 'pages.create': function(parent) {
-        //     this.$broadcast('pages.create', parent);
-        // },
-        // 'pages.mount': function(id) {
-        //     this.$broadcast('pages.mount', id);
-        // },
-        // 'pages.unmount': function(id) {
-        //     this.saving = true;
-        //     this.$broadcast('pages.unmount', id);
-        // },
         'page.deleted': function () {
             if (this.pages.length > 1) {
                 return;
