@@ -14,15 +14,20 @@ class MenusTags extends Tags
     public function index()
     {
         //
-    }
+        $pages = $this->storage->getJSON('pages');
 
-    /**
-     * The {{ menus:example }} tag
-     *
-     * @return string|array
-     */
-    public function example()
-    {
         //
+        $html = '';
+        $html .= '<ul class="nav navbar-nav">';
+        foreach ($pages as $page) {
+            $html .= '<li>';
+            $html .= '<a href="' . $page["url"] . '" title="">';
+            $html .= $page["title"];
+            $html .= '</a>';
+            $html .= '</li>';
+        }
+        $html .= '</ul>';
+        return $html;
+
     }
 }
