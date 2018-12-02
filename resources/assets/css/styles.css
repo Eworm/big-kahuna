@@ -12,7 +12,7 @@
 }
 
 .branch-row .active .page-title {
-    display: none;
+    /* display: none; */
 }
 
 .branch-row .active .edit-url {

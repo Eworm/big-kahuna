@@ -65,7 +65,7 @@ export default {
                 "title":            this.customtitle,
                 "original_title":   this.customtitle,
                 "uri":              this.customurl,
-                "slug":             "",
+                "slug":             this.customurl,
                 "collapsed":        false,
                 "items":            [],
                 "pages":            []

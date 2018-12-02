@@ -7,9 +7,7 @@
                 :original-title="page.title || page.slug"
                 :url="buildUrl(page.slug)"
                 :child-pages="page.items"
-                :collapsed.sync="page.collapsed"
                 :depth="depth"
-                :sortable="sortable"
         ></mybranch>
     </ul>
 </template>
@@ -24,7 +22,6 @@ export default {
             type: String,
             default: ''
         },
-        sortable: Boolean,
         dirty: {
             type: Boolean,
             default: false

@@ -7,12 +7,10 @@
             <div class="flex items-center flex-1 p-1">
 
                 <div class="page-text" v-bind:class="classObject">
-                    <span class="page-title">{{ title }}</span>
-                    <div class="edit-url">
-                        <input type="text" value="{{ title }}">
-                        <button class="btn btn-primary btn-sm">Save</button>
-                        <button class="btn btn-default btn-sm" @click="editPage">Cancel</button>
-                        <span class="original-title mt-1 text-muted">Original title: {{ originalTitle }}</span>
+                    <span class="page-title">{{ title || originalTitle }}</span>
+                    <div class="edit-url pt-1">
+                        <input type="text" value="{{ title }}" v-model="title" v-on:input="editTitle">
+                        <!-- <span class="original-title mt-1 text-muted">Original title: {{ originalTitle }}</span> -->
                     </div>
                 </div>
 
@@ -42,7 +40,6 @@
                   :depth="depth + 1"
                   :parent-url="url"
                   :collapsed.sync="collapsed"
-                  :sortable="sortable"
                   v-if="!home">
         </mybranches>
     </li>
@@ -70,7 +67,6 @@ export default {
             }
         },
         depth: Number,
-        sortable: Boolean,
     },
 
     computed: {
@@ -116,6 +112,13 @@ export default {
             var self = this;
             self.isActive = !self.isActive;
             console.log(self.isActive);
+        },
+
+        editTitle: function(evt) {
+            var self = this;
+            if (evt.target.value == '') {
+                evt.target.value = self.originalTitle;
+            }
         }
     }
 

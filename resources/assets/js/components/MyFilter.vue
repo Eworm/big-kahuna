@@ -116,7 +116,7 @@ export default {
                     "order":            1,
                     "title":            result[0].title,
                     "uri":              result[0].url,
-                    "slug":             "",
+                    "slug":             result[0].url,
                     "collapsed":        false,
                     "items":            [],
                     "pages":            []
