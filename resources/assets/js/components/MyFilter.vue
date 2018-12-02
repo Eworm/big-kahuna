@@ -110,23 +110,16 @@ export default {
 
                 // Push new object in possibleLinks
                 this.possibleLinks.push({
-                    id: result[0].id,
-                    "url": result[0].url,
-                    "original_title": result[0].url,
-                    "order": 1,
-                    "title": result[0].title,
-                    "uri": "",
-                    "extension": "",
-                    "edit_url": "",
-                    "create_child_url": "",
-                    "slug": "",
-                    "published": true,
-                    "has_entries": true,
-                    "create_entry_url": "",
-                    "entries_url": "",
-                    "collapsed": false,
-                    "items": [],
-                    "pages": []
+                    id:                 result[0].id,
+                    "url":              result[0].url,
+                    "original_title":   result[0].url,
+                    "order":            1,
+                    "title":            result[0].title,
+                    "uri":              result[0].url,
+                    "slug":             "",
+                    "collapsed":        false,
+                    "items":            [],
+                    "pages":            []
                 });
 
             } else {

@@ -59,22 +59,16 @@ export default {
 
             // Push new object in possibleLinks
             this.possibleLinks.push({
-                id: 1,
-                "url": this.customurl,
-                "order": 1,
-                "title": this.customtitle,
-                "uri": "",
-                "extension": "",
-                "edit_url": "",
-                "create_child_url": "",
-                "slug": "",
-                "published": true,
-                "has_entries": true,
-                "create_entry_url": "",
-                "entries_url": "",
-                "collapsed": false,
-                "items": [],
-                "pages": []
+                id:                 1,
+                "url":              this.customurl,
+                "order":            1,
+                "title":            this.customtitle,
+                "original_title":   this.customtitle,
+                "uri":              this.customurl,
+                "slug":             "",
+                "collapsed":        false,
+                "items":            [],
+                "pages":            []
             });
             console.log(this.possibleLinks);
             this.$eventHub.$emit('append-links', this.possibleLinks);
