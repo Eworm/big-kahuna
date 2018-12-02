@@ -71,7 +71,7 @@ export default {
         {
             this.pages = [];
             this.loading = true;
-            var url = 'http://statamic.localhost/cp/addons/menus/json';
+            var url = cp_url('addons/menus/json');
 
             this.$http.get(url, function(data) {
                 this.arePages = data.pages.length > 0;

@@ -83,7 +83,7 @@ export default {
 
         getPages: _.debounce(
             function () {
-                var url = 'http://statamic.localhost/cp/addons/menus/allpages';
+                var url = cp_url('addons/menus/allpages');
 
                 if (this.searchTerm.length > 0) {
                     url = url + '?q=' + this.searchTerm;
