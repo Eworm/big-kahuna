@@ -135,8 +135,6 @@ class MenusController extends Controller
             return csrf_token();
         });
 
-        // $this->authorize('pages:reorder');
-
         // Grab the JSON payload
         $tree = $this->request->input('pages');
 
@@ -149,7 +147,7 @@ class MenusController extends Controller
         $this->storage->putJSON('pages', $tree);
 
         return [
-            'tree' => var_dump($tree),
+            'tree' => $tree,
             'success' => true,
             'message' => 'Pages updated successfully.'
         ];

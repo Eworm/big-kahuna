@@ -112,7 +112,7 @@ export default {
                 this.possibleLinks.push({
                     id:                 result[0].id,
                     "url":              result[0].url,
-                    "original_title":   result[0].url,
+                    "original_title":   result[0].title,
                     "order":            1,
                     "title":            result[0].title,
                     "uri":              result[0].url,

@@ -7,11 +7,12 @@
             <div class="flex items-center flex-1 p-1">
 
                 <div class="page-text" v-bind:class="classObject">
-                    <span class="page-title">{{ title || originalTitle }}</span>
+                    <span class="page-title">{{ title }}</span>
+                    <span class="page-title">{{ original_title }}</span>
                     <div class="edit-url pt-1">
-                        <input type="text" value="{{ title }}" v-model="title">
+                        <input type="text" value="{{ title }}" v-model="title" v-on:input="editTitle">
                         <button type="button" class="btn btn-default" @click="cancelTitleChange">{{ translate('cp.cancel') }}</button>
-                        <span v-if="title != originalTitle" class="original-title mt-1 text-muted">Original title: {{ originalTitle }}</span>
+                        <span v-if="title != original_title" class="original-title mt-1 text-muted">Original title: {{ original_title }}</span>
                     </div>
                 </div>
 
@@ -59,7 +60,7 @@ export default {
         branchIndex: Number,
         uuid: String,
         title: String,
-        originalTitle: String,
+        original_title: String,
         url: String,
         childPages: {
             type: Array,
@@ -109,13 +110,21 @@ export default {
             });
         },
 
-        editPage: function() {
-            this.isActive = !this.isActive;
-            console.log(self.isActive);
+        editTitle: function(evt) {
+            var self = this;
+            self.title = evt.target.value;
+            this.$dispatch('page.edit', evt.target.value);
         },
 
-        cancelTitleChange: function(evt) {
-            this.title = this.originalTitle;
+        editPage: function() {
+            var self = this;
+            self.isActive = !self.isActive;
+        },
+
+        cancelTitleChange: function() {
+            var self = this;
+            self.isActive = !self.isActive;
+            self.title = self.original_title;
         }
     }
 

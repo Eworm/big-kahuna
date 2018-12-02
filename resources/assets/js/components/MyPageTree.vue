@@ -184,7 +184,6 @@ export default {
             pages = self.updateOrderIndexes(pages);
 
             console.log('Saving..');
-            console.log(pages);
 
             this.$http.post(cp_url('addons/menus/save'), { pages: pages }).success(function(data) {
                 self.getPages();
@@ -221,6 +220,14 @@ export default {
     },
 
     events: {
+
+        'page.edit': function(title) {
+            var self = this;
+            // console.log(this);
+            console.log(title);
+            self.changed = true;
+        },
+
         'page.deleted': function () {
             if (this.pages.length > 1) {
                 return;
@@ -228,6 +235,7 @@ export default {
 
             $(this.$el).find('.page-tree > ul + ul').nestedSortable('destroy');
         }
+
     },
 
     watch: {

@@ -4,7 +4,7 @@
                 :branch-index="$index"
                 :uuid="page.id"
                 :title="page.title || page.slug"
-                :original-title="page.title || page.slug"
+                :original_title="page.original_title || page.slug"
                 :url="buildUrl(page.slug)"
                 :child-pages="page.items"
                 :depth="depth"
