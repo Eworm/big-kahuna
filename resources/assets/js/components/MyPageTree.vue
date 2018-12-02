@@ -37,16 +37,6 @@ export default {
 
     computed: {
 
-        // homeEditUrl() {
-        //     let url = cp_url('pages/edit');
-        //
-        //     if (this.locale !== Object.keys(Statamic.locales)[0]) {
-        //         url += '?locale=' + this.locale;
-        //     }
-        //
-        //     return url;
-        // },
-
         hasChildren() {
             return _.some(this.pages, page => page.pages.length);
         },

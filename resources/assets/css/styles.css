@@ -6,15 +6,20 @@
     -webkit-overflow-scrolling: touch;
 }
 
+/* Hide a page title & show the title editor */
 .branch-row .edit-url {
     display: none;
 }
 
-/* Hide a page title & show the title editor */
 .branch-row .active .page-title {
     display: none;
 }
 
 .branch-row .active .edit-url {
     display: block;
+}
+
+.original-title {
+    display: block;
+    font-weight: normal;
 }

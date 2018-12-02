@@ -4,17 +4,12 @@
                 :branch-index="$index"
                 :uuid="page.id"
                 :title="page.title || page.slug"
+                :original-title="page.title || page.slug"
                 :url="buildUrl(page.slug)"
-                :published="page.published"
-                :edit-url="page.edit_url"
-                :has-entries="page.has_entries"
-                :entries-url="page.entries_url"
-                :create-entry-url="page.create_entry_url"
                 :child-pages="page.items"
                 :collapsed.sync="page.collapsed"
                 :depth="depth"
                 :sortable="sortable"
-                :dirty="dirty"
         ></mybranch>
     </ul>
 </template>

@@ -12,6 +12,7 @@
                         <input type="text" value="{{ title }}">
                         <button class="btn btn-primary btn-sm">Save</button>
                         <button class="btn btn-default btn-sm" @click="editPage">Cancel</button>
+                        <span class="original-title mt-1 text-muted">Original title: {{ originalTitle }}</span>
                     </div>
                 </div>
 
@@ -39,7 +40,6 @@
                   :parent-url="url"
                   :collapsed.sync="collapsed"
                   :sortable="sortable"
-                  :dirty="dirty"
                   v-if="!home">
         </mybranches>
     </li>
@@ -58,15 +58,12 @@ export default {
         branchIndex: Number,
         uuid: String,
         title: String,
+        originalTitle: String,
         url: String,
         published: {
             type: Boolean,
             default: true
         },
-        editUrl: String,
-        hasEntries: Boolean,
-        entriesUrl: String,
-        createEntryUrl: String,
         childPages: {
             type: Array,
             default: function() {
@@ -75,10 +72,6 @@ export default {
         },
         collapsed: Boolean,
         depth: Number,
-        home: {
-            type: Boolean,
-            default: false
-        },
         sortable: Boolean,
         dirty: {
             type: Boolean,
