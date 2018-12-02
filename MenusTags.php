@@ -15,11 +15,11 @@ class MenusTags extends Tags
     {
         //
         $pages          = $this->storage->getJSON('pages');
-        $id             = $this->getParam('id');
-        $class          = $this->getParam('class');
-        $activeClass    = $this->getParam('active_class');
-        $itemClass      = $this->getParam('item_class');
-        $submenuClass      = $this->getParam('submenu_class');
+        $id             = ($this->getParam('id')) ? $this->getParam('id') : "";
+        $class          = ($this->getParam('class')) ? $this->getParam('class') : "nav";
+        $activeClass    = ($this->getParam('active_class')) ? $this->getParam('active_class') : "is--active";
+        $itemClass      = ($this->getParam('item_class')) ? $this->getParam('item_class') : "nav__item";
+        $submenuClass   = ($this->getParam('submenu_class')) ? $this->getParam('submenu_class') : "nav__submenu";
 
         //
         $html = '';
@@ -30,16 +30,20 @@ class MenusTags extends Tags
             $html .= $page["title"];
             $html .= '</a>';
 
-            $html .= '<ul class="' . $submenuClass . '">';
-            foreach ($page['items'] as $item) {
+            if ($page['items']) {
 
-                $html .= '<li class="">';
-                $html .= '<a href="' . $item["url"] . '" title="">';
-                $html .= $item["title"];
-                $html .= '</a>';
-                $html .= '</li>';
+                $html .= '<ul class="' . $submenuClass . '">';
+                    foreach ($page['items'] as $item) {
+
+                        $html .= '<li class="">';
+                        $html .= '<a href="' . $item["url"] . '" title="">';
+                        $html .= $item["title"];
+                        $html .= '</a>';
+                        $html .= '</li>';
+                    }
+                $html .= '</ul>';
+
             }
-            $html .= '</ul>';
 
             $html .= '</li>';
         }
