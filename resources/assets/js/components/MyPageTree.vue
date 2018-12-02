@@ -221,10 +221,8 @@ export default {
 
     events: {
 
-        'page.edit': function(title) {
+        'page.edit': function() {
             var self = this;
-            // console.log(this);
-            console.log(title);
             self.changed = true;
         },
 
