@@ -2,7 +2,7 @@
     <li class="branch" :class="{ draft: !published }" :data-depth="depth">
         <div class="branch-row w-full flex items-center">
 
-            <div v-if="!home && sortable" :class="['page-move drag-handle w-6 h-full', {'cursor-not-allowed opacity-50': isSingleTopLevelPage}]"></div>
+            <div class="page-move drag-handle w-6 h-full"></div>
 
             <div class="flex items-center flex-1 p-1">
 
@@ -10,12 +10,18 @@
                     <span class="page-title">{{ title }}</span>
                 </div>
 
-                <div class="w-6 opacity-25 hover:opacity-50 page-toggle-container ml-px" v-if="hasChildren">
-                    <div :class="{'page-toggle': true, toggleable: hasChildren}" v-on:click="toggle">
-                        <i :class="{ 'icon': true, 'icon-chevron-down': true, 'collapsed': collapsed }"></i>
+            </div>
+
+            <div class="branch-meta flex items-center pr-1">
+                <div class="page-actions" v-if="can('pages:create') || can('pages:delete')">
+                    <div class="btn-group page-action action-more px-sm">
+                        <i class="icon icon-dots-three-vertical opacity-25 hover:opacity-75" data-toggle="dropdown"></i>
+                        <ul class="dropdown-menu">
+                            <li><a href="" @click.prevent="duplicatePage">{{ translate('cp.edit') }}</a></li>
+                            <li class="warning"><a href="" @click.prevent="deletePage">{{ translate('cp.delete') }}</a></li>
+                        </ul>
                     </div>
                 </div>
-
             </div>
         </div>
 
