@@ -20,6 +20,9 @@
 
             <div class="branch-meta flex items-center pr-1">
                 <div class="page-actions">
+                    <a :href="url" :title="url" class="page-action text-grey-dark px-sm bloop" target="_blank">
+                        <svg-icon name="visit" class="opacity-25 hover:opacity-75 h-4 w-4"></svg-icon>
+                    </a>
                     <div class="btn-group page-action action-more px-sm">
                         <i class="icon icon-dots-three-vertical opacity-25 hover:opacity-75" data-toggle="dropdown"></i>
                         <ul class="dropdown-menu">
