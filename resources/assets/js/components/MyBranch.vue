@@ -9,8 +9,9 @@
                 <div class="page-text" v-bind:class="classObject">
                     <span class="page-title">{{ title || originalTitle }}</span>
                     <div class="edit-url pt-1">
-                        <input type="text" value="{{ title }}" v-model="title" v-on:input="editTitle">
-                        <!-- <span class="original-title mt-1 text-muted">Original title: {{ originalTitle }}</span> -->
+                        <input type="text" value="{{ title }}" v-model="title">
+                        <button type="button" class="btn btn-default" @click="cancelTitleChange">{{ translate('cp.cancel') }}</button>
+                        <span v-if="title != originalTitle" class="original-title mt-1 text-muted">Original title: {{ originalTitle }}</span>
                     </div>
                 </div>
 
@@ -109,16 +110,12 @@ export default {
         },
 
         editPage: function() {
-            var self = this;
-            self.isActive = !self.isActive;
+            this.isActive = !this.isActive;
             console.log(self.isActive);
         },
 
-        editTitle: function(evt) {
-            var self = this;
-            if (evt.target.value == '') {
-                evt.target.value = self.originalTitle;
-            }
+        cancelTitleChange: function(evt) {
+            this.title = this.originalTitle;
         }
     }
 
