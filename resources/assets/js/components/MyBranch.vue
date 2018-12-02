@@ -7,7 +7,7 @@
             <div class="flex items-center flex-1 p-1">
 
                 <div class="page-text" v-bind:class="classObject">
-                    <span class="page-title">{{ title }}</span>
+                    <div class="page-title">{{ title }} <span class="text-muted">({{ type }})</span></div>
                     <div class="edit-url pt-1">
                         <input type="text" value="{{ title }}" v-model="title" v-on:input="editTitle">
                         <button type="button" class="btn btn-default" @click="cancelTitleChange">{{ translate('cp.cancel') }}</button>
@@ -60,6 +60,7 @@ export default {
         title: String,
         original_title: String,
         url: String,
+        type: String,
         childPages: {
             type: Array,
             default: function() {
@@ -111,7 +112,6 @@ export default {
         editTitle: function(evt) {
             var self = this;
             console.log(this.$parent.pages);
-            // self.title = evt.target.value;
 
             const result = this.$parent.pages.filter(function(el) {
                 return el.id == self.uuid

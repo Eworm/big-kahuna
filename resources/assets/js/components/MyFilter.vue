@@ -22,7 +22,7 @@
                         </td>
                         <td class="cell-title first-cell">
                             <span class="column-label"></span>
-                            {{ page.title }} <span class="text-muted">({{page.type}})</span>
+                            {{ page.title }} <span class="text-muted">({{ page.type }})</span>
                         </td>
                     </tr>
                 </tbody>
@@ -117,6 +117,7 @@ export default {
                     "title":            result[0].title,
                     "uri":              result[0].url,
                     "slug":             result[0].url,
+                    "type":             result[0].type,
                     "collapsed":        false,
                     "items":            [],
                     "pages":            []

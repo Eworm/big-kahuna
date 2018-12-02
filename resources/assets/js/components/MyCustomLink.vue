@@ -7,7 +7,7 @@
                     <label class="block">Title</label>
                 </div>
                 <div class="w-2/3 flex justify-end">
-                    <input type="text" class="form-control" v-model="customtitle">
+                    <input type="text" class="form-control" v-model="customTitle">
                 </div>
             </div>
             <div class="form-group p-2 mb-0 w-full flex items-center border-b">
@@ -15,7 +15,7 @@
                     <label class="block">URL</label>
                 </div>
                 <div class="w-2/3 flex justify-end">
-                    <input type="url" class="form-control" v-model="customurl">
+                    <input type="url" class="form-control" v-model="customUrl">
                 </div>
             </div>
             <div class="form-group p-2 mb-0 w-full flex items-end border-b">
@@ -37,8 +37,9 @@ export default {
 
             possibleLinks: [],
             customInfo: {},
-            customtitle: '',
-            customurl: ''
+            customTitle: '',
+            customUrl: '',
+            customType: 'Custom',
 
         };
     },
@@ -60,17 +61,16 @@ export default {
             // Push new object in possibleLinks
             this.possibleLinks.push({
                 id:                 1,
-                "url":              this.customurl,
+                "url":              this.customUrl,
                 "order":            1,
-                "title":            this.customtitle,
-                "original_title":   this.customtitle,
-                "uri":              this.customurl,
-                "slug":             this.customurl,
-                "collapsed":        false,
+                "title":            this.customTitle,
+                "original_title":   this.customTitle,
+                "uri":              this.customUrl,
+                "slug":             this.customUrl,
+                "type":             this.customType,
                 "items":            [],
                 "pages":            []
             });
-            console.log(this.possibleLinks);
             this.$eventHub.$emit('append-links', this.possibleLinks);
 
         },

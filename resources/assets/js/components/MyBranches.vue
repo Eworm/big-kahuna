@@ -6,6 +6,7 @@
                 :title="page.title || page.slug"
                 :original_title="page.original_title || page.slug"
                 :url="buildUrl(page.slug)"
+                :type="page.type"
                 :child-pages="page.items"
                 :depth="depth"
         ></mybranch>
@@ -21,10 +22,6 @@ export default {
         parentUrl: {
             type: String,
             default: ''
-        },
-        dirty: {
-            type: Boolean,
-            default: false
         }
     },
 

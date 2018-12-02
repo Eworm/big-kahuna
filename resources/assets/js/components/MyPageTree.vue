@@ -61,8 +61,6 @@ export default {
         {
             // name will be automatically transported to the parameter.
             this.name = name;
-            console.log(this.pages);
-            console.log(name);
             this.pages.push.apply(this.pages, name);
             this.changed = true;
         },
