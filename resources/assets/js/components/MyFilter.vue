@@ -5,7 +5,7 @@
                 <thead>
                     <tr>
                         <th colspan="2">
-                            All content ({{ repoCount }})
+                            All content ({{ contentCount }})
                         </th>
                     </tr>
                     <tr>
@@ -28,8 +28,8 @@
                 </tbody>
                 <tfoot>
                     <tr>
-                        <td colspan="2">
-                            <button type="button" class="btn btn-primary add-row float-right" @click="add">
+                        <td colspan="2" class="p-2">
+                            <button type="button" class="btn btn-primary add-row" @click="add">
                                 Add to menu
                                 <i class="icon icon-plus icon-right"></i>
                             </button>
@@ -61,7 +61,7 @@ export default {
 
     computed: {
 
-        repoCount: function repoCount() {
+        contentCount: function contentCount() {
             return this.allpages.length;
         },
 
