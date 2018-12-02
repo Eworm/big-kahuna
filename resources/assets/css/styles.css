@@ -5,3 +5,16 @@
     overflow: auto;
     -webkit-overflow-scrolling: touch;
 }
+
+.branch-row .edit-url {
+    display: none;
+}
+
+/* Hide a page title & show the title editor */
+.branch-row .active .page-title {
+    display: none;
+}
+
+.branch-row .active .edit-url {
+    display: block;
+}

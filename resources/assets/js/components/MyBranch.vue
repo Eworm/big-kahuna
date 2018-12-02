@@ -6,19 +6,28 @@
 
             <div class="flex items-center flex-1 p-1">
 
-                <div class="page-text">
+                <div class="page-text" v-bind:class="classObject">
                     <span class="page-title">{{ title }}</span>
+                    <div class="edit-url">
+                        <input type="text" value="{{ title }}">
+                        <button class="btn btn-primary btn-sm">Save</button>
+                        <button class="btn btn-default btn-sm" @click="editPage">Cancel</button>
+                    </div>
                 </div>
 
             </div>
 
             <div class="branch-meta flex items-center pr-1">
-                <div class="page-actions" v-if="can('pages:create') || can('pages:delete')">
+                <div class="page-actions">
                     <div class="btn-group page-action action-more px-sm">
                         <i class="icon icon-dots-three-vertical opacity-25 hover:opacity-75" data-toggle="dropdown"></i>
                         <ul class="dropdown-menu">
-                            <li><a href="" @click.prevent="duplicatePage">{{ translate('cp.edit') }}</a></li>
-                            <li class="warning"><a href="" @click.prevent="deletePage">{{ translate('cp.delete') }}</a></li>
+                            <li>
+                                <button type="button" class="btn btn-block" @click="editPage">{{ translate('cp.edit') }}</button>
+                            </li>
+                            <li class="warning">
+                                <button type="button" class="btn btn-block btn-danger" @click="deletePage">{{ translate('cp.delete') }}</button>
+                            </li>
                         </ul>
                     </div>
                 </div>
@@ -38,6 +47,12 @@
 
 <script>
 export default {
+
+    data: function(){
+        return {
+            isActive: false,
+        }
+    },
 
     props: {
         branchIndex: Number,
@@ -79,6 +94,12 @@ export default {
 
         isSingleTopLevelPage() {
             return this.$parent.pages.length === 1 && this.depth === 1;
+        },
+
+        classObject: function () {
+            return {
+                active: this.isActive
+            }
         }
 
     },
@@ -104,6 +125,11 @@ export default {
             });
         },
 
+        editPage: function() {
+            var self = this;
+            self.isActive = !self.isActive;
+            console.log(self.isActive);
+        }
     }
 
 };
