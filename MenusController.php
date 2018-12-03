@@ -50,13 +50,14 @@ class MenusController extends Controller
             $id      = $item['id'];
             $content = Content::find($id);
 
+            // TODO: Check the type and return the right url
             $newpages[] = (object) [
                 'id'                => $id,
                 'order'             => $item['order'],
                 'type'              => $item['type'],
                 'title'             => $item['title'],
                 'original_title'    => $content->get('title'),
-                'url'               => $content->slug(),
+                'url'               => $content->absoluteUrl(),
                 'items'             => $item['items'],
                 'pages'             => $item['pages']
             ];
@@ -88,27 +89,25 @@ class MenusController extends Controller
 
         }
 
-        return $items->map(function ($entry) {
+        return $items->map(function ($entry)
+        {
 
             if ($entry->contentType() == 'page') {
                 return [
                     'id'        => $entry->id(),
                     "title"     => $entry->get('title'),
-                    // "url"       => $entry->uri(),
                     "type"      => 'Pages',
                 ];
             } elseif ($entry->contentType() == 'entry') {
                 return [
                     'id'        => $entry->id(),
                     "title"     => $entry->get('title'),
-                    // "url"       => $entry->uri(),
                     "type"      => $entry->collectionName(),
                 ];
             } elseif ($entry->contentType() == 'term') {
                 return [
                     'id'        => $entry->id(),
                     "title"     => $entry->id(),
-                    // "url"       => $entry->uri(),
                     "type"      => 'Term',
                 ];
             }
@@ -150,9 +149,9 @@ class MenusController extends Controller
         $tree       = $this->request->input('pages');
         $newpages   = [];
 
-        // Add only the usefull info to the json
+        // Add only the useful info to the json
         foreach ($tree as $item) {
-            $id      = $item['id'];
+            $id         = $item['id'];
             $newpages[] = (object) [
                 'id'        => $id,
                 'order'     => $item['order'],

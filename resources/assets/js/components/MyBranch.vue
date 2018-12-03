@@ -110,6 +110,7 @@ export default {
             const result = this.$parent.pages.filter(function(el) {
                 return el.id == self.uuid
             });
+            console.log(result);
             result[0].title = evt.target.value;
             this.$dispatch('page.edit', evt.target.value);
         },
