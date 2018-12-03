@@ -92,33 +92,26 @@ export default {
 
         deletePage: function() {
             var self = this;
+            console.log(this.$parent.pages);
 
-            swal({
-                type: 'warning',
-                title: translate('cp.are_you_sure'),
-                text: translate(self.title + translate('cp.confirm_delete_page')),
-                confirmButtonText: translate('cp.yes_im_sure'),
-                cancelButtonText: translate('cp.cancel'),
-                showCancelButton: true
-            }, function() {
-                self.$http.post(cp_url('pages/delete'), { uuid: self.uuid }).success(function() {
-                    self.$parent.pages.splice(self.branchIndex, 1);
-
-                    this.$dispatch('page.deleted');
-                });
+            // Find object by selected ID
+            var index = this.$parent.pages.findIndex(function(item, i){
+                return item.id === self.uuid
             });
+
+            // Remove the object by index
+            if (index > -1) {
+                this.$parent.pages.splice(index, 1);
+            }
+            this.$dispatch('page.deleted');
         },
 
         editTitle: function(evt) {
             var self = this;
-            console.log(this.$parent.pages);
-
             const result = this.$parent.pages.filter(function(el) {
                 return el.id == self.uuid
             });
             result[0].title = evt.target.value;
-            console.log(result);
-
             this.$dispatch('page.edit', evt.target.value);
         },
 

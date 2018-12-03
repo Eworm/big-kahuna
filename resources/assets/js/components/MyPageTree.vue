@@ -181,8 +181,6 @@ export default {
             var pages = JSON.parse(JSON.stringify(self.pages));
             pages = self.updateOrderIndexes(pages);
 
-            console.log('Saving..');
-
             this.$http.post(cp_url('addons/menus/save'), { pages: pages }).success(function(data) {
                 self.getPages();
                 self.changed = false;
@@ -225,11 +223,8 @@ export default {
         },
 
         'page.deleted': function () {
-            if (this.pages.length > 1) {
-                return;
-            }
-
-            $(this.$el).find('.page-tree > ul + ul').nestedSortable('destroy');
+            var self = this;
+            self.changed = true;
         }
 
     },

@@ -56,8 +56,6 @@ export default {
 
         add: function() {
 
-            console.log('Adding..');
-
             // Push new object in possibleLinks
             this.possibleLinks.push({
                 id:                 1,
