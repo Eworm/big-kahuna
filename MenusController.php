@@ -44,13 +44,24 @@ class MenusController extends Controller
     public function json()
     {
         $pages      = $this->storage->getJSON('pages');
-        $newpages   = [];
+        return [
+            'pages' => $this->getJsonItems($pages)
+        ];
+    }
 
+    /**
+     * Return a single branch object
+     *
+     * @return array
+     */
+    private function getJsonItems ($pages)
+    {
+        $newpages = [];
         foreach ($pages as $item) {
-            $id      = $item['id'];
+            $id = $item['id'];
             $content = Content::find($id);
 
-            // TODO: Check the type and return the right url
+            // TODO: Check the type and return the proper url
             $newpages[] = (object) [
                 'id'                => $id,
                 'order'             => $item['order'],
@@ -58,15 +69,13 @@ class MenusController extends Controller
                 'title'             => $item['title'],
                 'original_title'    => $content->get('title'),
                 'url'               => $content->absoluteUrl(),
-                'items'             => $item['items'],
+                'items'             => $this->getJsonItems($item['items']),
                 'pages'             => $item['pages']
             ];
         }
-
-        return [
-            'pages' => $newpages
-        ];
+        return $newpages;
     }
+
 
     /**
      * Return all content as json
@@ -77,10 +86,9 @@ class MenusController extends Controller
     {
         $items = Content::all();
 
-        if ($request->has('q')) {
+        if ($request->has('q')){
 
-            $items = $items->filter(function($item) use ($request)
-            {
+            $items = $items->filter(function($item) use ($request) {
                 if (stripos($item->get('title'), $request->q) !== false || stripos($item->id(), $request->q) !== false) {
                     return true;
                 }
@@ -89,8 +97,7 @@ class MenusController extends Controller
 
         }
 
-        return $items->map(function ($entry)
-        {
+        return $items->map(function ($entry) {
 
             if ($entry->contentType() == 'page') {
                 return [

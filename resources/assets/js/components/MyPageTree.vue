@@ -178,6 +178,7 @@ export default {
 
             var pages = JSON.parse(JSON.stringify(self.pages));
             pages = self.updateOrderIndexes(pages);
+            console.log(pages);
 
             this.$http.post(cp_url('addons/menus/save'), { pages: pages }).success(function(data) {
                 self.getPages();
