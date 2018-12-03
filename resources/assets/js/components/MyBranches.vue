@@ -26,6 +26,7 @@ export default {
     },
 
     computed: {
+        
         classes: function () {
             // Start with the static ones
             var classes = ['branches'];

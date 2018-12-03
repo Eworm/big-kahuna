@@ -92,7 +92,6 @@ export default {
 
         deletePage: function() {
             var self = this;
-            console.log(this.$parent.pages);
 
             // Find object by selected ID
             var index = this.$parent.pages.findIndex(function(item, i){

@@ -73,10 +73,6 @@ export default {
             this.getPages()
         },
 
-        addLink: function() {
-            // console.log('Toggle');
-        }
-
     },
 
     methods: {
@@ -112,9 +108,7 @@ export default {
                 this.possibleLinks.push({
                     id:                 result[0].id,
                     "order":            1,
-                    "url":              result[0].url,
                     "title":            result[0].title,
-                    "original_title":   result[0].title,
                     "type":             result[0].type,
                     "items":            [],
                     "pages":            []

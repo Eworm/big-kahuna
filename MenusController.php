@@ -20,7 +20,7 @@ class MenusController extends Controller
     public function index(Request $request)
     {
         return $this->view('index', [
-            'items'         => $this->getItems($request)
+            'items' => $this->getItems($request)
         ]);
     }
 
@@ -37,14 +37,33 @@ class MenusController extends Controller
     }
 
     /**
-     * Return all pages as json
+     * Return all pages in menu as json
      *
-     * @return json
+     * @return array
      */
     public function json()
     {
+        $pages      = $this->storage->getJSON('pages');
+        $newpages   = [];
+
+        foreach ($pages as $item) {
+            $id      = $item['id'];
+            $content = Content::find($id);
+
+            $newpages[] = (object) [
+                'id'                => $id,
+                'order'             => $item['order'],
+                'type'              => $item['type'],
+                'title'             => $item['title'],
+                'original_title'    => $content->get('title'),
+                'url'               => $content->slug(),
+                'items'             => $item['items'],
+                'pages'             => $item['pages']
+            ];
+        }
+
         return [
-            'pages' => $this->storage->getJSON('pages')
+            'pages' => $newpages
         ];
     }
 
@@ -75,21 +94,21 @@ class MenusController extends Controller
                 return [
                     'id'        => $entry->id(),
                     "title"     => $entry->get('title'),
-                    "url"       => $entry->uri(),
+                    // "url"       => $entry->uri(),
                     "type"      => 'Pages',
                 ];
             } elseif ($entry->contentType() == 'entry') {
                 return [
                     'id'        => $entry->id(),
                     "title"     => $entry->get('title'),
-                    "url"       => $entry->uri(),
+                    // "url"       => $entry->uri(),
                     "type"      => $entry->collectionName(),
                 ];
             } elseif ($entry->contentType() == 'term') {
                 return [
                     'id'        => $entry->id(),
                     "title"     => $entry->id(),
-                    "url"       => $entry->uri(),
+                    // "url"       => $entry->uri(),
                     "type"      => 'Term',
                 ];
             }
@@ -122,25 +141,32 @@ class MenusController extends Controller
      * @return array
      */
     public function save(PageTreeReorderer $reorderer)
-    // public function save()
     {
         get('token', function () {
             return csrf_token();
         });
 
         // Grab the JSON payload
-        $tree = $this->request->input('pages');
+        $tree       = $this->request->input('pages');
+        $newpages   = [];
 
-        // $reorderer->reorder($tree);
+        // Add only the usefull info to the json
+        foreach ($tree as $item) {
+            $id      = $item['id'];
+            $newpages[] = (object) [
+                'id'        => $id,
+                'order'     => $item['order'],
+                'type'      => $item['type'],
+                'title'     => $item['title'],
+                'items'     => $item['items'],
+                'pages'     => $item['pages']
+            ];
+        }
 
-        // Stache::update();
-
-        // event(new PagesReordered);
-
-        $this->storage->putJSON('pages', $tree);
+        // Save a new json with only the above options
+        $this->storage->putJSON('pages', $newpages);
 
         return [
-            'tree' => $tree,
             'success' => true,
             'message' => 'Pages updated successfully.'
         ];

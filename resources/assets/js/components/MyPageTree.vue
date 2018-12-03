@@ -57,24 +57,22 @@ export default {
 
     methods: {
 
-        changeName(name)
-        {
+        changeName(name) {
             // name will be automatically transported to the parameter.
             this.name = name;
             this.pages.push.apply(this.pages, name);
             this.changed = true;
         },
 
-        getPages: function()
-        {
-            this.pages = [];
-            this.loading = true;
-            var url = cp_url('addons/menus/json');
+        getPages: function() {
+            this.pages      = [];
+            this.loading    = true;
+            var url         = cp_url('addons/menus/json');
 
             this.$http.get(url, function(data) {
-                this.arePages = data.pages.length > 0;
-                this.pages = data.pages;
-                this.loading = false;
+                this.arePages   = data.pages.length > 0;
+                this.pages      = data.pages;
+                this.loading    = false;
 
                 this.$nextTick(function() {
                     this.initSortable();
