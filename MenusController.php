@@ -19,14 +19,7 @@ class MenusController extends Controller
      */
     public function index(Request $request)
     {
-        // $pages          = Page::all(); // Returns PageCollection
-        // $collections    = Collection::all(); // Returns Illuminate\Support\Collection
-        // $entries        = Entry::all(); // Returns EntryCollection
-
         return $this->view('index', [
-            // 'pages'         => $pages,
-            // 'collections'   => $collections,
-            // 'entries'       => $entries,
             'items'         => $this->getItems($request)
         ]);
     }

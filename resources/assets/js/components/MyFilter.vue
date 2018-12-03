@@ -111,14 +111,11 @@ export default {
                 // Push new object in possibleLinks
                 this.possibleLinks.push({
                     id:                 result[0].id,
-                    "url":              result[0].url,
-                    "original_title":   result[0].title,
                     "order":            1,
+                    "url":              result[0].url,
                     "title":            result[0].title,
-                    "uri":              result[0].url,
-                    "slug":             result[0].url,
+                    "original_title":   result[0].title,
                     "type":             result[0].type,
-                    "collapsed":        false,
                     "items":            [],
                     "pages":            []
                 });
@@ -136,7 +133,7 @@ export default {
                 }
 
             }
-        },
+        }
 
     }
 

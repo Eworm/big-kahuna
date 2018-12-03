@@ -59,12 +59,10 @@ export default {
             // Push new object in possibleLinks
             this.possibleLinks.push({
                 id:                 1,
-                "url":              this.customUrl,
                 "order":            1,
+                "url":              this.customUrl,
                 "title":            this.customTitle,
                 "original_title":   this.customTitle,
-                "uri":              this.customUrl,
-                "slug":             this.customUrl,
                 "type":             this.customType,
                 "items":            [],
                 "pages":            []

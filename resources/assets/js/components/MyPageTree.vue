@@ -211,7 +211,7 @@ export default {
 
         onLocaleChanged() {
             this.getPages();
-        }
+        },
 
     },
 
