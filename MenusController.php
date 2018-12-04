@@ -43,7 +43,7 @@ class MenusController extends Controller
      */
     public function json()
     {
-        $pages      = $this->storage->getJSON('pages');
+        $pages = $this->storage->getJSON('pages');
         if (!empty($pages)) {
             return [
                 'pages' => $this->getJsonItems($pages)
@@ -154,29 +154,44 @@ class MenusController extends Controller
         });
 
         // Grab the JSON payload
-        $tree       = $this->request->input('pages');
-        $newpages   = [];
-
-        // Add only the useful info to the json
-        foreach ($tree as $item) {
-            $id         = $item['id'];
-            $newpages[] = (object) [
-                'id'        => $id,
-                'order'     => $item['order'],
-                'type'      => $item['type'],
-                'title'     => $item['title'],
-                'items'     => $item['items'],
-                'pages'     => $item['pages']
-            ];
-        }
+        $pages = $this->request->input('pages');
+        // $newpages = [];
+        // return [
+        //     'pages' => $this->saveJsonItems($pages)
+        // ];
 
         // Save a new json with only the above options
-        $this->storage->putJSON('pages', $newpages);
+        $this->storage->putJSON('pages', $this->saveJsonItems($pages));
 
         return [
             'success' => true,
             'message' => 'Pages updated successfully.'
         ];
 
+    }
+
+    /**
+     * Return a single branch object for saving
+     *
+     * @return array
+     */
+    private function saveJsonItems ($pages)
+    {
+        $newpages = [];
+        foreach ($pages as $item) {
+            $id = $item['id'];
+            $content = Content::find($id);
+
+            // TODO: Check the type and return the proper url
+            $newpages[] = (object) [
+                'id'                => $id,
+                'order'             => $item['order'],
+                'type'              => $item['type'],
+                'title'             => $item['title'],
+                'items'             => $this->saveJsonItems($item['items']),
+                'pages'             => $item['pages']
+            ];
+        }
+        return $newpages;
     }
 }
