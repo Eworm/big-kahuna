@@ -55,7 +55,7 @@ class BigKahunaTags extends Tags
             } else {
                 $isactive = '';
                 if ($content->absoluteUrl() == $actual_link) {
-                    $isactive = ' is--active';
+                    $isactive = ' ' . $activeClass;
                 }
                 $html .= '<li class="' . $itemClass . $isactive . '">';
             }
