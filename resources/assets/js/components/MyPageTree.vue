@@ -66,17 +66,19 @@ export default {
 
         getPages: function() {
             this.pages      = [];
-            this.loading    = true;
+            this.loading    = false;
             var url         = cp_url('addons/menus/json');
 
             this.$http.get(url, function(data) {
-                this.arePages   = data.pages.length > 0;
-                this.pages      = data.pages;
-                this.loading    = false;
+                if (data) {
+                    this.arePages   = data.pages.length > 0;
+                    this.pages      = data.pages;
+                    this.loading    = false;
 
-                this.$nextTick(function() {
-                    this.initSortable();
-                });
+                    this.$nextTick(function() {
+                        this.initSortable();
+                    });
+                }
             });
         },
 

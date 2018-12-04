@@ -49,6 +49,10 @@
                                 </div>
                             </div>
 
+                            {{-- <div class="well">
+                                Empty
+                            </div> --}}
+
                             {{-- Keeping this or else drag & drop won't work --}}
                             <ul class="tree-home list-unstyled" v-if="!loading">
                             </ul>
@@ -58,11 +62,6 @@
                                 :sortable="isSortable"
                                 :dirty="!dirty">
                             </mybranches>
-
-                            {{-- <br>
-                            <pre>
-                            @{{ pages | json }}
-                            </pre> --}}
 
                         </div>
 
