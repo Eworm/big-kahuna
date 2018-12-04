@@ -51,8 +51,10 @@ class BigKahunaTags extends Tags
             $content = Content::find($id);
 
             if ($page['type'] == 'Custom') {
+                // A custom link
                 $html .= '<li class="' . $itemClass . '">';
             } else {
+                // An internal link
                 $isactive = '';
                 if ($content->absoluteUrl() == $actual_link) {
                     $isactive = ' ' . $activeClass;
@@ -61,16 +63,21 @@ class BigKahunaTags extends Tags
             }
 
             if ($page['type'] == 'Custom') {
+                // A custom link
                 $html .= '<a href="' . $page['url'] . '" title="' . $page['title'] . '" rel="external">';
             } else {
+                // An internal link
                 $html .= '<a href="' . $content->absoluteUrl() . '" title="' . $page['title'] . '">';
             }
 
             $html .= $page['title'];
             $html .= '</a>';
+
             if ($page['items']) {
+                // Return the submenu html
                 $html .= $this->getItems($page['items'], false);
             }
+
             $html .= '</li>';
         }
 
