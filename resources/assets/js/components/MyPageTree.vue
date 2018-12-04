@@ -29,7 +29,7 @@ export default {
     },
 
     created() {
-        this.$eventHub.$on('append-links', this.changeName)
+        this.$eventHub.$on('append-links', this.appendLinks)
     },
 
     beforeDestroy(){
@@ -58,10 +58,9 @@ export default {
 
     methods: {
 
-        changeName(name) {
-            // name will be automatically transported to the parameter.
-            this.name = name;
-            this.pages.push.apply(this.pages, name);
+        appendLinks(page) {
+            this.page = page;
+            this.pages.push.apply(this.pages, page);
             this.changed = true;
         },
 
@@ -183,7 +182,6 @@ export default {
 
             var pages = JSON.parse(JSON.stringify(self.pages));
             pages = self.updateOrderIndexes(pages);
-            console.log(pages);
 
             this.$http.post(cp_url('addons/menus/save'), { pages: pages }).success(function(data) {
                 self.getPages();
