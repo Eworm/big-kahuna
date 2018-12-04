@@ -79,7 +79,7 @@ export default {
 
         getPages: _.debounce(
             function () {
-                var url = cp_url('addons/bigkahuna/allpages');
+                var url = cp_url('addons/big-kahuna/allpages');
 
                 if (this.searchTerm.length > 0) {
                     url = url + '?q=' + this.searchTerm;
