@@ -155,10 +155,6 @@ class MenusController extends Controller
 
         // Grab the JSON payload
         $pages = $this->request->input('pages');
-        // $newpages = [];
-        // return [
-        //     'pages' => $this->saveJsonItems($pages)
-        // ];
 
         // Save a new json with only the above options
         $this->storage->putJSON('pages', $this->saveJsonItems($pages));
