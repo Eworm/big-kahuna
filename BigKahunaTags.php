@@ -27,12 +27,14 @@ class BigKahunaTags extends Tags
     private function getItems($pages, $root = true)
     {
 
-        $id             = ($this->getParam('id')) ? $this->getParam('id') : "";
-        $class          = ($this->getParam('class')) ? $this->getParam('class') : "nav";
-        $activeClass    = ($this->getParam('active_class')) ? $this->getParam('active_class') : "is--active";
-        $itemClass      = ($this->getParam('item_class')) ? $this->getParam('item_class') : "nav__item";
-        $submenu_class   = ($this->getParam('submenu_class')) ? $this->getParam('submenu_class') : "submenu";
-        $submenu_item_class   = ($this->getParam('submenu_item_class')) ? $this->getParam('submenu_class') : "submenu__item";
+        $id                     = ($this->getParam('id')) ? $this->getParam('id') : "";
+        $class                  = ($this->getParam('class')) ? $this->getParam('class') : "nav";
+        $activeClass            = ($this->getParam('active_class')) ? $this->getParam('active_class') : "is--active";
+        $itemClass              = ($this->getParam('item_class')) ? $this->getParam('item_class') : "nav__item";
+        $submenu_class          = ($this->getParam('submenu_class')) ? $this->getParam('submenu_class') : "submenu";
+        $submenu_item_class     = ($this->getParam('submenu_item_class')) ? $this->getParam('submenu_item_class') : "submenu__item";
+
+        $actual_link = (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on' ? "https" : "http") . "://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]";
 
         $html = '';
 
@@ -47,10 +49,19 @@ class BigKahunaTags extends Tags
         foreach ($pages as $page) {
             $id = $page['id'];
             $content = Content::find($id);
-            $html .= '<li class="' . $itemClass . '">';
 
             if ($page['type'] == 'Custom') {
-                $html .= '<a href="' . $page['url'] . '" title="' . $page['title'] . '">';
+                $html .= '<li class="' . $itemClass . '">';
+            } else {
+                $isactive = '';
+                if ($content->absoluteUrl() == $actual_link) {
+                    $isactive = ' is--active';
+                }
+                $html .= '<li class="' . $itemClass . $isactive . '">';
+            }
+
+            if ($page['type'] == 'Custom') {
+                $html .= '<a href="' . $page['url'] . '" title="' . $page['title'] . '" rel="external">';
             } else {
                 $html .= '<a href="' . $content->absoluteUrl() . '" title="' . $page['title'] . '">';
             }
