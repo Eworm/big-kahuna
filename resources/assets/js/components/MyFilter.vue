@@ -5,12 +5,12 @@
                 <thead>
                     <tr>
                         <th colspan="2">
-                            All content ({{ contentCount }})
+                            {{ translate('cp.All content') }} ({{ contentCount }})
                         </th>
                     </tr>
                     <tr>
                         <th colspan="2">
-                            <input v-model="searchTerm" type="search" placeholder="Search for a page, entry or collection" class="form-control">
+                            <input v-model="searchTerm" type="search" placeholder="{{ translate('cp.Search for a page, entry or collection') }}" class="form-control">
                         </th>
                     </tr>
                 </thead>
@@ -30,7 +30,7 @@
                     <tr>
                         <td colspan="2" class="p-2">
                             <button type="button" class="btn btn-primary add-row" @click="add">
-                                Add to menu
+                                {{ translate('cp.add') }}
                                 <i class="icon icon-plus icon-right"></i>
                             </button>
                         </td>
