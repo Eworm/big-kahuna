@@ -62,7 +62,6 @@ export default {
                 "order":            1,
                 "url":              this.customUrl,
                 "title":            this.customTitle,
-                "original_title":   this.customTitle,
                 "type":             this.customType,
                 "items":            [],
                 "pages":            []

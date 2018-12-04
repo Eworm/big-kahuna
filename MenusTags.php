@@ -40,7 +40,7 @@ class MenusTags extends Tags
             $html .= '<ul id="' . $id . '" class="' . $class . '">';
         } else {
             // A submenu list
-            $html .= '<ul  class="' . $submenuClass . '">';
+            $html .= '<ul class="' . $submenuClass . '">';
         }
 
         foreach ($pages as $page) {

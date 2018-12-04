@@ -63,14 +63,13 @@ class MenusController extends Controller
             $id = $item['id'];
             $content = Content::find($id);
 
-            // TODO: Check the type and return the proper url
             $newpages[] = (object) [
                 'id'                => $id,
                 'order'             => $item['order'],
                 'type'              => $item['type'],
                 'title'             => $item['title'],
-                'original_title'    => $content->get('title'),
-                'url'               => $content->absoluteUrl(),
+                'original_title'    => $this->itemTitle($item),
+                'url'               => $this->itemUrl($item),
                 'items'             => $this->getJsonItems($item['items']),
                 'pages'             => $item['pages']
             ];
@@ -78,6 +77,39 @@ class MenusController extends Controller
         return $newpages;
     }
 
+    /**
+     * Return the branch title
+     *
+     * @return string
+     */
+    private function itemTitle($item)
+    {
+        $id = $item['id'];
+        $content = Content::find($id);
+
+        if ($item['type'] == 'Custom') {
+            return $item['title'];
+        } else {
+            return $content->get('title');
+        }
+    }
+
+    /**
+     * Return the branch url
+     *
+     * @return string
+     */
+    private function itemUrl($item)
+    {
+        $id = $item['id'];
+        $content = Content::find($id);
+
+        if ($item['type'] == 'Custom') {
+            return $item['url'];
+        } else {
+            return $content->absoluteUrl();
+        }
+    }
 
     /**
      * Return all content as json
@@ -129,7 +161,7 @@ class MenusController extends Controller
      *
      * @return string
      */
-    public function contentType()
+    private function contentType()
     {
         if ($this instanceof Page) {
             return 'page';
@@ -174,19 +206,34 @@ class MenusController extends Controller
     private function saveJsonItems ($pages)
     {
         $newpages = [];
-        foreach ($pages as $item) {
-            $id = $item['id'];
+        foreach ($pages as $page) {
+            $id = $page['id'];
             $content = Content::find($id);
 
-            // TODO: Check the type and return the proper url
-            $newpages[] = (object) [
-                'id'                => $id,
-                'order'             => $item['order'],
-                'type'              => $item['type'],
-                'title'             => $item['title'],
-                'items'             => $this->saveJsonItems($item['items']),
-                'pages'             => $item['pages']
-            ];
+            if ($page['type'] == 'Custom') {
+
+                $newpages[] = (object) [
+                    'id'                => $id,
+                    'order'             => $page['order'],
+                    'type'              => $page['type'],
+                    'title'             => $page['title'],
+                    'url'               => $page['url'],
+                    'items'             => $this->saveJsonItems($page['items']),
+                    'pages'             => $page['pages']
+                ];
+
+            } else {
+
+                $newpages[] = (object) [
+                    'id'                => $id,
+                    'order'             => $page['order'],
+                    'type'              => $page['type'],
+                    'title'             => $page['title'],
+                    'items'             => $this->saveJsonItems($page['items']),
+                    'pages'             => $page['pages']
+                ];
+
+            }
         }
         return $newpages;
     }
