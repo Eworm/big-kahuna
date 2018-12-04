@@ -45,3 +45,6 @@ The class for every ul element inside a list item following a link. The default 
 
 **submenu\_item\_class**  
 The class for every li element in a submenu. The default is 'submenu__item';
+
+### Stuff not on the menu
+* Custom links to external sites get a rel="external" on the link tag.
