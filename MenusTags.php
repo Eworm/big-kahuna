@@ -30,7 +30,7 @@ class MenusTags extends Tags
             $content = Content::find($id);
 
             $html .= '<li class="' . $itemClass . '">';
-            $html .= '<a href="' . $content->slug() . '" title="">';
+            $html .= '<a href="' . $content->absoluteUrl() . '" title="">';
             $html .= $page['title'];
             $html .= '</a>';
             if ($page['items']) {
@@ -40,7 +40,7 @@ class MenusTags extends Tags
                         $content = Content::find($id);
 
                         $html .= '<li class="">';
-                        $html .= '<a href="' . $content->slug() . '" title="">';
+                        $html .= '<a href="' . $content->absoluteUrl() . '" title="">';
                         $html .= $subpage['title'];
                         $html .= '</a>';
                         $html .= '</li>';
