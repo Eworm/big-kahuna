@@ -2,4 +2,5 @@
 /package.json export-ignore
 /package-lock.json export-ignore
 /gulpfile.js export-ignore
+/yarn.lock export-ignore
 /.gitattributes export-ignore

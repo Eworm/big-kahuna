@@ -1,4 +1,6 @@
-var elixir = require('laravel-elixir');
+var gulp = require('gulp'),
+    elixir = require('laravel-elixir'),
+    plugins = require('gulp-load-plugins')();
 
 require('laravel-elixir-vue');
 

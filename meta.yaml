@@ -3,3 +3,4 @@ version: '1.0'
 description: 'Add a wordpress style flexible menu editor to Statamic'
 developer: 'Wout Mager'
 developer_url: 'https://woutmager.nl'
+commercial: true
