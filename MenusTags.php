@@ -20,11 +20,11 @@ class MenusTags extends Tags
     }
 
     /**
-     * The {{ menus }} tag
+     * The recursive list
      *
-     * @return array
+     * @return html
      */
-    private function getItems($pages)
+    private function getItems($pages, $root = true)
     {
 
         $id             = ($this->getParam('id')) ? $this->getParam('id') : "";
@@ -34,21 +34,25 @@ class MenusTags extends Tags
         $submenuClass   = ($this->getParam('submenu_class')) ? $this->getParam('submenu_class') : "submenu";
 
         $html = '';
-        $html .= '<ul id="' . $id . '" class="' . $class . '">';
+
+        if ($root == true) {
+            // The root list
+            $html .= '<ul id="' . $id . '" class="' . $class . '">';
+        } else {
+            // A submenu list
+            $html .= '<ul  class="' . $submenuClass . '">';
+        }
 
         foreach ($pages as $page) {
             $id = $page['id'];
             $content = Content::find($id);
-
             $html .= '<li class="' . $itemClass . '">';
             $html .= '<a href="' . $content->absoluteUrl() . '" title="">';
             $html .= $page['title'];
             $html .= '</a>';
-
             if ($page['items']) {
-                $html .= $this->getItems($page['items']);
+                $html .= $this->getItems($page['items'], false);
             }
-
             $html .= '</li>';
         }
 
