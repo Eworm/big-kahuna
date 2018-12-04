@@ -58,7 +58,7 @@ export default {
 
             // Push new object in possibleLinks
             this.possibleLinks.push({
-                id:                 1,
+                id:                 new Date().valueOf(),
                 "order":            1,
                 "url":              this.customUrl,
                 "title":            this.customTitle,
