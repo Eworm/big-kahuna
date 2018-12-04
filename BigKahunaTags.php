@@ -1,11 +1,11 @@
 <?php
 
-namespace Statamic\Addons\Menus;
+namespace Statamic\Addons\BigKahuna;
 
 use Statamic\API\Content;
 use Statamic\Extend\Tags;
 
-class MenusTags extends Tags
+class BigKahunaTags extends Tags
 {
     /**
      * The {{ menus }} tag
@@ -14,7 +14,7 @@ class MenusTags extends Tags
      */
     public function index()
     {
-        // Get the pages from storage and return proper html
+        // Get the pages from storaBigKahunad return proper html
         $pages = $this->storage->getJSON('pages');
         return $this->getItems($pages);
     }

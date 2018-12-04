@@ -68,7 +68,7 @@ export default {
             this.pages          = [];
             this.loading        = false;
             this.placeholder    = true;
-            var url             = cp_url('addons/menus/json');
+            var url             = cp_url('addons/bigkahuna/json');
 
             this.$http.get(url, function(data) {
                 if (data) {
@@ -183,7 +183,7 @@ export default {
             var pages = JSON.parse(JSON.stringify(self.pages));
             pages = self.updateOrderIndexes(pages);
 
-            this.$http.post(cp_url('addons/menus/save'), { pages: pages }).success(function(data) {
+            this.$http.post(cp_url('addons/bigkahuna/save'), { pages: pages }).success(function(data) {
                 self.getPages();
                 self.changed = false;
                 self.saving = false;

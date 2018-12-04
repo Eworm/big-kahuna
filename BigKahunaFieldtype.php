@@ -1,10 +1,10 @@
 <?php
 
-namespace Statamic\Addons\Menus;
+namespace Statamic\Addons\BigKahuna;
 
 use Statamic\Extend\Fieldtype;
 
-class MenusFieldtype extends Fieldtype
+class BigKahunaFieldtype extends Fieldtype
 {
     /**
      * The blank/default value

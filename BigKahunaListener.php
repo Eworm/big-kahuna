@@ -1,11 +1,11 @@
 <?php
 
-namespace Statamic\Addons\Menus;
+namespace Statamic\Addons\BigKahuna;
 
 use Statamic\API\Nav;
 use Statamic\Extend\Listener;
 
-class MenusListener extends Listener
+class BigKahunaListener extends Listener
 {
     /**
      * The events to be listened for, and the methods to call.

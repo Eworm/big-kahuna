@@ -1,4 +1,4 @@
-.dossier-table-wrapper #tbody {
+#bigkahuna .dossier-table-wrapper #tbody {
     height: 300px;
     display: flex;
     flex-direction: column;
@@ -7,19 +7,15 @@
 }
 
 /* Hide a page title & show the title editor */
-.branch-row .edit-url {
+#bigkahuna .branch-row .edit-url {
     display: none;
 }
 
-.branch-row .active .page-title {
-    /* display: none; */
-}
-
-.branch-row .active .edit-url {
+#bigkahuna .branch-row .active .edit-url {
     display: block;
 }
 
-.original-title {
+#bigkahuna .original-title {
     display: block;
     font-weight: normal;
 }

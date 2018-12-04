@@ -1,6 +1,6 @@
 <?php
 
-namespace Statamic\Addons\Menus;
+namespace Statamic\Addons\BigKahuna;
 
 use Statamic\API\Page;
 use Statamic\API\Collection;
@@ -10,7 +10,7 @@ use Statamic\Contracts\Data\Pages\PageTreeReorderer;
 use Statamic\Extend\Controller;
 use Illuminate\Http\Request;
 
-class MenusController extends Controller
+class BigKahunaController extends Controller
 {
     /**
      * Maps to your route definition in routes.yaml
