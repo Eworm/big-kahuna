@@ -37,7 +37,7 @@ class MenusController extends Controller
     }
 
     /**
-     * Return all pages in menu as json
+     * Return all pages in menu as an array
      *
      * @return array
      */
@@ -143,10 +143,9 @@ class MenusController extends Controller
     /**
      * Page tree save submission
      *
-     * @param PageTreeReorderer $reorderer
      * @return array
      */
-    public function save(PageTreeReorderer $reorderer)
+    public function save()
     {
         get('token', function () {
             return csrf_token();
