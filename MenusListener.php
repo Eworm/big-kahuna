@@ -21,7 +21,7 @@ class MenusListener extends Listener
     {
         // Create the first level navigation item
         // Note: by using route('store'), it assumes you've set up a route named 'store'.
-        $menus = Nav::item('Menus')->route('addons.menu_editor')->icon('air');
+        $menus = Nav::item('Menus')->route('addons.menu_editor')->icon('cake');
 
         // Finally, add our first level navigation item
         // to the navigation under the 'tools' section.
