@@ -39,6 +39,14 @@
 
                         <div :class="{'page-tree': true, 'show-urls': showUrls}">
 
+                            <div class="card" v-if="placeholder">
+                                <div class="no-results">
+                                    <span class="icon icon-documents"></span>
+                                    <h2>Your custom menu is empty</h2>
+                                    <h3>Add items from the contentlist or add custom links.</h3>
+                                </div>
+                            </div>
+
                             <div class="loading" v-if="loading">
                                 <span class="icon icon-circular-graph animation-spin"></span> Loading
                             </div>
@@ -48,10 +56,6 @@
                                     <i class="icon icon-circular-graph animation-spin"></i> Saving
                                 </div>
                             </div>
-
-                            {{-- <div class="well">
-                                Empty
-                            </div> --}}
 
                             {{-- Keeping this or else drag & drop won't work --}}
                             <ul class="tree-home list-unstyled" v-if="!loading">

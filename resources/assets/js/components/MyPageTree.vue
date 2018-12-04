@@ -15,6 +15,7 @@ export default {
 
     data: function() {
         return {
+            placeholder: true,
             loading: true,
             saving: false,
             changed: false,
@@ -65,15 +66,17 @@ export default {
         },
 
         getPages: function() {
-            this.pages      = [];
-            this.loading    = false;
-            var url         = cp_url('addons/menus/json');
+            this.pages          = [];
+            this.loading        = false;
+            this.placeholder    = true;
+            var url             = cp_url('addons/menus/json');
 
             this.$http.get(url, function(data) {
                 if (data) {
-                    this.arePages   = data.pages.length > 0;
-                    this.pages      = data.pages;
-                    this.loading    = false;
+                    this.arePages       = data.pages.length > 0;
+                    this.pages          = data.pages;
+                    this.loading        = false;
+                    this.placeholder    = false;
 
                     this.$nextTick(function() {
                         this.initSortable();
