@@ -5,7 +5,7 @@
                 :uuid="page.id"
                 :title="page.title || page.slug"
                 :original_title="page.original_title || page.slug"
-                :url="buildUrl(page.slug)"
+                :url="page.url"
                 :type="page.type"
                 :child-pages="page.items"
                 :depth="depth"
@@ -26,7 +26,7 @@ export default {
     },
 
     computed: {
-        
+
         classes: function () {
             // Start with the static ones
             var classes = ['branches'];

@@ -38,6 +38,7 @@ class MenusTags extends Tags
                     foreach ($page['items'] as $item) {
                         $id      = $item['id'];
                         $content = Content::find($id);
+
                         $html .= '<li class="">';
                         $html .= '<a href="' . $content->slug() . '" title="">';
                         $html .= $content->get('title');
