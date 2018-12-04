@@ -47,4 +47,5 @@ The class for every ul element inside a list item following a link. The default 
 The class for every li element in a submenu. The default is 'submenu__item';
 
 ### Stuff not on the menu
-* Custom links to external sites get a rel="external" on the link tag.
+* Custom links to external sites get a `rel="external"` on the link tag.
+* Since the 'is--active' class is added to an li, it's best to use something like `.is--active > a` in your stylesheet for feedback classes. That way the submenu links don't inherit the active style.
