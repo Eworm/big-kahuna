@@ -47,7 +47,12 @@ class MenusTags extends Tags
             $id = $page['id'];
             $content = Content::find($id);
             $html .= '<li class="' . $itemClass . '">';
-            $html .= '<a href="' . $content->absoluteUrl() . '" title="">';
+
+            if ($page['type'] == 'Custom') {
+                $html .= '<a href="' . $page['url'] . '" title="">';
+            } else {
+                $html .= '<a href="' . $content->absoluteUrl() . '" title="">';
+            }
             $html .= $page['title'];
             $html .= '</a>';
             if ($page['items']) {
