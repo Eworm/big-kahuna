@@ -2,7 +2,7 @@
     <ul :class="classes">
         <mybranch v-for="page in pages"
                 :branch-index="$index"
-                :uuid="page.id"
+                :id="page.id"
                 :title="page.title || page.url"
                 :original_title="page.original_title || page.url"
                 :url="page.url"

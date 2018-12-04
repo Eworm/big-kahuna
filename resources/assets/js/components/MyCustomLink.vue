@@ -57,8 +57,9 @@ export default {
         add: function() {
 
             // Push new object in possibleLinks
+            var d = new Date().valueOf();
             this.possibleLinks.push({
-                id:                 new Date().valueOf(),
+                id:                 d.toString(),
                 "order":            1,
                 "url":              this.customUrl,
                 "title":            this.customTitle,

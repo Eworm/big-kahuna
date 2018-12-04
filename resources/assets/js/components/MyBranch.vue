@@ -56,7 +56,7 @@ export default {
 
     props: {
         branchIndex: Number,
-        uuid: String,
+        id: String,
         title: String,
         original_title: String,
         url: String,
@@ -95,7 +95,7 @@ export default {
 
             // Find object by selected ID
             var index = this.$parent.pages.findIndex(function(item, i){
-                return item.id === self.uuid
+                return item.id === self.id
             });
 
             // Remove the object by index
@@ -108,9 +108,8 @@ export default {
         editTitle: function(evt) {
             var self = this;
             const result = this.$parent.pages.filter(function(el) {
-                return el.id == self.uuid
+                return el.id == self.id
             });
-            console.log(result);
             result[0].title = evt.target.value;
             this.$dispatch('page.edit', evt.target.value);
         },
