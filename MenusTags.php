@@ -31,17 +31,17 @@ class MenusTags extends Tags
 
             $html .= '<li class="' . $itemClass . '">';
             $html .= '<a href="' . $content->slug() . '" title="">';
-            $html .= $content->get('title');
+            $html .= $page['title'];
             $html .= '</a>';
             if ($page['items']) {
                 $html .= '<ul class="' . $submenuClass . '">';
-                    foreach ($page['items'] as $item) {
-                        $id      = $item['id'];
+                    foreach ($page['items'] as $subpage) {
+                        $id      = $subpage['id'];
                         $content = Content::find($id);
 
                         $html .= '<li class="">';
                         $html .= '<a href="' . $content->slug() . '" title="">';
-                        $html .= $content->get('title');
+                        $html .= $subpage['title'];
                         $html .= '</a>';
                         $html .= '</li>';
                     }
