@@ -15,7 +15,7 @@ class BigKahunaTags extends Tags
     public function index()
     {
         // Get the pages from storaBigKahunad return proper html
-        $pages = $this->storage->getJSON('pages');
+        $pages = $this->storage->getJSON($this->getParam('name'));
         return $this->getItems($pages);
     }
 
@@ -26,7 +26,6 @@ class BigKahunaTags extends Tags
      */
     private function getItems($pages, $root = true)
     {
-
         $id                     = ($this->getParam('id')) ? $this->getParam('id') : "";
         $class                  = ($this->getParam('class')) ? $this->getParam('class') : "nav";
         $itemClass              = ($this->getParam('item_class')) ? $this->getParam('item_class') : "nav__item";

@@ -9,6 +9,7 @@ use Statamic\API\Content;
 use Statamic\Contracts\Data\Pages\PageTreeReorderer;
 use Statamic\Extend\Controller;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class BigKahunaController extends Controller
 {
@@ -19,9 +20,78 @@ class BigKahunaController extends Controller
      */
     public function index(Request $request)
     {
+        $menus_storage = Storage::files('/site/storage/addons/BigKahuna');
+        $menus = [];
+
+        if (!$menus_storage) {
+            return redirect()->route('addons.menu_editor.create');
+        }
+
+        foreach ($menus_storage as $menu) {
+            $add = str_replace('site/storage/addons/BigKahuna/', '', $menu);
+            $add = str_replace('.json', '', $add);
+            $menus[] = $add;
+        }
+
         return $this->view('index', [
-            'items' => $this->getItems($request)
+            'menus' => $menus
         ]);
+    }
+
+    /**
+     * Maps to your route definition in routes.yaml
+     *
+     * @return mixed
+     */
+    public function edit(Request $request)
+    {
+        return $this->view('edit', [
+            'items' => $this->getItems($request),
+            'menu' => $request->menu
+        ]);
+    }
+
+    /**
+     * Maps to your route definition in routes.yaml
+     *
+     * @return mixed
+     */
+    public function create(Request $request)
+    {
+        return $this->view('create');
+    }
+
+    /**
+     * Maps to your route definition in routes.yaml
+     *
+     * @return mixed
+     */
+    public function store(Request $request)
+    {
+        $menu_name = str_slug($request->menu_name);
+
+        $this->storage->putJSON($menu_name, []);
+
+        return [
+            'success' => true,
+            'message' => 'Pages updated successfully.',
+            'menu' => $menu_name
+        ];
+    }
+
+    /**
+     * Maps to your route definition in routes.yaml
+     *
+     * @return mixed
+     */
+    public function destroy(Request $request)
+    {
+        Storage::delete('site/storage/addons/BigKahuna/'.$request->menu.'.json');
+
+        return [
+            'success' => true,
+            'message' => 'Menu deleted successfully'
+        ];
     }
 
     /**
@@ -41,9 +111,9 @@ class BigKahunaController extends Controller
      *
      * @return array
      */
-    public function json()
+    public function json(Request $request)
     {
-        $pages = $this->storage->getJSON('pages');
+        $pages = $this->storage->getJSON($request->menu);
         if (!empty($pages)) {
             return [
                 'pages' => $this->getJsonItems($pages)
@@ -56,7 +126,7 @@ class BigKahunaController extends Controller
      *
      * @return array
      */
-    private function getJsonItems ($pages)
+    private function getJsonItems($pages)
     {
         $newpages = [];
         foreach ($pages as $item) {
@@ -120,19 +190,16 @@ class BigKahunaController extends Controller
     {
         $items = Content::all();
 
-        if ($request->has('q')){
-
-            $items = $items->filter(function($item) use ($request) {
+        if ($request->has('q')) {
+            $items = $items->filter(function ($item) use ($request) {
                 if (stripos($item->get('title'), $request->q) !== false || stripos($item->id(), $request->q) !== false) {
                     return true;
                 }
                 return false;
             });
-
         }
 
         return $items->map(function ($entry) {
-
             if ($entry->contentType() == 'page') {
                 return [
                     'id'        => $entry->id(),
@@ -152,7 +219,6 @@ class BigKahunaController extends Controller
                     "type"      => 'Term',
                 ];
             }
-
         });
     }
 
@@ -179,7 +245,7 @@ class BigKahunaController extends Controller
      *
      * @return array
      */
-    public function save()
+    public function save(Request $request)
     {
         get('token', function () {
             return csrf_token();
@@ -189,13 +255,12 @@ class BigKahunaController extends Controller
         $pages = $this->request->input('pages');
 
         // Save a new json with only the above options
-        $this->storage->putJSON('pages', $this->saveJsonItems($pages));
+        $this->storage->putJSON($request->menu, $this->saveJsonItems($pages));
 
         return [
             'success' => true,
             'message' => 'Pages updated successfully.'
         ];
-
     }
 
     /**
@@ -203,7 +268,7 @@ class BigKahunaController extends Controller
      *
      * @return array
      */
-    private function saveJsonItems ($pages)
+    private function saveJsonItems($pages)
     {
         $newpages = [];
         foreach ($pages as $page) {
@@ -211,7 +276,6 @@ class BigKahunaController extends Controller
             $content = Content::find($id);
 
             if ($page['type'] == 'Custom') {
-
                 $newpages[] = (object) [
                     'id'                => $id,
                     'order'             => $page['order'],
@@ -221,9 +285,7 @@ class BigKahunaController extends Controller
                     'items'             => $this->saveJsonItems($page['items']),
                     'pages'             => $page['pages']
                 ];
-
             } else {
-
                 $newpages[] = (object) [
                     'id'                => $id,
                     'order'             => $page['order'],
@@ -232,7 +294,6 @@ class BigKahunaController extends Controller
                     'items'             => $this->saveJsonItems($page['items']),
                     'pages'             => $page['pages']
                 ];
-
             }
         }
         return $newpages;

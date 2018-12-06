@@ -69,6 +69,10 @@ export default {
             });
             this.$eventHub.$emit('append-links', this.possibleLinks);
 
+            this.customTitle =  ''
+            this.customUrl =  ''
+            this.possibleLinks = []
+
         },
     }
 
