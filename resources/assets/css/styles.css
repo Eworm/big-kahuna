@@ -19,3 +19,10 @@
     display: block;
     font-weight: normal;
 }
+
+#bigkahuna .edit-url .btn {
+  margin-left: 5px;
+  line-height: 30px;
+  height: 30px;
+  margin-top: -3px;
+}

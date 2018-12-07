@@ -12,7 +12,7 @@ class BigKahunaTags extends Tags
      *
      * @return string|array
      */
-    public function menu()
+    public function index()
     {
         // Get the pages from storage and return proper html
         $pages = $this->storage->getJSON($this->getParam('name'));

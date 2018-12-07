@@ -29,7 +29,7 @@
                 <tfoot>
                     <tr>
                         <td colspan="2" class="p-2">
-                            <button type="button" class="btn btn-primary add-row" @click="add">
+                            <button type="button" class="btn btn-default add-row" @click="add">
                                 {{ translate('cp.add') }}
                                 <i class="icon icon-plus icon-right"></i>
                             </button>
@@ -92,15 +92,19 @@ export default {
         ),
 
         add: function() {
-            this.$eventHub.$emit('append-links', this.possibleLinks);
+            if (this.possibleLinks.length) {
+                this.$eventHub.$emit('append-links', this.possibleLinks);
 
-            var c = document.querySelectorAll('.checkbox-col > input')
+                this.possibleLinks = [];
 
-            this.possibleLinks = [];
+                var checkboxes = document.querySelectorAll('#bigkahuna .checkbox-col > input')
 
-            c.forEach(function(c) {
-              c.checked = false
-            })
+                checkboxes.forEach(function(box) {
+                  box.checked = false
+                })
+            } else {
+               this.$dispatch("setFlashError", 'Uh oh! Select one or more items')
+            }
         },
 
         handleChange: function(e) {

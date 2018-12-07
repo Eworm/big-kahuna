@@ -19,7 +19,7 @@
                 </div>
             </div>
             <div class="form-group p-2 mb-0 w-full flex items-end border-b">
-                <button type="button" class="btn btn-primary add-row float-right" @click="add">
+                <button type="button" class="btn btn-default add-row float-right" @click="add">
                     {{ translate('cp.add') }}
                     <i class="icon icon-plus icon-right"></i>
                 </button>
@@ -56,23 +56,26 @@ export default {
 
         add: function() {
 
-            // Push new object in possibleLinks
-            var d = new Date().valueOf();
-            this.possibleLinks.push({
-                id:                 d.toString(),
-                "order":            1,
-                "url":              this.customUrl,
-                "title":            this.customTitle,
-                "type":             this.customType,
-                "items":            [],
-                "pages":            []
-            });
-            this.$eventHub.$emit('append-links', this.possibleLinks);
+            if (this.customTitle != '' && this.customUrl != '') {
+                // Push new object in possibleLinks
+                var d = new Date().valueOf();
+                this.possibleLinks.push({
+                    id:                 d.toString(),
+                    "order":            1,
+                    "url":              this.customUrl,
+                    "title":            this.customTitle,
+                    "type":             this.customType,
+                    "items":            [],
+                    "pages":            []
+                });
+                this.$eventHub.$emit('append-links', this.possibleLinks);
 
-            this.customTitle =  ''
-            this.customUrl =  ''
-            this.possibleLinks = []
-
+                this.customTitle =  ''
+                this.customUrl =  ''
+                this.possibleLinks = []
+            } else {
+                this.$dispatch("setFlashError", 'Uh oh! Enter a title and URL.');
+            }
         },
     }
 
