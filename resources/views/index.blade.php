@@ -19,7 +19,7 @@
                             <tr>
                                 <td class="cell-title first-cell">
                                     <span class="column-label">Title</span>
-                                    <a href="{{ route('addons.menu_editor.edit', $menu) }}">
+                                    <a href="{{ route('addons.menu_editor.edit', $menu) }}" title="{{ ucwords(str_replace('-', ' ', $menu)) }}">
                                         {{ ucwords(str_replace('-', ' ', $menu)) }}
                                     </a>
                                 </td>
@@ -34,7 +34,7 @@
                                         <button type="button" class="btn-more dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="icon icon-dots-three-vertical"></i> </button>
                                         <ul class="dropdown-menu">
                                             <li class="warning" @click="deleteMenu('{{ $menu }}')">
-                                                <a href="#">Delete</a>
+                                                <a href="#" title="Delete this menu">Delete</a>
                                             </li>
                                         </ul>
                                     </div>

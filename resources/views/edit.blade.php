@@ -1,6 +1,7 @@
 @extends('layout')
 
 @section('content')
+    
     <my-page-tree inline-template v-cloak :menu="'{{ $menu }}'">
 
         <div id="bigkahuna">
@@ -9,7 +10,7 @@
 
                 <div class="flex items-center flex-wrap mb-3">
 
-                    <h1 class="w-full text-center mb-2 md:mb-0 md:text-left md:w-auto md:flex-1">Menu</h1>
+                    <h1 class="w-full text-center mb-2 md:mb-0 md:text-left md:w-auto md:flex-1">{{ $menu }}</h1>
 
                     <div class="controls flex flex-wrap justify-center md:block items-center w-full md:w-auto">
                         <div class="btn-group btn-group-primary ml-1" v-if="arePages && changed">

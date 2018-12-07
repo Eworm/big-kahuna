@@ -58,7 +58,7 @@ Vue.component('menus-create-page', {
           cp_url("addons/big-kahuna/store"),
           {menu_name: this.menuName},
           function(res) {
-            location.href = '/admin/addons/big-kahuna/edit/'+res.menu
+            location.href = cp_url('addons/big-kahuna/edit/') + res.menu
           }
         )
       } else {
