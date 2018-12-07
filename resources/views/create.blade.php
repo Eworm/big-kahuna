@@ -2,7 +2,7 @@
 
 @section('content')
 
-    <menus-create-page inline-template>
+    <bk-create-page inline-template>
 
         <div id="bigkahuna">
 
@@ -23,6 +23,6 @@
 
         </div>
 
-    </menus-create-page>
+    </bk-create-page>
 
 @endsection

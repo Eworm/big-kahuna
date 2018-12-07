@@ -1,6 +1,6 @@
 <template>
     <ul :class="classes">
-        <mybranch v-for="page in pages"
+        <bkbranch v-for="page in pages"
                 :branch-index="$index"
                 :id="page.id"
                 :title="page.title || page.url"
@@ -9,7 +9,7 @@
                 :type="page.type"
                 :child-pages="page.items"
                 :depth="depth"
-        ></mybranch>
+        ></bkbranch>
     </ul>
 </template>
 

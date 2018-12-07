@@ -1,11 +1,11 @@
 Vue.prototype.$eventHub = new Vue(); // Global event bus
-Vue.component('myfilter', require('./components/MyFilter.vue'));
-Vue.component('mycustomlink', require('./components/MyCustomLink.vue'));
-Vue.component('mybranch', require('./components/MyBranch.vue'));
-Vue.component('mybranches', require('./components/MyBranches.vue'));
-Vue.component('my-page-tree', require('./components/MyPageTree.vue'));
+Vue.component('bkfilter', require('./components/BkFilter.vue'));
+Vue.component('bkcustomlink', require('./components/BkCustomLink.vue'));
+Vue.component('bkbranch', require('./components/BkBranch.vue'));
+Vue.component('bkbranches', require('./components/BkBranches.vue'));
+Vue.component('bkpagetree', require('./components/BkPageTree.vue'));
 
-Vue.component('menus-list-page', {
+Vue.component('bk-list-page', {
     props: [],
 
     data: function() {
@@ -43,7 +43,7 @@ Vue.component('menus-list-page', {
     ready: function() {}
 });
 
-Vue.component('menus-create-page', {
+Vue.component('bk-create-page', {
     props: [],
 
     data: function() {

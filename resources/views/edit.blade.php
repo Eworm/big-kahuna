@@ -1,8 +1,8 @@
 @extends('layout')
 
 @section('content')
-    
-    <my-page-tree inline-template v-cloak :menu="'{{ $menu }}'">
+
+    <bkpagetree inline-template v-cloak :menu="'{{ $menu }}'">
 
         <div id="bigkahuna">
 
@@ -29,9 +29,9 @@
 
                     <div class="col-md-5">
 
-                        <myfilter></myfilter>
+                        <bkfilter></bkfilter>
 
-                        <mycustomlink></mycustomlink>
+                        <bkcustomlink></bkcustomlink>
 
                     </div>
 
@@ -54,12 +54,12 @@
                                 {{-- Keeping this or else drag & drop won't work --}}
                                 <ul class="tree-home list-unstyled" v-if="!loading">
                                 </ul>
-                                <mybranches
+                                <bkbranches
                                     :pages="pages"
                                     :depth="1"
                                     :sortable="isSortable"
                                     :dirty="!dirty">
-                                </mybranches>
+                                </bkbranches>
 
                                 <div class="card" v-if="placeholder">
                                     <div class="no-results">
@@ -91,6 +91,6 @@
 
         </div>
 
-    </my-page-tree>
+    </bkpagetree>
 
 @endsection

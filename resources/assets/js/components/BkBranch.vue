@@ -37,11 +37,11 @@
             </div>
         </div>
 
-        <mybranches :pages="childPages"
+        <bkbranches :pages="childPages"
                   :depth="depth + 1"
                   :parent-url="url"
                   :collapsed.sync="collapsed">
-        </mybranches>
+        </bkbranches>
     </li>
 </template>
 

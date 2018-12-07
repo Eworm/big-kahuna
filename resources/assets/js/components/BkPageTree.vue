@@ -1,16 +1,16 @@
 <script>
-import MyFilter from './MyFilter.vue';
-import MyCustomLink from './MyCustomLink.vue';
-import MyBranch from './MyBranch.vue';
-import MyBranches from './MyBranches.vue';
+import BkFilter from './BkFilter.vue';
+import BkCustomLink from './BkCustomLink.vue';
+import BkBranch from './BkBranch.vue';
+import BkBranches from './BkBranches.vue';
 
 export default {
 
     components: {
-        MyFilter,
-        MyCustomLink,
-        MyBranches,
-        MyBranch,
+        BkFilter,
+        BkCustomLink,
+        BkBranches,
+        BkBranch,
     },
 
     props: ['menu'],

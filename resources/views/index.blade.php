@@ -2,7 +2,7 @@
 
 @section('content')
 
-    <menus-list-page inline-template>
+    <bk-list-page inline-template>
 
         <div id="bigkahuna">
 
@@ -48,6 +48,6 @@
 
         </div>
 
-    </menus-list-page>
+    </bk-list-page>
 
 @endsection
