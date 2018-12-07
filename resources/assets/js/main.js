@@ -6,66 +6,68 @@ Vue.component('mybranches', require('./components/MyBranches.vue'));
 Vue.component('my-page-tree', require('./components/MyPageTree.vue'));
 
 Vue.component('menus-list-page', {
-  props: [],
+    props: [],
 
-  data: function() {
-    return {}
-  },
+    data: function() {
+        return {}
+    },
 
-  methods: {
-    deleteMenu: function(menu) {
-      var vm = this;
+    methods: {
+        deleteMenu: function(menu) {
+            var vm = this;
 
-      swal({
-        title: "Are you sure?",
-        text: 'This item will be deleted',
-        type: 'warning',
-        confirmButtonText: 'Yes, I\'m sure',
-        showCancelButton: true,
-        closeOnConfirm: false,
-      },
-      function(canDelete){
-        if (canDelete) {
-          vm.$http.delete(
-            cp_url('addons/big-kahuna/destroy'),
-            {menu: menu},
-            function() {
-              location.reload();
-            }
-          )
+            swal({
+                    title: "Are you sure?",
+                    text: 'This item will be deleted',
+                    type: 'warning',
+                    confirmButtonText: 'Yes, I\'m sure',
+                    showCancelButton: true,
+                    closeOnConfirm: false,
+                },
+                function(canDelete) {
+                    if (canDelete) {
+                        vm.$http.delete(
+                            cp_url('addons/big-kahuna/destroy'), {
+                                menu: menu
+                            },
+                            function() {
+                                location.reload();
+                            }
+                        )
+                    }
+                });
+
         }
-      });
+    },
 
-    }
-  },
-
-  ready: function() {}
+    ready: function() {}
 });
 
 Vue.component('menus-create-page', {
-  props: [],
+    props: [],
 
-  data: function() {
-    return {
-      menuName: ''
-    }
-  },
+    data: function() {
+        return {
+            menuName: ''
+        }
+    },
 
-  methods: {
-    saveMenu: function() {
-      if (this.menuName !== '') {
-        this.$http.post(
-          cp_url("addons/big-kahuna/store"),
-          {menu_name: this.menuName},
-          function(res) {
-            location.href = cp_url('addons/big-kahuna/edit/') + res.menu
-          }
-        )
-      } else {
-        this.$dispatch("setFlashError", 'Enter a menu name')
-      }
-    }
-  },
+    methods: {
+        saveMenu: function() {
+            if (this.menuName !== '') {
+                this.$http.post(
+                    cp_url("addons/big-kahuna/store"), {
+                        menu_name: this.menuName
+                    },
+                    function(res) {
+                        location.href = cp_url('addons/big-kahuna/edit/') + res.menu
+                    }
+                )
+            } else {
+                this.$dispatch("setFlashError", 'Enter a menu name')
+            }
+        }
+    },
 
-  ready: function() {}
+    ready: function() {}
 });
