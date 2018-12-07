@@ -14,7 +14,7 @@ class BigKahunaTags extends Tags
      */
     public function menu()
     {
-        // Get the pages from storaBigKahunad return proper html
+        // Get the pages from storage and return proper html
         $pages = $this->storage->getJSON($this->getParam('name'));
         return $this->getItems($pages);
     }
@@ -26,6 +26,7 @@ class BigKahunaTags extends Tags
      */
     private function getItems($pages, $root = true)
     {
+        $name                   = ($this->getParam('name')) ? ' ' . $this->getParam('name') : "";
         $id                     = ($this->getParam('id')) ? $this->getParam('id') : "";
         $class                  = ($this->getParam('class')) ? $this->getParam('class') : "nav";
         $itemClass              = ($this->getParam('item_class')) ? $this->getParam('item_class') : "nav__item";
@@ -39,7 +40,7 @@ class BigKahunaTags extends Tags
 
         if ($root == true) {
             // The root list
-            $html .= '<ul id="' . $id . '" class="' . $class . '">';
+            $html .= '<ul id="' . $id . '" class="' . $class . $name . '">';
         } else {
             // A submenu list
             $html .= '<ul class="' . $submenu_class . '">';
