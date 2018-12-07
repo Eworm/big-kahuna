@@ -7,7 +7,7 @@
         <div id="bigkahuna">
 
             <div class="flex items-center flex-wrap mb-3">
-                <h1 class="w-full text-center mb-2 md:mb-0 md:text-left md:w-auto md:flex-1">Add menu</h1>
+                <h1 class="w-full text-center mb-2 md:mb-0 md:text-left md:w-auto md:flex-1">Add new menu</h1>
             </div>
 
             <div class="card p-1">
