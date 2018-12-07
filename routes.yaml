@@ -3,7 +3,19 @@ routes:
   /:
     as: addons.menu_editor
     uses: index
-  /json: BigKahunaController@json
+  /edit/{menu}:
+    as: addons.menu_editor.edit
+    uses: edit
+  /create:
+    as: addons.menu_editor.create
+    uses: create
+  post@store:
+    as: addons.menu_editor.store
+    uses: store
+  delete@destroy:
+    as: addons.menu_editor.destroy
+    uses: destroy
+  /json/{menu}: BigKahunaController@json
   /allpages: BigKahunaController@allpages
   # POST request to /cp/addons/addon-name/save using the save method
-  post@save: BigKahunaController@save
+  post@save/{menu}: BigKahunaController@save

@@ -93,6 +93,14 @@ export default {
 
         add: function() {
             this.$eventHub.$emit('append-links', this.possibleLinks);
+
+            var c = document.querySelectorAll('.checkbox-col > input')
+
+            this.possibleLinks = [];
+
+            c.forEach(function(c) {
+              c.checked = false
+            })
         },
 
         handleChange: function(e) {

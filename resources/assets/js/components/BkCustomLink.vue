@@ -15,7 +15,7 @@
                     <label class="block">{{ translate('cp.url') }}</label>
                 </div>
                 <div class="w-2/3 flex justify-end">
-                    <input type="url" class="form-control" v-model="customUrl">
+                    <input type="url" class="form-control" v-model="customUrl" placeholder="Including http:// or https://">
                 </div>
             </div>
             <div class="form-group p-2 mb-0 w-full flex items-end border-b">
@@ -68,6 +68,10 @@ export default {
                 "pages":            []
             });
             this.$eventHub.$emit('append-links', this.possibleLinks);
+
+            this.customTitle =  ''
+            this.customUrl =  ''
+            this.possibleLinks = []
 
         },
     }

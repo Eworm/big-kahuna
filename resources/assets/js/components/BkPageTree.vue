@@ -1,17 +1,19 @@
 <script>
-import MyFilter from './MyFilter.vue';
-import MyCustomLink from './MyCustomLink.vue';
-import MyBranch from './MyBranch.vue';
-import MyBranches from './MyBranches.vue';
+import BkFilter from './BkFilter.vue';
+import BkCustomLink from './BkCustomLink.vue';
+import BkBranch from './BkBranch.vue';
+import BkBranches from './BkBranches.vue';
 
 export default {
 
     components: {
-        MyFilter,
-        MyCustomLink,
-        MyBranches,
-        MyBranch,
+        BkFilter,
+        BkCustomLink,
+        BkBranches,
+        BkBranch,
     },
+
+    props: ['menu'],
 
     data: function() {
         return {
@@ -59,16 +61,23 @@ export default {
     methods: {
 
         appendLinks(page) {
+            var pageCount = this.pages.length;
+
             this.page = page;
             this.pages.push.apply(this.pages, page);
             this.changed = true;
+            this.placeholder = false;
+
+            if (!pageCount) {
+              this.initSortable();
+            }
         },
 
         getPages: function() {
             this.pages          = [];
             this.loading        = false;
             this.placeholder    = true;
-            var url             = cp_url('addons/big-kahuna/json');
+            var url             = cp_url('addons/big-kahuna/json/'+this.menu);
 
             this.$http.get(url, function(data) {
                 if (data) {
@@ -183,7 +192,7 @@ export default {
             var pages = JSON.parse(JSON.stringify(self.pages));
             pages = self.updateOrderIndexes(pages);
 
-            this.$http.post(cp_url('addons/big-kahuna/save'), { pages: pages }).success(function(data) {
+            this.$http.post(cp_url('addons/big-kahuna/save/'+this.menu), { pages: pages }).success(function(data) {
                 self.getPages();
                 self.changed = false;
                 self.saving = false;
