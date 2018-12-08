@@ -216,7 +216,7 @@ class BigKahunaController extends Controller
                 return [
                     'id'        => $entry->id(),
                     "title"     => $entry->title(),
-                    "type"      => 'Term',
+                    "type"      => ucfirst($entry->taxonomyName()),
                 ];
             }
         });
