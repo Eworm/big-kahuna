@@ -29,7 +29,7 @@
                 <tfoot>
                     <tr>
                         <td colspan="2" class="p-2">
-                            <button type="button" class="btn btn-default add-row" @click="add">
+                            <button type="button" class="btn btn-primary add-row" @click="add">
                                 {{ translate('cp.add') }}
                                 <i class="icon icon-plus icon-right"></i>
                             </button>

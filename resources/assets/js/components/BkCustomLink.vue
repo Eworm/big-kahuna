@@ -19,7 +19,7 @@
                 </div>
             </div>
             <div class="form-group p-2 mb-0 w-full flex items-end border-b">
-                <button type="button" class="btn btn-default add-row float-right" @click="add">
+                <button type="button" class="btn btn-primary add-row float-right" @click="add">
                     {{ translate('cp.add') }}
                     <i class="icon icon-plus icon-right"></i>
                 </button>
