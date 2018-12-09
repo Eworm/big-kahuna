@@ -10,6 +10,8 @@
                     <div class="page-title">{{ title }} <span class="text-muted">({{ type }})</span></div>
                     <div class="edit-url pt-1">
                         <input type="text" value="{{ title }}" v-model="title" v-on:input="editTitle">
+                        <input type="text" value="{{ url }}" v-model="url" v-on:input="editUrl" v-if="type == 'Custom'">
+                        <button type="button" class="btn btn-primary" @click="editPage">{{ translate('cp.done') }}</button>
                         <button type="button" class="btn btn-default" @click="cancelTitleChange">{{ translate('cp.cancel') }}</button>
                         <span v-if="title != original_title" class="original-title mt-1 text-muted">Original title: {{ original_title }}</span>
                     </div>
@@ -111,6 +113,15 @@ export default {
                 return el.id == self.id
             });
             result[0].title = evt.target.value;
+            this.$dispatch('page.edit', evt.target.value);
+        },
+
+        editUrl: function(evt) {
+            var self = this;
+            const result = this.$parent.pages.filter(function(el) {
+                return el.id == self.id
+            });
+            result[0].url = evt.target.value;
             this.$dispatch('page.edit', evt.target.value);
         },
 

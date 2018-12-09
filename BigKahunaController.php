@@ -215,8 +215,8 @@ class BigKahunaController extends Controller
             } elseif ($entry->contentType() == 'term') {
                 return [
                     'id'        => $entry->id(),
-                    "title"     => $entry->id(),
-                    "type"      => 'Term',
+                    "title"     => $entry->title(),
+                    "type"      => ucfirst($entry->taxonomyName()),
                 ];
             }
         });

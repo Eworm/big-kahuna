@@ -2,13 +2,13 @@
 
 @section('content')
 
-    <bk-list-page inline-template>
+    <bkmenulist inline-template>
 
         <div id="bigkahuna">
 
             <div class="flex items-center mb-3">
                 <h1 class="w-full text-center mb-2 md:mb-0 md:text-left md:w-auto md:flex-1">Menus</h1>
-                <a href="{{ route('addons.menu_editor.create') }}" class="btn btn-primary">Add new menu</a>
+                <a href="{{ route('addons.menu_editor.create') }}" class="btn btn-primary">Create Menu</a>
             </div>
 
             <div class="card flush">
@@ -19,7 +19,7 @@
                             <tr>
                                 <td class="cell-title first-cell">
                                     <span class="column-label">Title</span>
-                                    <a href="{{ route('addons.menu_editor.edit', $menu) }}" title="{{ ucwords(str_replace('-', ' ', $menu)) }}">
+                                    <a href="{{ route('addons.menu_editor.edit', $menu) }}" title="Edit {{ ucwords(str_replace('-', ' ', $menu)) }}">
                                         {{ ucwords(str_replace('-', ' ', $menu)) }}
                                     </a>
                                 </td>
@@ -48,6 +48,6 @@
 
         </div>
 
-    </bk-list-page>
+    </bkmenulist>
 
 @endsection

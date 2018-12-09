@@ -17,7 +17,6 @@ export default {
 
     data: function() {
         return {
-            placeholder: true,
             loading: true,
             saving: false,
             changed: false,
@@ -61,22 +60,19 @@ export default {
     methods: {
 
         appendLinks(page) {
-            var pageCount = this.pages.length;
-
             this.page = page;
             this.pages.push.apply(this.pages, page);
             this.changed = true;
-            this.placeholder = false;
+            this.arePages = true;
 
-            if (!pageCount) {
-              this.initSortable();
-            }
+            this.$nextTick(function() {
+                this.initSortable();
+            });
         },
 
         getPages: function() {
             this.pages          = [];
             this.loading        = false;
-            this.placeholder    = true;
             var url             = cp_url('addons/big-kahuna/json/'+this.menu);
 
             this.$http.get(url, function(data) {
@@ -84,11 +80,12 @@ export default {
                     this.arePages       = data.pages.length > 0;
                     this.pages          = data.pages;
                     this.loading        = false;
-                    this.placeholder    = false;
 
                     this.$nextTick(function() {
                         this.initSortable();
                     });
+                } else {
+                  this.arePages = false;
                 }
             });
         },
@@ -236,7 +233,11 @@ export default {
         'page.deleted': function () {
             var self = this;
             self.changed = true;
-        }
+
+            if (!this.pages.length) {
+                this.arePages = false;
+            }
+        },
 
     },
 
