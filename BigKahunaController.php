@@ -207,8 +207,15 @@ class BigKahunaController extends Controller
 
         if ($request->has('q')) {
             $items = $items->filter(function ($item) use ($request) {
-                if (stripos($item->get('title'), $request->q) !== false || stripos($item->id(), $request->q) !== false) {
-                    return true;
+
+                if ($item->contentType() == 'page') {
+                    if (stripos($item->get('title'), $request->q) !== false || stripos($item->id(), $request->q) !== false) {
+                        return true;
+                    }
+                } elseif ($item->contentType() == 'entry' || $item->contentType() == 'term') {
+                    if (stripos($item->get('title'), $request->q) !== false || stripos($item->id(), $request->q) !== false || stripos($item->collectionName(), $request->q) !== false) {
+                        return true;
+                    }
                 }
                 return false;
             });
