@@ -10,7 +10,7 @@
                     </tr>
                     <tr>
                         <th colspan="2" class="pr-2">
-                            <input v-model="searchTerm" type="search" placeholder="{{ translate('cp.Search for a page, entry or collection') }}" class="form-control">
+                            <input v-model="searchTerm" type="search" placeholder="{{ translate('cp.Search for a title, collection name or just type pages') }}" class="form-control">
                         </th>
                     </tr>
                 </thead>
