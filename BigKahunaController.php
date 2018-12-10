@@ -209,7 +209,7 @@ class BigKahunaController extends Controller
             $items = $items->filter(function ($item) use ($request) {
 
                 if ($item->contentType() == 'page') {
-                    if (stripos($item->get('title'), $request->q) !== false || stripos($item->id(), $request->q) !== false) {
+                    if (stripos($item->get('title'), $request->q) !== false || stripos($item->id(), $request->q) !== false || stripos($item->path(), $request->q) !== false) {
                         return true;
                     }
                 } elseif ($item->contentType() == 'entry' || $item->contentType() == 'term') {
