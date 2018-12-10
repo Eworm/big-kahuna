@@ -9,7 +9,7 @@
                         </th>
                     </tr>
                     <tr>
-                        <th colspan="2">
+                        <th colspan="2" class="pr-2">
                             <input v-model="searchTerm" type="search" placeholder="{{ translate('cp.Search for a page, entry or collection') }}" class="form-control">
                         </th>
                     </tr>
