@@ -212,8 +212,12 @@ class BigKahunaController extends Controller
                     if (stripos($item->get('title'), $request->q) !== false || stripos($item->id(), $request->q) !== false || stripos($item->path(), $request->q) !== false) {
                         return true;
                     }
-                } elseif ($item->contentType() == 'entry' || $item->contentType() == 'term') {
+                } elseif ($item->contentType() == 'entry') {
                     if (stripos($item->get('title'), $request->q) !== false || stripos($item->id(), $request->q) !== false || stripos($item->collectionName(), $request->q) !== false) {
+                        return true;
+                    }
+                } elseif ($item->contentType() == 'term') {
+                    if (stripos($item->title(), $request->q) !== false || stripos($item->id(), $request->q) !== false || stripos($item->taxonomyName(), $request->q) !== false) {
                         return true;
                     }
                 }
