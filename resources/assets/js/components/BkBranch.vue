@@ -11,6 +11,7 @@
                     <div class="edit-url pt-1">
                         <input type="text" value="{{ title }}" v-model="title" v-on:input="editTitle">
                         <input type="text" value="{{ url }}" v-model="url" v-on:input="editUrl" v-if="type == 'Custom'">
+                        <input type="text" value="{{ classname }}" v-model="classname" v-on:input="editClassname">
                         <button type="button" class="btn btn-primary" @click="editPage">{{ translate('cp.done') }}</button>
                         <button type="button" class="btn btn-default" @click="cancelTitleChange">{{ translate('cp.cancel') }}</button>
                         <span v-if="title != original_title" class="original-title mt-1 text-muted">Original title: {{ original_title }}</span>
@@ -62,6 +63,7 @@ export default {
         title: String,
         original_title: String,
         url: String,
+        classname: String,
         type: String,
         childPages: {
             type: Array,
@@ -96,7 +98,7 @@ export default {
             var self = this;
 
             // Find object by selected ID
-            var index = this.$parent.pages.findIndex(function(item, i){
+            var index = this.$parent.pages.findIndex(function(item, i) {
                 return item.id === self.id
             });
 
@@ -118,6 +120,13 @@ export default {
             var self = this;
             const result = this.$parent.pages[this.branchIndex];
             result.url = evt.target.value;
+            this.$dispatch('page.edit', evt.target.value);
+        },
+
+        editClassname: function(evt) {
+            var self = this;
+            const result = this.$parent.pages[this.branchIndex];
+            result.classname = evt.target.value;
             this.$dispatch('page.edit', evt.target.value);
         },
 

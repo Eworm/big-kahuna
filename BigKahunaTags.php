@@ -48,18 +48,19 @@ class BigKahunaTags extends Tags
 
         foreach ($pages as $page) {
             $id = $page['id'];
+            $myClassname = ' ' . $page['classname'];
             $content = Content::find($id);
 
             if ($page['type'] == 'Custom') {
                 // A custom link
-                $html .= '<li class="' . $itemClass . '">';
+                $html .= '<li class="' . $itemClass . $myClassname .'">';
             } else {
                 $isactive = '';
                 if ($content->absoluteUrl() == $actual_link || $this->getChildActiveStatus($page, $actual_link)) {
                     $isactive = ' ' . $activeClass;
                 }
 
-                $html .= '<li class="' . $itemClass . $isactive . '">';
+                $html .= '<li class="' . $itemClass . $isactive . $myClassname . '">';
             }
 
             if ($page['type'] == 'Custom') {

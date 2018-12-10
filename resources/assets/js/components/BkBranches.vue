@@ -6,6 +6,7 @@
                 :title="page.title"
                 :original_title="page.original_title"
                 :url="page.url"
+                :classname="page.classname"
                 :type="page.type"
                 :child-pages="page.items"
                 :depth="depth"

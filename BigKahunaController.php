@@ -140,6 +140,7 @@ class BigKahunaController extends Controller
                 'title'          => $item['title'],
                 'original_title' => $this->itemTitle($item),
                 'url'            => $this->itemUrl($item),
+                'classname'      => $this->itemClassname($item),
                 'items'          => $this->getJsonItems($item['items']),
                 'pages'          => $item['pages']
             ];
@@ -178,6 +179,20 @@ class BigKahunaController extends Controller
             return $item['url'];
         } else {
             return $content->absoluteUrl();
+        }
+    }
+
+    /**
+     * Return the branch classname
+     *
+     * @return string
+     */
+    private function itemClassname($item)
+    {
+        if (isset($item['classname'])) {
+            return $item['classname'];
+        } else {
+            return '';
         }
     }
 
@@ -283,6 +298,7 @@ class BigKahunaController extends Controller
                     'title'          => $page['title'],
                     'original_title' => $page['original_title'],
                     'url'            => $page['url'],
+                    'classname'      => $page['classname'],
                     'items'          => $this->saveJsonItems($page['items']),
                     'pages'          => $page['pages']
                 ];
@@ -292,6 +308,7 @@ class BigKahunaController extends Controller
                     'order'          => $page['order'],
                     'type'           => $page['type'],
                     'title'          => $page['title'],
+                    'classname'      => $page['classname'],
                     'items'          => $this->saveJsonItems($page['items']),
                     'pages'          => $page['pages']
                 ];

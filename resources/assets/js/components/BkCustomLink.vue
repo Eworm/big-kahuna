@@ -2,20 +2,28 @@
     <div class="card flush">
         <div class="card-body">
             <div class="card-heading p-2 mb-0">{{ translate('cp.Add a custom link') }}</div>
-            <div class="form-group p-2 mb-0 w-full flex items-center border-b">
+            <div class="form-group pt-1 pr-2 pb-1 pl-2 mb-0 w-full flex items-center border-b">
                 <div class="w-1/3 pr-2">
-                    <label class="block">{{ translate('cp.title') }}</label>
+                    <label class="block" for="customTitle">{{ translate('cp.title') }}</label>
                 </div>
                 <div class="w-2/3 flex justify-end">
-                    <input type="text" class="form-control" v-model="customTitle">
+                    <input type="text" class="form-control" v-model="customTitle" id="customTitle">
                 </div>
             </div>
-            <div class="form-group p-2 mb-0 w-full flex items-center border-b">
+            <div class="form-group pt-1 pr-2 pb-1 pl-2 mb-0 w-full flex items-center border-b">
                 <div class="w-1/3 pr-2">
-                    <label class="block">{{ translate('cp.url') }}</label>
+                    <label class="block" for="customUrl">{{ translate('cp.url') }}</label>
                 </div>
                 <div class="w-2/3 flex justify-end">
-                    <input type="url" class="form-control" v-model="customUrl" placeholder="Including http:// or https://">
+                    <input type="url" class="form-control" v-model="customUrl" placeholder="Including http:// or https://" id="customUrl">
+                </div>
+            </div>
+            <div class="form-group pt-1 pr-2 pb-1 pl-2 mb-0 w-full flex items-center border-b">
+                <div class="w-1/3 pr-2">
+                    <label class="block" for="customClass">{{ translate('cp.classname') }} <span class="text-muted">({{ translate('cp.optional') }})</span></label>
+                </div>
+                <div class="w-2/3 flex justify-end">
+                    <input type="classname" class="form-control" v-model="customClass" id="customClass">
                 </div>
             </div>
             <div class="form-group p-2 mb-0 w-full flex items-end border-b">
@@ -39,6 +47,7 @@ export default {
             customInfo: {},
             customTitle: '',
             customUrl: '',
+            customClass: '',
             customType: 'Custom',
 
         };
@@ -65,15 +74,17 @@ export default {
                     "url":              this.customUrl,
                     "title":            this.customTitle,
                     "original_title":   this.customTitle,
+                    "classname":        this.customClass,
                     "type":             this.customType,
                     "items":            [],
                     "pages":            []
                 });
                 this.$eventHub.$emit('append-links', this.possibleLinks);
 
-                this.customTitle =  ''
-                this.customUrl =  ''
-                this.possibleLinks = []
+                this.customTitle    =  ''
+                this.customUrl      =  ''
+                this.customClass    =  ''
+                this.possibleLinks  = []
             } else {
                 this.$dispatch("setFlashError", 'Uh oh! Enter a title and URL.');
             }

@@ -123,6 +123,7 @@ export default {
                     "title":            result[0].title,
                     "original_title":   result[0].title,
                     "type":             result[0].type,
+                    "classname":        '',
                     "items":            [],
                     "pages":            []
                 });
