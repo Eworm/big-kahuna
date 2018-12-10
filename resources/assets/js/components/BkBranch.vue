@@ -9,11 +9,15 @@
                 <div class="page-text" v-bind:class="classObject">
                     <div class="page-title">{{ title }} <span class="text-muted">({{ type }})</span></div>
                     <div class="edit-url pt-1">
-                        <input type="text" value="{{ title }}" v-model="title" v-on:input="editTitle">
-                        <input type="text" value="{{ url }}" v-model="url" v-on:input="editUrl" v-if="type == 'Custom'">
-                        <input type="text" value="{{ classname }}" v-model="classname" v-on:input="editClassname">
-                        <button type="button" class="btn btn-primary" @click="editPage">{{ translate('cp.done') }}</button>
-                        <button type="button" class="btn btn-default" @click="cancelTitleChange">{{ translate('cp.cancel') }}</button>
+                        <div class="form-group mb-1 mt-1 p-0">
+                            <input type="text" value="{{ title }}" v-model="title" v-on:input="editTitle" placeholder="Title">
+                            <input type="text" value="{{ url }}" v-model="url" v-on:input="editUrl" v-if="type == 'Custom'" placeholder="URL">
+                            <input type="text" value="{{ classname }}" v-model="classname" v-on:input="editClassname" placeholder="Classname">
+                        </div>
+                        <div class="form-group p-0">
+                            <button type="button" class="btn btn-primary" @click="editPage">{{ translate('cp.done') }}</button>
+                            <button type="button" class="btn btn-default" @click="cancelTitleChange">{{ translate('cp.cancel') }}</button>
+                        </div>
                         <span v-if="title != original_title" class="original-title mt-1 text-muted">Original title: {{ original_title }}</span>
                     </div>
                 </div>
