@@ -4,7 +4,7 @@
                 :branch-index="$index"
                 :id="page.id"
                 :title="page.title"
-                :original_title="page.title"
+                :original_title="page.original_title"
                 :url="page.url"
                 :type="page.type"
                 :child-pages="page.items"

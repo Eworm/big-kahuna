@@ -15,7 +15,7 @@ class BigKahunaTags extends Tags
     public function index()
     {
         // Get the pages from storage and return proper html
-        $pages = $this->storage->getJSON($this->getParam('name'));
+        $pages = $this->storage->getJSON($this->getParam('menu'));
         return $this->getItems($pages);
     }
 
@@ -26,7 +26,7 @@ class BigKahunaTags extends Tags
      */
     private function getItems($pages, $root = true)
     {
-        $name                   = ($this->getParam('name')) ? ' ' . $this->getParam('name') : "";
+        $menu                   = ($this->getParam('menu')) ? ' ' . $this->getParam('menu') : "";
         $id                     = ($this->getParam('id')) ? $this->getParam('id') : "";
         $class                  = ($this->getParam('class')) ? $this->getParam('class') : "nav";
         $itemClass              = ($this->getParam('item_class')) ? $this->getParam('item_class') : "nav__item";
@@ -40,7 +40,7 @@ class BigKahunaTags extends Tags
 
         if ($root == true) {
             // The root list
-            $html .= '<ul id="' . $id . '" class="' . $class . $name . '">';
+            $html .= '<ul id="' . $id . '" class="' . $class . $menu . '">';
         } else {
             // A submenu list
             $html .= '<ul class="' . $submenu_class . '">';
@@ -54,11 +54,11 @@ class BigKahunaTags extends Tags
                 // A custom link
                 $html .= '<li class="' . $itemClass . '">';
             } else {
-                // An internal link
                 $isactive = '';
-                if ($content->absoluteUrl() == $actual_link) {
+                if ($content->absoluteUrl() == $actual_link || $this->getChildActiveStatus($page, $actual_link)) {
                     $isactive = ' ' . $activeClass;
                 }
+
                 $html .= '<li class="' . $itemClass . $isactive . '">';
             }
 
@@ -83,5 +83,20 @@ class BigKahunaTags extends Tags
 
         $html .= '</ul>';
         return $html;
+    }
+
+    public function getChildActiveStatus($page, $actual_link)
+    {
+        foreach ($page['items'] as $child) {
+            $child_content = Content::find($child['id']);
+
+            if ($child_content->absoluteUrl() == $actual_link) {
+                return true;
+            } else {
+                return $this->getChildActiveStatus($child, $actual_link);
+            }
+        }
+
+        return false;
     }
 }

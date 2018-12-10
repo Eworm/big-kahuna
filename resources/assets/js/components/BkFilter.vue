@@ -121,6 +121,7 @@ export default {
                     id:                 result[0].id,
                     "order":            1,
                     "title":            result[0].title,
+                    "original_title":   result[0].title,
                     "type":             result[0].type,
                     "items":            [],
                     "pages":            []

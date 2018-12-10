@@ -134,7 +134,7 @@ export default {
                 },
                 onDrag: function($item, container, _super, event) {
                     // Update the placeholder template to show the page name.
-                    $('.branch-placeholder').find('.page-text').text(draggedPage.title);
+                    $('.branch-placeholder').find('.page-text').text(`${draggedPage.title} (${draggedPage.type})`);
                     _super($item, container);
                 },
                 onDrop: function($item, container, _super, event) {
@@ -147,9 +147,6 @@ export default {
                     // Get the drop position
                     var dropIndex = $item.index();
                     var parentInstance = $item.parent()[0].__vue__;
-
-                    // Update the page to use the new parent's url (recursively)
-                    draggedPage = self.updateDroppedUrl(draggedPage, parentInstance.$parent.url);
 
                     // Get the new page's position and inject it into the data
                     parentInstance.pages.splice(dropIndex, 0, draggedPage);

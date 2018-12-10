@@ -109,19 +109,15 @@ export default {
 
         editTitle: function(evt) {
             var self = this;
-            const result = this.$parent.pages.filter(function(el) {
-                return el.id == self.id
-            });
-            result[0].title = evt.target.value;
+            const result = this.$parent.pages[this.branchIndex];
+            result.title = evt.target.value;
             this.$dispatch('page.edit', evt.target.value);
         },
 
         editUrl: function(evt) {
             var self = this;
-            const result = this.$parent.pages.filter(function(el) {
-                return el.id == self.id
-            });
-            result[0].url = evt.target.value;
+            const result = this.$parent.pages[this.branchIndex];
+            result.url = evt.target.value;
             this.$dispatch('page.edit', evt.target.value);
         },
 
