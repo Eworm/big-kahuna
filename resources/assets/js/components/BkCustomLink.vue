@@ -1,7 +1,7 @@
 <template>
     <div class="card flush">
         <div class="card-body">
-            <div class="card-heading p-2 mb-0">{{ translate('cp.Add a custom link') }}</div>
+            <div class="card-heading mb-0">{{ translate('cp.Add a custom link') }}</div>
             <div class="form-group pt-1 pr-2 pb-1 pl-2 mb-0 w-full flex items-center border-b">
                 <div class="w-1/3 pr-2">
                     <label class="block" for="customTitle">{{ translate('cp.title') }}</label>
