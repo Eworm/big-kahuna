@@ -27,7 +27,7 @@
                                 <td class="cell-slug">
                                     <span class="column-label">Tag</span>
                                     <span v-pre>
-                                        <code>&lcub;&lcub; navmenus name="{{ $menu }}" &rcub;&rcub;</code>
+                                        <code>&lcub;&lcub; bigkahuna menu="{{ $menu }}" &rcub;&rcub;</code>
                                     </span>
                                 </td>
 
