@@ -9,8 +9,8 @@
                         </th>
                     </tr>
                     <tr>
-                        <th colspan="2">
-                            <input v-model="searchTerm" type="search" placeholder="{{ translate('cp.Search for a page, entry or collection') }}" class="form-control">
+                        <th colspan="2" class="pr-2">
+                            <input v-model="searchTerm" type="search" placeholder="{{ translate('cp.Search for a title, collection name or just type pages') }}" class="form-control">
                         </th>
                     </tr>
                 </thead>
@@ -121,7 +121,10 @@ export default {
                     id:                 result[0].id,
                     "order":            1,
                     "title":            result[0].title,
+                    "original_title":   result[0].title,
                     "type":             result[0].type,
+                    "classname":        '',
+                    "linktitle":        '',
                     "items":            [],
                     "pages":            []
                 });

@@ -25,8 +25,10 @@
                                 </td>
 
                                 <td class="cell-slug">
-                                    <span class="column-label">Slug</span>
-                                    {{ $menu }}
+                                    <span class="column-label">Tag</span>
+                                    <span v-pre>
+                                        <code>&lcub;&lcub; bigkahuna menu="{{ $menu }}" &rcub;&rcub;</code>
+                                    </span>
                                 </td>
 
                                 <td class="column-actions">

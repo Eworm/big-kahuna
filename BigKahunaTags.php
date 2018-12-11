@@ -15,7 +15,7 @@ class BigKahunaTags extends Tags
     public function index()
     {
         // Get the pages from storage and return proper html
-        $pages = $this->storage->getJSON($this->getParam('name'));
+        $pages = $this->storage->getJSON($this->getParam('menu'));
         return $this->getItems($pages);
     }
 
@@ -26,7 +26,7 @@ class BigKahunaTags extends Tags
      */
     private function getItems($pages, $root = true)
     {
-        $name                   = ($this->getParam('name')) ? ' ' . $this->getParam('name') : "";
+        $menu                   = ($this->getParam('menu')) ? ' ' . $this->getParam('menu') : "";
         $id                     = ($this->getParam('id')) ? $this->getParam('id') : "";
         $class                  = ($this->getParam('class')) ? $this->getParam('class') : "nav";
         $itemClass              = ($this->getParam('item_class')) ? $this->getParam('item_class') : "nav__item";
@@ -40,34 +40,41 @@ class BigKahunaTags extends Tags
 
         if ($root == true) {
             // The root list
-            $html .= '<ul id="' . $id . '" class="' . $class . $name . '">';
+            $html .= '<ul id="' . $id . '" class="' . $class . $menu . '">';
         } else {
             // A submenu list
             $html .= '<ul class="' . $submenu_class . '">';
         }
 
         foreach ($pages as $page) {
-            $id = $page['id'];
+            $id             = $page['id'];
+            $myClassname    = ' ' . $page['classname'];
+
+            if ($page['linktitle'] != '') {
+                $myLinkTitle = $page['linktitle'];
+            } else {
+                $myLinkTitle = $page['title'];
+            }
             $content = Content::find($id);
 
             if ($page['type'] == 'Custom') {
                 // A custom link
-                $html .= '<li class="' . $itemClass . '">';
+                $html .= '<li class="' . $itemClass . $myClassname .'">';
             } else {
-                // An internal link
                 $isactive = '';
-                if ($content->absoluteUrl() == $actual_link) {
+                if ($content->absoluteUrl() == $actual_link || $this->getChildActiveStatus($page, $actual_link)) {
                     $isactive = ' ' . $activeClass;
                 }
-                $html .= '<li class="' . $itemClass . $isactive . '">';
+
+                $html .= '<li class="' . $itemClass . $isactive . $myClassname . '">';
             }
 
             if ($page['type'] == 'Custom') {
                 // A custom link
-                $html .= '<a href="' . $page['url'] . '" title="' . $page['title'] . '" rel="external">';
+                $html .= '<a href="' . $page['url'] . '" title="' . $myLinkTitle . '" rel="external">';
             } else {
                 // An internal link
-                $html .= '<a href="' . $content->absoluteUrl() . '" title="' . $page['title'] . '">';
+                $html .= '<a href="' . $content->absoluteUrl() . '" title="' . $myLinkTitle . '">';
             }
 
             $html .= $page['title'];
@@ -83,5 +90,20 @@ class BigKahunaTags extends Tags
 
         $html .= '</ul>';
         return $html;
+    }
+
+    public function getChildActiveStatus($page, $actual_link)
+    {
+        foreach ($page['items'] as $child) {
+            $child_content = Content::find($child['id']);
+
+            if ($child_content->absoluteUrl() == $actual_link) {
+                return true;
+            } else {
+                return $this->getChildActiveStatus($child, $actual_link);
+            }
+        }
+
+        return false;
     }
 }

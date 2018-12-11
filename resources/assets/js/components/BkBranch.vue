@@ -8,11 +8,19 @@
 
                 <div class="page-text" v-bind:class="classObject">
                     <div class="page-title">{{ title }} <span class="text-muted">({{ type }})</span></div>
-                    <div class="edit-url pt-1">
-                        <input type="text" value="{{ title }}" v-model="title" v-on:input="editTitle">
-                        <input type="text" value="{{ url }}" v-model="url" v-on:input="editUrl" v-if="type == 'Custom'">
-                        <button type="button" class="btn btn-primary" @click="editPage">{{ translate('cp.done') }}</button>
-                        <button type="button" class="btn btn-default" @click="cancelTitleChange">{{ translate('cp.cancel') }}</button>
+                    <div class="edit-url pt-1 mb-1">
+                        <div class="form-group form-group--main mb-1 mt-1 p-0">
+                            <input type="text" value="{{ title }}" v-model="title" v-on:input="editTitle" placeholder="Title">
+                            <input type="text" value="{{ url }}" v-model="url" v-on:input="editUrl" v-if="type == 'Custom'" placeholder="URL">
+                        </div>
+                        <div class="form-group mb-1 mt-1 p-0">
+                            <input type="text" value="{{ classname }}" v-model="classname" v-on:input="editClassname" placeholder="Extra classname">
+                            <input type="text" value="{{ linktitle }}" v-model="linktitle" v-on:input="editLinkTitle" placeholder="Custom link title">
+                        </div>
+                        <div class="form-group p-0">
+                            <button type="button" class="btn btn-primary" @click="editPage">{{ translate('cp.done') }}</button>
+                            <button type="button" class="btn btn-default" @click="cancelTitleChange">{{ translate('cp.cancel') }}</button>
+                        </div>
                         <span v-if="title != original_title" class="original-title mt-1 text-muted">Original title: {{ original_title }}</span>
                     </div>
                 </div>
@@ -62,6 +70,8 @@ export default {
         title: String,
         original_title: String,
         url: String,
+        classname: String,
+        linktitle: String,
         type: String,
         childPages: {
             type: Array,
@@ -96,7 +106,7 @@ export default {
             var self = this;
 
             // Find object by selected ID
-            var index = this.$parent.pages.findIndex(function(item, i){
+            var index = this.$parent.pages.findIndex(function(item, i) {
                 return item.id === self.id
             });
 
@@ -109,19 +119,29 @@ export default {
 
         editTitle: function(evt) {
             var self = this;
-            const result = this.$parent.pages.filter(function(el) {
-                return el.id == self.id
-            });
-            result[0].title = evt.target.value;
+            const result = this.$parent.pages[this.branchIndex];
+            result.title = evt.target.value;
             this.$dispatch('page.edit', evt.target.value);
         },
 
         editUrl: function(evt) {
             var self = this;
-            const result = this.$parent.pages.filter(function(el) {
-                return el.id == self.id
-            });
-            result[0].url = evt.target.value;
+            const result = this.$parent.pages[this.branchIndex];
+            result.url = evt.target.value;
+            this.$dispatch('page.edit', evt.target.value);
+        },
+
+        editClassname: function(evt) {
+            var self = this;
+            const result = this.$parent.pages[this.branchIndex];
+            result.classname = evt.target.value;
+            this.$dispatch('page.edit', evt.target.value);
+        },
+
+        editLinkTitle: function(evt) {
+            var self = this;
+            const result = this.$parent.pages[this.branchIndex];
+            result.linktitle = evt.target.value;
             this.$dispatch('page.edit', evt.target.value);
         },
 

@@ -6,7 +6,7 @@ You can create as many menus as you like in the cp.
 ## Usage
 After creating a menu, add this tag to your front-end to add it to your site. The name corresponds to the name of a menu in the cp:
 
-    {{ bigkahuna name="custom-name" }}
+    {{ bigkahuna menu="custom-name" }}
 
 Which will return something like this:
 
@@ -32,8 +32,8 @@ _As you can see the name is added as a class so you can target the right menu mo
 You can change the defaults with the following parameters:
 
 ### Main list
-**name** _Required_  
-This is the name of a menu you created in the cp.
+**menu** _Required_  
+This is the slug of a menu you created in the cp.
 
 **id**  
 The id for the root ul. If you don't provide one there won't be an id.

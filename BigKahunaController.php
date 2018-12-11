@@ -75,7 +75,7 @@ class BigKahunaController extends Controller
         return [
             'success' => true,
             'message' => 'Pages updated successfully.',
-            'menu' => $menu_name
+            'menu'    => $menu_name
         ];
     }
 
@@ -134,14 +134,16 @@ class BigKahunaController extends Controller
             $content = Content::find($id);
 
             $newpages[] = (object) [
-                'id'                => $id,
-                'order'             => $item['order'],
-                'type'              => $item['type'],
-                'title'             => $item['title'],
-                'original_title'    => $this->itemTitle($item),
-                'url'               => $this->itemUrl($item),
-                'items'             => $this->getJsonItems($item['items']),
-                'pages'             => $item['pages']
+                'id'             => $id,
+                'order'          => $item['order'],
+                'type'           => $item['type'],
+                'title'          => $item['title'],
+                'original_title' => $this->itemTitle($item),
+                'url'            => $this->itemUrl($item),
+                'classname'      => $this->itemClassname($item),
+                'linktitle'      => $this->itemLinkTitle($item),
+                'items'          => $this->getJsonItems($item['items']),
+                'pages'          => $item['pages']
             ];
         }
         return $newpages;
@@ -158,7 +160,7 @@ class BigKahunaController extends Controller
         $content = Content::find($id);
 
         if ($item['type'] == 'Custom') {
-            return $item['title'];
+            return $item['original_title'];
         } else {
             return $content->get('title');
         }
@@ -182,6 +184,34 @@ class BigKahunaController extends Controller
     }
 
     /**
+     * Return the branch classname
+     *
+     * @return string
+     */
+    private function itemClassname($item)
+    {
+        if (isset($item['classname'])) {
+            return $item['classname'];
+        } else {
+            return '';
+        }
+    }
+
+    /**
+     * Return the branch classname
+     *
+     * @return string
+     */
+    private function itemLinkTitle($item)
+    {
+        if (isset($item['linktitle'])) {
+            return $item['linktitle'];
+        } else {
+            return '';
+        }
+    }
+
+    /**
      * Return all content as json
      *
      * @return json
@@ -192,8 +222,19 @@ class BigKahunaController extends Controller
 
         if ($request->has('q')) {
             $items = $items->filter(function ($item) use ($request) {
-                if (stripos($item->get('title'), $request->q) !== false || stripos($item->id(), $request->q) !== false) {
-                    return true;
+
+                if ($item->contentType() == 'page') {
+                    if (stripos($item->get('title'), $request->q) !== false || stripos($item->id(), $request->q) !== false || stripos($item->path(), $request->q) !== false) {
+                        return true;
+                    }
+                } elseif ($item->contentType() == 'entry') {
+                    if (stripos($item->get('title'), $request->q) !== false || stripos($item->id(), $request->q) !== false || stripos($item->collectionName(), $request->q) !== false) {
+                        return true;
+                    }
+                } elseif ($item->contentType() == 'term') {
+                    if (stripos($item->title(), $request->q) !== false || stripos($item->id(), $request->q) !== false || stripos($item->taxonomyName(), $request->q) !== false) {
+                        return true;
+                    }
                 }
                 return false;
             });
@@ -202,21 +243,21 @@ class BigKahunaController extends Controller
         return $items->map(function ($entry) {
             if ($entry->contentType() == 'page') {
                 return [
-                    'id'        => $entry->id(),
-                    "title"     => $entry->get('title'),
-                    "type"      => 'Pages',
+                    'id'    => $entry->id(),
+                    'title' => $entry->get('title'),
+                    'type'  => 'Pages',
                 ];
             } elseif ($entry->contentType() == 'entry') {
                 return [
-                    'id'        => $entry->id(),
-                    "title"     => $entry->get('title'),
-                    "type"      => ucfirst($entry->collectionName()),
+                    'id'    => $entry->id(),
+                    'title' => $entry->get('title'),
+                    'type'  => ucwords(str_replace('-', ' ', $entry->collectionName()))
                 ];
             } elseif ($entry->contentType() == 'term') {
                 return [
-                    'id'        => $entry->id(),
-                    "title"     => $entry->title(),
-                    "type"      => ucfirst($entry->taxonomyName()),
+                    'id'    => $entry->id(),
+                    'title' => $entry->title(),
+                    'type'  => ucwords(str_replace('-', ' ', $entry->taxonomyName()))
                 ];
             }
         });
@@ -277,22 +318,27 @@ class BigKahunaController extends Controller
 
             if ($page['type'] == 'Custom') {
                 $newpages[] = (object) [
-                    'id'                => $id,
-                    'order'             => $page['order'],
-                    'type'              => $page['type'],
-                    'title'             => $page['title'],
-                    'url'               => $page['url'],
-                    'items'             => $this->saveJsonItems($page['items']),
-                    'pages'             => $page['pages']
+                    'id'             => $id,
+                    'order'          => $page['order'],
+                    'type'           => $page['type'],
+                    'title'          => $page['title'],
+                    'original_title' => $page['original_title'],
+                    'url'            => $page['url'],
+                    'classname'      => $page['classname'],
+                    'linktitle'      => $page['linktitle'],
+                    'items'          => $this->saveJsonItems($page['items']),
+                    'pages'          => $page['pages']
                 ];
             } else {
                 $newpages[] = (object) [
-                    'id'                => $id,
-                    'order'             => $page['order'],
-                    'type'              => $page['type'],
-                    'title'             => $page['title'],
-                    'items'             => $this->saveJsonItems($page['items']),
-                    'pages'             => $page['pages']
+                    'id'             => $id,
+                    'order'          => $page['order'],
+                    'type'           => $page['type'],
+                    'title'          => $page['title'],
+                    'classname'      => $page['classname'],
+                    'linktitle'      => $page['linktitle'],
+                    'items'          => $this->saveJsonItems($page['items']),
+                    'pages'          => $page['pages']
                 ];
             }
         }
