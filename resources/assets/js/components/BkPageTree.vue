@@ -230,10 +230,6 @@ export default {
         'page.deleted': function () {
             var self = this;
             self.changed = true;
-
-            if (!this.pages.length) {
-                this.arePages = false;
-            }
         },
 
     },
