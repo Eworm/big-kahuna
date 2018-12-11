@@ -20,10 +20,18 @@
             </div>
             <div class="form-group pt-1 pr-2 pb-1 pl-2 mb-0 w-full flex items-center border-b">
                 <div class="w-1/3 pr-2">
-                    <label class="block" for="customClass">{{ translate('cp.classname') }} <span class="text-muted">({{ translate('cp.optional') }})</span></label>
+                    <label class="block" for="customClass">{{ translate('cp.extra classname') }} <span class="text-muted">({{ translate('cp.optional') }})</span></label>
                 </div>
                 <div class="w-2/3 flex justify-end">
-                    <input type="classname" class="form-control" v-model="customClass" id="customClass">
+                    <input type="text" class="form-control" v-model="customClass" id="customClass">
+                </div>
+            </div>
+            <div class="form-group pt-1 pr-2 pb-1 pl-2 mb-0 w-full flex items-center border-b">
+                <div class="w-1/3 pr-2">
+                    <label class="block" for="customLinkTitle">{{ translate('cp.link title') }} <span class="text-muted">({{ translate('cp.optional') }})</span></label>
+                </div>
+                <div class="w-2/3 flex justify-end">
+                    <input type="text" class="form-control" v-model="customLinkTitle" id="customLinkTitle" placeholder="Defaults to the title">
                 </div>
             </div>
             <div class="form-group p-2 mb-0 w-full flex items-end border-b">
@@ -48,6 +56,7 @@ export default {
             customTitle: '',
             customUrl: '',
             customClass: '',
+            customLinkTitle: '',
             customType: 'Custom',
 
         };
@@ -75,6 +84,7 @@ export default {
                     "title":            this.customTitle,
                     "original_title":   this.customTitle,
                     "classname":        this.customClass,
+                    "linktitle":        this.customLinkTitle,
                     "type":             this.customType,
                     "items":            [],
                     "pages":            []
@@ -84,6 +94,7 @@ export default {
                 this.customTitle    =  ''
                 this.customUrl      =  ''
                 this.customClass    =  ''
+                this.customLinkTitle=  ''
                 this.possibleLinks  = []
             } else {
                 this.$dispatch("setFlashError", 'Uh oh! Enter a title and URL.');

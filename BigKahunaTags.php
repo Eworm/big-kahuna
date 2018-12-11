@@ -47,8 +47,14 @@ class BigKahunaTags extends Tags
         }
 
         foreach ($pages as $page) {
-            $id = $page['id'];
-            $myClassname = ' ' . $page['classname'];
+            $id             = $page['id'];
+            $myClassname    = ' ' . $page['classname'];
+
+            if ($page['linktitle'] != '') {
+                $myLinkTitle = $page['linktitle'];
+            } else {
+                $myLinkTitle = $page['title'];
+            }
             $content = Content::find($id);
 
             if ($page['type'] == 'Custom') {
@@ -65,10 +71,10 @@ class BigKahunaTags extends Tags
 
             if ($page['type'] == 'Custom') {
                 // A custom link
-                $html .= '<a href="' . $page['url'] . '" title="' . $page['title'] . '" rel="external">';
+                $html .= '<a href="' . $page['url'] . '" title="' . $myLinkTitle . '" rel="external">';
             } else {
                 // An internal link
-                $html .= '<a href="' . $content->absoluteUrl() . '" title="' . $page['title'] . '">';
+                $html .= '<a href="' . $content->absoluteUrl() . '" title="' . $myLinkTitle . '">';
             }
 
             $html .= $page['title'];

@@ -6,13 +6,16 @@
 
             <div class="flex items-center flex-1 p-1">
 
-                <div class="page-text" v-bind:class="classObject">
+                <div class="page-text mb-1" v-bind:class="classObject">
                     <div class="page-title">{{ title }} <span class="text-muted">({{ type }})</span></div>
                     <div class="edit-url pt-1">
-                        <div class="form-group mb-1 mt-1 p-0">
+                        <div class="form-group form-group--main mb-1 mt-1 p-0">
                             <input type="text" value="{{ title }}" v-model="title" v-on:input="editTitle" placeholder="Title">
                             <input type="text" value="{{ url }}" v-model="url" v-on:input="editUrl" v-if="type == 'Custom'" placeholder="URL">
-                            <input type="text" value="{{ classname }}" v-model="classname" v-on:input="editClassname" placeholder="Classname">
+                        </div>
+                        <div class="form-group mb-1 mt-1 p-0">
+                            <input type="text" value="{{ classname }}" v-model="classname" v-on:input="editClassname" placeholder="Extra classname">
+                            <input type="text" value="{{ linktitle }}" v-model="linktitle" v-on:input="editLinkTitle" placeholder="Custom link title">
                         </div>
                         <div class="form-group p-0">
                             <button type="button" class="btn btn-primary" @click="editPage">{{ translate('cp.done') }}</button>
@@ -68,6 +71,7 @@ export default {
         original_title: String,
         url: String,
         classname: String,
+        linktitle: String,
         type: String,
         childPages: {
             type: Array,
@@ -131,6 +135,13 @@ export default {
             var self = this;
             const result = this.$parent.pages[this.branchIndex];
             result.classname = evt.target.value;
+            this.$dispatch('page.edit', evt.target.value);
+        },
+
+        editLinkTitle: function(evt) {
+            var self = this;
+            const result = this.$parent.pages[this.branchIndex];
+            result.linktitle = evt.target.value;
             this.$dispatch('page.edit', evt.target.value);
         },
 
