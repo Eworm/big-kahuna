@@ -7,5 +7,6 @@ Big Kahuna is a wordpress style menu editor addon for Statamic. It gives you the
 * Build a custom menu from all the content in your site
 * Add hierarchy using drag & drop
 * Change the titles of each link
-* Add custom links with optional custom classnames
-* Add custom classnames to each link
+* Add & edit custom links
+* Add & edit custom classnames to each link
+* Add & edit custom link titles to each link
