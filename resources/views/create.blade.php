@@ -15,7 +15,7 @@
                     <div class="form-group">
                         <label class="block">Menu Name</label>
                         <input type="text" class="form-control mb-2" autofocus="autofocus" v-model="menuName">
-                        <small class="help-block">The name will be converted to a slugified version that you'll use to reference in your templates (i.e. main-menu)</small>
+                        <small class="help-block">The name will be converted to a slugified version that you'll use to reference in your templates (i.e. main-menu). Don't start the name with a dot.</small>
                         <button type="button" class="btn btn-primary" v-on:click="saveMenu">
                             Save Menu
                         </button>

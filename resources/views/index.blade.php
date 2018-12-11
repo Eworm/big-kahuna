@@ -15,34 +15,42 @@
                 <div class="dossier-table-wrapper">
                     <table class="dossier">
                         <tbody>
+
                             @foreach ($menus as $menu)
-                            <tr>
-                                <td class="cell-title first-cell">
-                                    <span class="column-label">Title</span>
-                                    <a href="{{ route('addons.menu_editor.edit', $menu) }}" title="Edit {{ ucwords(str_replace('-', ' ', $menu)) }}">
-                                        {{ ucwords(str_replace('-', ' ', $menu)) }}
-                                    </a>
-                                </td>
 
-                                <td class="cell-slug">
-                                    <span class="column-label">Tag</span>
-                                    <span v-pre>
-                                        <code>&lcub;&lcub; bigkahuna menu="{{ $menu }}" &rcub;&rcub;</code>
-                                    </span>
-                                </td>
+                                @if (substr( $menu, 0, 1 ) !== ".")
 
-                                <td class="column-actions">
-                                    <div class="btn-group action-more">
-                                        <button type="button" class="btn-more dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="icon icon-dots-three-vertical"></i> </button>
-                                        <ul class="dropdown-menu">
-                                            <li class="warning" @click="deleteMenu('{{ $menu }}')">
-                                                <a href="#" title="Delete this menu">Delete</a>
-                                            </li>
-                                        </ul>
-                                    </div>
-                                </td>
-                            </tr>
+                                    <tr>
+                                        <td class="cell-title first-cell">
+                                            <span class="column-label">Title</span>
+                                            <a href="{{ route('addons.menu_editor.edit', $menu) }}" title="Edit {{ ucwords(str_replace('-', ' ', $menu)) }}">
+                                                {{ ucwords(str_replace('-', ' ', $menu)) }}
+                                            </a>
+                                        </td>
+
+                                        <td class="cell-slug">
+                                            <span class="column-label">Tag</span>
+                                            <span v-pre>
+                                                <code>&lcub;&lcub; bigkahuna menu="{{ $menu }}" &rcub;&rcub;</code>
+                                            </span>
+                                        </td>
+
+                                        <td class="column-actions">
+                                            <div class="btn-group action-more">
+                                                <button type="button" class="btn-more dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="icon icon-dots-three-vertical"></i> </button>
+                                                <ul class="dropdown-menu">
+                                                    <li class="warning" @click="deleteMenu('{{ $menu }}')">
+                                                        <a href="#" title="Delete this menu">Delete</a>
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                        </td>
+                                    </tr>
+
+                                @endif
+
                             @endforeach
+
                         </tbody>
                     </table>
                 </div>
