@@ -30,6 +30,7 @@ class BigKahunaTags extends Tags
         $id                     = ($this->getParam('id')) ? $this->getParam('id') : "";
         $class                  = ($this->getParam('class')) ? $this->getParam('class') : "nav";
         $itemClass              = ($this->getParam('item_class')) ? $this->getParam('item_class') : "nav__item";
+        $parentClass            = ($this->getParam('parent_class')) ? $this->getParam('parent_class') : "nav__item--parent";
         $submenu_class          = ($this->getParam('submenu_class')) ? $this->getParam('submenu_class') : "submenu";
         $submenu_item_class     = ($this->getParam('submenu_item_class')) ? $this->getParam('submenu_item_class') : "submenu__item";
         $activeClass            = ($this->getParam('active_class')) ? $this->getParam('active_class') : "is--active";
@@ -50,6 +51,7 @@ class BigKahunaTags extends Tags
         foreach ($pages as $page) {
             $id             = $page['id'];
             $myClassname    = ' ' . $page['classname'];
+            $isParent       = $page['items'] ? ' ' . $parentClass : '';
 
             if ($page['linktitle'] != '') {
                 $myLinkTitle = $page['linktitle'];
@@ -60,14 +62,14 @@ class BigKahunaTags extends Tags
 
             if ($page['type'] == 'Custom') {
                 // A custom link
-                $html .= '<li class="' . $itemClass . $myClassname .'">';
+                $html .= '<li class="' . $itemClass . $isParent . $myClassname .'">';
             } else {
                 $isactive = '';
                 if ($content->absoluteUrl() == $actual_link || $this->getChildActiveStatus($page, $actual_link)) {
                     $isactive = ' ' . $activeClass;
                 }
 
-                $html .= '<li class="' . $itemClass . $isactive . $myClassname . '">';
+                $html .= '<li class="' . $itemClass . $isParent . $isactive . $myClassname . '">';
             }
 
             if ($page['type'] == 'Custom') {
