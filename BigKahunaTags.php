@@ -43,6 +43,7 @@ class BigKahunaTags extends Tags
             $html .= '<ul id="' . $id . '" class="' . $class . $menu . '">';
         } else {
             // A submenu list
+            $itemClass = $submenu_item_class;
             $html .= '<ul class="' . $submenu_class . '">';
         }
 
