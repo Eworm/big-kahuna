@@ -47,6 +47,10 @@ The class for feedback for the current page. Defaults to 'is--active'. This clas
 **item\_class**  
 The class for every root li. Defaults to 'nav__item'.
 
+
+**item\_class**  
+The class for li items with a submenu. Defaults to 'nav__item--parent'.
+
 ### A submenu list
 **submenu\_class**  
 The class for every ul element inside a list item following a link. The default is 'submenu'.
