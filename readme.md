@@ -3,7 +3,7 @@
 Big Kahuna is a wordpress style menu editor addon for Statamic. It gives you the power to create multiple custom menus from all the content on your site. You can also include custom or external url's.
 
 ## Big Kahuna is a commercial addon
-You can use it for free while in development, but requires a license to use on a live site. Learn more or buy a license on [The Statamic Marketplace](https://statamic.com/marketplace/addons/seo-pro)!
+You can use it for free while in development, but requires a license to use on a live site. Learn more or buy a license on [The Statamic Marketplace](https://statamic.com/marketplace/addons/big-kahuna)!
 
 ## Features
 * Create multiple menus
