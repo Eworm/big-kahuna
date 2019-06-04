@@ -6,7 +6,7 @@ You can create as many menus as you like in the cp.
 ## Usage
 After creating a menu, add this tag to your front-end to add it to your site. The name corresponds to the name of a menu in the cp:
 
-    {{ bigkahuna menu="custom-name" }}
+    {{ big_kahuna menu="custom-name" }}
 
 Which will return something like this:
 
