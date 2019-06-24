@@ -133,13 +133,32 @@ class BigKahunaController extends Controller
             $id = $item['id'];
             $content = Content::find($id);
 
+            if (isset($item['locales'])) {
+                $locales = $item['locales'];
+            } else {
+                $locales = null;
+            }
+
+            if (isset($item['title'])) {
+                $c_title = $item['title'];
+            } else {
+                $c_title = null;
+            }
+
+            if (isset($item['url'])) {
+                $c_url = $item['url'];
+            } else {
+                $c_url = null;
+            }
+
             $newpages[] = (object) [
                 'id'             => $id,
                 'order'          => $item['order'],
                 'type'           => $item['type'],
-                'title'          => $item['title'],
+                'title'          => $c_title,
+                'locales'        => $locales,
                 'original_title' => $this->itemTitle($item),
-                'url'            => $this->itemUrl($item),
+                'url'            => $c_url,
                 'classname'      => $this->itemClassname($item),
                 'linktitle'      => $this->itemLinkTitle($item),
                 'items'          => $this->getJsonItems($item['items']),
@@ -219,6 +238,7 @@ class BigKahunaController extends Controller
     private function getItems($request)
     {
         $items = Content::all();
+        // dd($items);
 
         if ($request->has('q')) {
             $items = $items->filter(function ($item) use ($request) {
@@ -241,25 +261,40 @@ class BigKahunaController extends Controller
         }
 
         return $items->map(function ($entry) {
+            $locales = $entry->locales();
+            $newlocales = [];
             if ($entry->contentType() == 'page') {
-                return [
-                    'id'    => $entry->id(),
-                    'title' => $entry->get('title'),
-                    'type'  => 'Pages',
-                ];
+                foreach ($locales as $locale) {
+                    $newlocales[] = [
+                        'locale'=> $locale,
+                        'id'    => $entry->in($locale)->id(),
+                        'title' => $entry->in($locale)->get('title'),
+                        'type'  => 'Pages',
+                        'url'   => $entry->in($locale)->url(),
+                    ];
+                }
             } elseif ($entry->contentType() == 'entry') {
-                return [
-                    'id'    => $entry->id(),
-                    'title' => $entry->get('title'),
-                    'type'  => ucwords(str_replace('-', ' ', $entry->collectionName()))
-                ];
+                foreach ($locales as $locale) {
+                    $newlocales[] = [
+                        'locale'=> $locale,
+                        'id'    => $entry->in($locale)->id(),
+                        'title' => $entry->in($locale)->get('title'),
+                        'type'  => ucwords(str_replace('-', ' ', $entry->in($locale)->collectionName())),
+                        'url'   => $entry->in($locale)->url(),
+                    ];
+                }
             } elseif ($entry->contentType() == 'term') {
-                return [
-                    'id'    => $entry->id(),
-                    'title' => $entry->title(),
-                    'type'  => ucwords(str_replace('-', ' ', $entry->taxonomyName()))
-                ];
+                foreach ($locales as $locale) {
+                    $newlocales[] = [
+                        'locale'=> $locale,
+                        'id'    => $entry->in($locale)->id(),
+                        'title' => $entry->in($locale)->title(),
+                        'type'  => ucwords(str_replace('-', ' ', $entry->in($locale)->taxonomyName())),
+                        'url'   => $entry->in($locale)->url(),
+                    ];
+                }
             }
+            return $newlocales;
         });
     }
 
@@ -334,7 +369,7 @@ class BigKahunaController extends Controller
                     'id'             => $id,
                     'order'          => $page['order'],
                     'type'           => $page['type'],
-                    'title'          => $page['title'],
+                    'locales'        => $page['locales'],
                     'classname'      => $page['classname'],
                     'linktitle'      => $page['linktitle'],
                     'items'          => $this->saveJsonItems($page['items']),
