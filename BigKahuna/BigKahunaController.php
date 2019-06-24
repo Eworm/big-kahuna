@@ -293,7 +293,7 @@ class BigKahunaController extends Controller
         });
 
         // Grab the JSON payload
-        $pages = $this->request->input('pages');
+        $pages = $request->input('pages');
 
         // Save a new json with only the above options
         $this->storage->putJSON($request->menu, $this->saveJsonItems($pages));
