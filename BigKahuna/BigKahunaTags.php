@@ -16,7 +16,9 @@ class BigKahunaTags extends Tags
     {
         // Get the pages from storage and return proper html
         $pages = $this->storage->getJSON($this->getParam('menu'));
-        return $this->getItems($pages);
+        if ($pages) {
+            return $this->getItems($pages);
+        }
     }
 
     /**
