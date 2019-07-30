@@ -102,7 +102,7 @@ class BigKahunaTags extends Tags
         foreach ($page['items'] as $child) {
             $child_content = Content::find($child['id']);
 
-            if ($child_content->absoluteUrl() == $actual_link) {
+            if ($child_content && $child_content->absoluteUrl() == $actual_link) {
                 return true;
             } else {
                 return $this->getChildActiveStatus($child, $actual_link);
