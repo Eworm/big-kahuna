@@ -7,6 +7,7 @@ use Statamic\API\Collection;
 use Statamic\API\Entry;
 use Statamic\API\Content;
 use Statamic\Contracts\Data\Pages\PageTreeReorderer;
+use Statamic\Events\Data\AddonSettingsSaved;
 use Statamic\Extend\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
@@ -293,10 +294,12 @@ class BigKahunaController extends Controller
         });
 
         // Grab the JSON payload
-        $pages = $request->input('pages');
+        $pages = $this->request->input('pages');
 
         // Save a new json with only the above options
         $this->storage->putJSON($request->menu, $this->saveJsonItems($pages));
+
+        event(new AddonSettingsSaved('site/storage/addons/BigKahuna/'.$request->menu.'.json', $pages));
 
         return [
             'success' => true,
