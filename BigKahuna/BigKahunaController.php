@@ -299,7 +299,8 @@ class BigKahunaController extends Controller
         // Save a new json with only the above options
         $this->storage->putJSON($request->menu, $this->saveJsonItems($pages));
 
-        event(new AddonSettingsSaved('site/storage/addons/BigKahuna/'.$request->menu.'.json', $pages));
+        // Emit event
+        event(new AddonSettingsSaved('site/storage/addons/BigKahuna/' . $request->menu . '.json', $pages));
 
         return [
             'success' => true,
