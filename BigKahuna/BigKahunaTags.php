@@ -16,7 +16,9 @@ class BigKahunaTags extends Tags
     {
         // Get the pages from storage and return proper html
         $pages = $this->storage->getJSON($this->getParam('menu'));
-        return $this->getItems($pages);
+        if ($pages) {
+            return $this->getItems($pages);
+        }
     }
 
     /**
@@ -120,7 +122,7 @@ class BigKahunaTags extends Tags
         foreach ($page['items'] as $child) {
             $child_content = Content::find($child['id']);
 
-            if ($child_content->absoluteUrl() == $actual_link) {
+            if ($child_content && $child_content->absoluteUrl() == $actual_link) {
                 return true;
             } else {
                 return $this->getChildActiveStatus($child, $actual_link);
