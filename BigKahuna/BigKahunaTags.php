@@ -3,7 +3,6 @@
 namespace Statamic\Addons\BigKahuna;
 
 use Statamic\API\Content;
-// use Statamic\core\Data;
 use Statamic\Extend\Tags;
 
 class BigKahunaTags extends Tags
@@ -27,8 +26,6 @@ class BigKahunaTags extends Tags
      */
     private function getItems($pages, $root = true)
     {
-        // dd($this->locale());
-        // dd(site_locale());
         $menu                   = ($this->getParam('menu')) ? ' ' . $this->getParam('menu') : "";
         $id                     = ($this->getParam('id')) ? $this->getParam('id') : "";
         $locales                = ($this->getParam('locales')) ? $this->getParam('locales') : "";
