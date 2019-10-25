@@ -5,6 +5,7 @@
                 :id="page.id"
                 :title="page.title"
                 :original_title="page.original_title"
+                :locales="page.locales"
                 :url="page.url"
                 :classname="page.classname"
                 :linktitle="page.linktitle"

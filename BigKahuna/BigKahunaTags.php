@@ -30,6 +30,7 @@ class BigKahunaTags extends Tags
     {
         $menu                   = ($this->getParam('menu')) ? ' ' . $this->getParam('menu') : "";
         $id                     = ($this->getParam('id')) ? $this->getParam('id') : "";
+        $locales                = ($this->getParam('locales')) ? $this->getParam('locales') : "";
         $class                  = ($this->getParam('class')) ? $this->getParam('class') : "nav";
         $itemClass              = ($this->getParam('item_class')) ? $this->getParam('item_class') : "nav__item";
         $parentClass            = ($this->getParam('parent_class')) ? $this->getParam('parent_class') : "nav__item--parent";
@@ -54,13 +55,32 @@ class BigKahunaTags extends Tags
             $id             = $page['id'];
             $myClassname    = ' ' . $page['classname'];
             $isParent       = $page['items'] ? ' ' . $parentClass : '';
+            $content        = Content::find($id);
+            $current_locale = site_locale();
+
+            if (isset($page['locales'])) {
+
+                if (count($page['locales']) > 1) {
+                    foreach ($page['locales'] as $locale) {
+                        if ($current_locale == $locale['locale']) {
+                            $localeTitle = $locale['title'];
+                            $localeUrl = $locale['url'];
+                        }
+                    }
+                } else {
+                    $localeTitle = $page['locales'][0]['title'];
+                    $localeUrl = $page['locales'][0]['url'];
+                }
+            } else {
+                $localeTitle = $page['title'];
+                $localeUrl = $page['url'];
+            }
 
             if ($page['linktitle'] != '') {
                 $myLinkTitle = $page['linktitle'];
             } else {
-                $myLinkTitle = $page['title'];
+                $myLinkTitle = $localeTitle;
             }
-            $content = Content::find($id);
 
             if ($page['type'] == 'Custom') {
                 // A custom link
@@ -79,10 +99,10 @@ class BigKahunaTags extends Tags
                 $html .= '<a href="' . $page['url'] . '" title="' . $myLinkTitle . '" rel="external">';
             } else {
                 // An internal link
-                $html .= '<a href="' . $content->absoluteUrl() . '" title="' . $myLinkTitle . '">';
+                $html .= '<a href="' . $localeUrl . '" title="' . $myLinkTitle . '">';
             }
 
-            $html .= $page['title'];
+            $html .= $myLinkTitle;
             $html .= '</a>';
 
             if ($page['items']) {

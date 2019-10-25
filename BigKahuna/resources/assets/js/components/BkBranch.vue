@@ -7,7 +7,10 @@
             <div class="flex items-center flex-1 p-1">
 
                 <div class="page-text" v-bind:class="classObject">
-                    <div class="page-title">{{ title }} <span class="text-muted">({{ type }})</span></div>
+
+                    <div class="page-title" v-if="title">{{ title }} <span class="text-muted">({{ type }})</span></div>
+                    <div class="page-title" v-else>{{ locales[0].title }} <span class="text-muted">({{ type }})</span></div>
+
                     <div class="edit-url pt-1 mb-1">
                         <div class="form-group form-group--main mb-1 mt-1 p-0">
                             <input type="text" value="{{ title }}" v-model="title" v-on:input="editTitle" placeholder="Title">
@@ -79,6 +82,7 @@ export default {
                 return [];
             }
         },
+        locales: Array,
         depth: Number,
     },
 
