@@ -7,6 +7,7 @@ You can use it for free while in development, but requires a license to use on a
 
 ## Features
 * Create multiple menus
+* Big Kahuna supports localization
 * Build a custom menu from all the content in your site
 * Add hierarchy using drag & drop
 * Change the titles of each link
