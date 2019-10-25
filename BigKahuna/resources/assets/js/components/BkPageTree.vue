@@ -134,7 +134,11 @@ export default {
                 },
                 onDrag: function($item, container, _super, event) {
                     // Update the placeholder template to show the page name.
-                    $('.branch-placeholder').find('.page-text').text(`${draggedPage.title} (${draggedPage.type})`);
+                    if (Array.isArray(draggedPage.locales)) {
+                        $('.branch-placeholder').find('.page-text').text(`${draggedPage.locales[0].title} (${draggedPage.type})`);
+                    } else {
+                        $('.branch-placeholder').find('.page-text').text(`${draggedPage.title} (${draggedPage.type})`);
+                    }
                     _super($item, container);
                 },
                 onDrop: function($item, container, _super, event) {
