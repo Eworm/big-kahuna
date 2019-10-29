@@ -2,7 +2,7 @@
 
 @section('content')
 
-    <bkpagetree inline-template v-cloak :menu="'{{ $menu }}'">
+    <bkpagetree inline-template v-cloak :menu="'{{ $menu }}'" :locales="{{ $locales }}">
 
         <div id="bigkahuna">
 

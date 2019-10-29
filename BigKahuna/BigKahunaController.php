@@ -2,6 +2,7 @@
 
 namespace Statamic\Addons\BigKahuna;
 
+use Statamic\API\Config;
 use Statamic\API\Page;
 use Statamic\API\Collection;
 use Statamic\API\Entry;
@@ -48,6 +49,7 @@ class BigKahunaController extends Controller
     {
         return $this->view('edit', [
             'items' => $this->getItems($request),
+            'locales' => collect(Config::getLocales()),
             'menu' => $request->menu
         ]);
     }
@@ -239,7 +241,6 @@ class BigKahunaController extends Controller
     private function getItems($request)
     {
         $items = Content::all();
-        // dd($items);
 
         if ($request->has('q')) {
             $items = $items->filter(function ($item) use ($request) {
