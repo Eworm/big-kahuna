@@ -49,7 +49,6 @@ class BigKahunaController extends Controller
     {
         return $this->view('edit', [
             'items' => $this->getItems($request),
-            'locales' => collect(Config::getLocales()),
             'menu' => $request->menu
         ]);
     }
@@ -107,6 +106,22 @@ class BigKahunaController extends Controller
         return [
             'allpages' => $this->getItems($request),
         ];
+    }
+
+    /**
+     * Return the site locales
+     *
+     * @return json
+     */
+    public function alllocales(Request $request)
+    {
+        $locales = [];
+        foreach (Config::getLocales() as $locale) {
+            $locales[] = (object) [
+                'code' => $locale
+            ];
+        }
+        return $locales;
     }
 
     /**

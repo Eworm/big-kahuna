@@ -17,5 +17,6 @@ routes:
     uses: destroy
   /json/{menu}: BigKahunaController@json
   /allpages: BigKahunaController@allpages
+  /alllocales: BigKahunaController@alllocales
   # POST request to /cp/addons/addon-name/save using the save method
   post@save/{menu}: BigKahunaController@save
