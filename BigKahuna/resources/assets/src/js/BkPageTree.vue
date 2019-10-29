@@ -13,7 +13,7 @@ export default {
         BkBranch,
     },
 
-    props: ['menu'],
+    props: ['menu', 'locale'],
 
     data: function() {
         return {
@@ -73,7 +73,7 @@ export default {
         getPages: function() {
             this.pages          = [];
             this.loading        = false;
-            var url             = cp_url('addons/big-kahuna/json/'+this.menu);
+            var url             = cp_url('addons/big-kahuna/json/' + this.menu);
 
             this.$http.get(url, function(data) {
                 if (data) {
@@ -190,7 +190,7 @@ export default {
             var pages = JSON.parse(JSON.stringify(self.pages));
             pages = self.updateOrderIndexes(pages);
 
-            this.$http.post(cp_url('addons/big-kahuna/save/'+this.menu), { pages: pages }).success(function(data) {
+            this.$http.post(cp_url('addons/big-kahuna/save/' + this.menu), { pages: pages }).success(function(data) {
                 self.getPages();
                 self.changed = false;
                 self.saving = false;

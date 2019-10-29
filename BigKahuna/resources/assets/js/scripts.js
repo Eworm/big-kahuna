@@ -344,7 +344,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         saveMenu: function saveMenu() {
             if (this.menuName !== '') {
                 this.$http.post(cp_url("addons/big-kahuna/store"), {
-                    menu_name: this.menuName
+                    menu_name: this.menuName,
+                    locale: this.locale
                 }, function (res) {
                     location.href = cp_url('addons/big-kahuna/edit/') + res.menu;
                 });
@@ -385,12 +386,12 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //                 <tbody id="tbody">
 //                     <tr v-for="(index, page) in allpages">
 //                         <td class="checkbox-col">
-//                             <input type="checkbox" id="{{page[0].id}}" value="{{page[0].id}}" @change="handleChange($event)">
-//                             <label for="{{page[0].id}}"></label>
+//                             <input type="checkbox" id="{{page.id}}" value="{{page.id}}" @change="handleChange($event)">
+//                             <label for="{{page.id}}"></label>
 //                         </td>
 //                         <td class="cell-title first-cell">
 //                             <span class="column-label"></span>
-//                             {{ page[0].title }} <span class="text-muted">({{ page[0].type }})</span>
+//                             {{ page.title }} <span class="text-muted">({{ page.type }})</span>
 //                         </td>
 //                     </tr>
 //                 </tbody>
@@ -476,33 +477,23 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         handleChange: function handleChange(e) {
 
             if (e.target.checked == true) {
+
                 // Find object by selected ID
                 var result = this.allpages.filter(function (el) {
-                    return el[0].id == e.target.id;
-                });
-
-                var locales = [];
-                result[0].forEach(function (element, index) {
-                    locales.push({
-                        "locale": element.locale,
-                        "title": element.title,
-                        "url": element.url
-                    });
+                    return el.id == e.target.id;
                 });
 
                 // Push new object in possibleLinks
                 this.possibleLinks.push({
-                    id: result[0][0].id,
+                    id: result[0].id,
                     "order": 1,
-                    "original_title": result[0][0].title,
-                    "type": result[0][0].type,
+                    "title": result[0].title,
+                    "original_title": result[0].title,
+                    "type": result[0].type,
                     "classname": '',
                     "linktitle": '',
                     "items": [],
-                    "pages": [],
-                    "locales": locales,
-                    "custom_url": result[0][0].custom_url,
-                    "custom_title": result[0][0].custom_title
+                    "pages": []
                 });
             } else {
 
@@ -527,7 +518,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* 11 */
 /***/ (function(module, exports) {
 
-module.exports = "\n<div class=\"card flush\">\n    <div class=\"dossier-table-wrapper\">\n        <table class=\"dossier has-checkboxes\">\n            <thead>\n                <tr>\n                    <th colspan=\"2\">\n                        {{ translate('cp.All content') }} ({{ contentCount }})\n                    </th>\n                </tr>\n                <tr>\n                    <th colspan=\"2\" class=\"pr-2\">\n                        <input v-model=\"searchTerm\" type=\"search\" placeholder=\"{{ translate('cp.Search for a title, collection name or just type pages') }}\" class=\"form-control\">\n                    </th>\n                </tr>\n            </thead>\n            <tbody id=\"tbody\">\n                <tr v-for=\"(index, page) in allpages\">\n                    <td class=\"checkbox-col\">\n                        <input type=\"checkbox\" id=\"{{page[0].id}}\" value=\"{{page[0].id}}\" @change=\"handleChange($event)\">\n                        <label for=\"{{page[0].id}}\"></label>\n                    </td>\n                    <td class=\"cell-title first-cell\">\n                        <span class=\"column-label\"></span>\n                        {{ page[0].title }} <span class=\"text-muted\">({{ page[0].type }})</span>\n                    </td>\n                </tr>\n            </tbody>\n            <tfoot>\n                <tr>\n                    <td colspan=\"2\" class=\"p-2\">\n                        <button type=\"button\" class=\"btn btn-primary add-row\" @click=\"add\">\n                            {{ translate('cp.add') }}\n                            <i class=\"icon icon-plus icon-right\"></i>\n                        </button>\n                    </td>\n                </tr>\n            </tfoot>\n        </table>\n    </div>\n</div>\n";
+module.exports = "\n<div class=\"card flush\">\n    <div class=\"dossier-table-wrapper\">\n        <table class=\"dossier has-checkboxes\">\n            <thead>\n                <tr>\n                    <th colspan=\"2\">\n                        {{ translate('cp.All content') }} ({{ contentCount }})\n                    </th>\n                </tr>\n                <tr>\n                    <th colspan=\"2\" class=\"pr-2\">\n                        <input v-model=\"searchTerm\" type=\"search\" placeholder=\"{{ translate('cp.Search for a title, collection name or just type pages') }}\" class=\"form-control\">\n                    </th>\n                </tr>\n            </thead>\n            <tbody id=\"tbody\">\n                <tr v-for=\"(index, page) in allpages\">\n                    <td class=\"checkbox-col\">\n                        <input type=\"checkbox\" id=\"{{page.id}}\" value=\"{{page.id}}\" @change=\"handleChange($event)\">\n                        <label for=\"{{page.id}}\"></label>\n                    </td>\n                    <td class=\"cell-title first-cell\">\n                        <span class=\"column-label\"></span>\n                        {{ page.title }} <span class=\"text-muted\">({{ page.type }})</span>\n                    </td>\n                </tr>\n            </tbody>\n            <tfoot>\n                <tr>\n                    <td colspan=\"2\" class=\"p-2\">\n                        <button type=\"button\" class=\"btn btn-primary add-row\" @click=\"add\">\n                            {{ translate('cp.add') }}\n                            <i class=\"icon icon-plus icon-right\"></i>\n                        </button>\n                    </td>\n                </tr>\n            </tfoot>\n        </table>\n    </div>\n</div>\n";
 
 /***/ }),
 /* 12 */
@@ -963,7 +954,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         BkBranch: __WEBPACK_IMPORTED_MODULE_2__BkBranch_vue___default.a
     },
 
-    props: ['menu'],
+    props: ['menu', 'locale'],
 
     data: function data() {
         return {

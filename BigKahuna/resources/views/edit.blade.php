@@ -2,7 +2,7 @@
 
 @section('content')
 
-    <bkpagetree inline-template v-cloak :menu="'{{ $menu }}'" :locales="{{ $locales }}">
+    <bkpagetree inline-template v-cloak :menu="'{{ $menu }}'" :locale="'{{ $locale }}'">
 
         <div id="bigkahuna">
 
@@ -10,7 +10,7 @@
 
                 <div class="flex items-center flex-wrap mb-3">
 
-                    <h1 class="w-full text-center mb-2 md:mb-0 md:text-left md:w-auto md:flex-1">Edit Menu <small class="text-muted">({{ $menu }})</small></h1>
+                    <h1 class="w-full text-center mb-2 md:mb-0 md:text-left md:w-auto md:flex-1">Edit {{ $menu }} <small class="text-muted">({{ $locale }})</small></h1>
 
                     <div class="controls flex flex-wrap justify-center md:block items-center w-full md:w-auto">
                         <div class="btn-group btn-group-primary ml-1" v-if="arePages && changed">

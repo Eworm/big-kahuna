@@ -47,8 +47,12 @@ class BigKahunaController extends Controller
      */
     public function edit(Request $request)
     {
+        $locale = $this->storage->getJSON($request->menu);
+        // dd($locale['locale']);
+
         return $this->view('edit', [
             'items' => $this->getItems($request),
+            'locale' => $locale['locale'],
             'menu' => $request->menu
         ]);
     }
@@ -60,7 +64,9 @@ class BigKahunaController extends Controller
      */
     public function create(Request $request)
     {
-        return $this->view('create');
+        return $this->view('create', [
+            'locales' => collect(Config::getLocales())
+        ]);
     }
 
     /**
@@ -71,8 +77,9 @@ class BigKahunaController extends Controller
     public function store(Request $request)
     {
         $menu_name = str_slug($request->menu_name);
+        $locale = $request->locale;
 
-        $this->storage->putJSON($menu_name, []);
+        $this->storage->putJSON($menu_name, ['locale' => $locale]);
 
         return [
             'success' => true,
@@ -144,47 +151,28 @@ class BigKahunaController extends Controller
      *
      * @return array
      */
-    private function getJsonItems($pages)
-    {
-        $newpages = [];
-        foreach ($pages as $item) {
-            $id = $item['id'];
-            $content = Content::find($id);
+     private function getJsonItems($pages)
+     {
+         $newpages = [];
+         foreach ($pages as $item) {
+             $id = $item['id'];
+             $content = Content::find($id);
 
-            if (isset($item['locales'])) {
-                $locales = $item['locales'];
-            } else {
-                $locales = null;
-            }
-
-            if (isset($item['title'])) {
-                $c_title = $item['title'];
-            } else {
-                $c_title = null;
-            }
-
-            if (isset($item['url'])) {
-                $c_url = $item['url'];
-            } else {
-                $c_url = null;
-            }
-
-            $newpages[] = (object) [
-                'id'             => $id,
-                'order'          => $item['order'],
-                'type'           => $item['type'],
-                'title'          => $c_title,
-                'locales'        => $locales,
-                'original_title' => $this->itemTitle($item),
-                'url'            => $c_url,
-                'classname'      => $this->itemClassname($item),
-                'linktitle'      => $this->itemLinkTitle($item),
-                'items'          => $this->getJsonItems($item['items']),
-                'pages'          => $item['pages']
-            ];
-        }
-        return $newpages;
-    }
+             $newpages[] = (object) [
+                 'id'             => $id,
+                 'order'          => $item['order'],
+                 'type'           => $item['type'],
+                 'title'          => $item['title'],
+                 'original_title' => $this->itemTitle($item),
+                 'url'            => $this->itemUrl($item),
+                 'classname'      => $this->itemClassname($item),
+                 'linktitle'      => $this->itemLinkTitle($item),
+                 'items'          => $this->getJsonItems($item['items']),
+                 'pages'          => $item['pages']
+             ];
+         }
+         return $newpages;
+     }
 
     /**
      * Return the branch title
@@ -253,67 +241,52 @@ class BigKahunaController extends Controller
      *
      * @return json
      */
-    private function getItems($request)
-    {
-        $items = Content::all();
+     private function getItems($request)
+     {
+         $items = Content::all();
 
-        if ($request->has('q')) {
-            $items = $items->filter(function ($item) use ($request) {
+         if ($request->has('q')) {
+             $items = $items->filter(function ($item) use ($request) {
 
-                if ($item->contentType() == 'page') {
-                    if (stripos($item->get('title'), $request->q) !== false || stripos($item->id(), $request->q) !== false || stripos($item->path(), $request->q) !== false) {
-                        return true;
-                    }
-                } elseif ($item->contentType() == 'entry') {
-                    if (stripos($item->get('title'), $request->q) !== false || stripos($item->id(), $request->q) !== false || stripos($item->collectionName(), $request->q) !== false) {
-                        return true;
-                    }
-                } elseif ($item->contentType() == 'term') {
-                    if (stripos($item->title(), $request->q) !== false || stripos($item->id(), $request->q) !== false || stripos($item->taxonomyName(), $request->q) !== false) {
-                        return true;
-                    }
-                }
-                return false;
-            });
-        }
+                 if ($item->contentType() == 'page') {
+                     if (stripos($item->get('title'), $request->q) !== false || stripos($item->id(), $request->q) !== false || stripos($item->path(), $request->q) !== false) {
+                         return true;
+                     }
+                 } elseif ($item->contentType() == 'entry') {
+                     if (stripos($item->get('title'), $request->q) !== false || stripos($item->id(), $request->q) !== false || stripos($item->collectionName(), $request->q) !== false) {
+                         return true;
+                     }
+                 } elseif ($item->contentType() == 'term') {
+                     if (stripos($item->title(), $request->q) !== false || stripos($item->id(), $request->q) !== false || stripos($item->taxonomyName(), $request->q) !== false) {
+                         return true;
+                     }
+                 }
+                 return false;
+             });
+         }
 
-        return $items->map(function ($entry) {
-            $locales = $entry->locales();
-            $newlocales = [];
-            if ($entry->contentType() == 'page') {
-                foreach ($locales as $locale) {
-                    $newlocales[] = [
-                        'locale'=> $locale,
-                        'id'    => $entry->in($locale)->id(),
-                        'title' => $entry->in($locale)->get('title'),
-                        'type'  => 'Pages',
-                        'url'   => $entry->in($locale)->url(),
-                    ];
-                }
-            } elseif ($entry->contentType() == 'entry') {
-                foreach ($locales as $locale) {
-                    $newlocales[] = [
-                        'locale'=> $locale,
-                        'id'    => $entry->in($locale)->id(),
-                        'title' => $entry->in($locale)->get('title'),
-                        'type'  => ucwords(str_replace('-', ' ', $entry->in($locale)->collectionName())),
-                        'url'   => $entry->in($locale)->url(),
-                    ];
-                }
-            } elseif ($entry->contentType() == 'term') {
-                foreach ($locales as $locale) {
-                    $newlocales[] = [
-                        'locale'=> $locale,
-                        'id'    => $entry->in($locale)->id(),
-                        'title' => $entry->in($locale)->title(),
-                        'type'  => ucwords(str_replace('-', ' ', $entry->in($locale)->taxonomyName())),
-                        'url'   => $entry->in($locale)->url(),
-                    ];
-                }
-            }
-            return $newlocales;
-        });
-    }
+         return $items->map(function ($entry) {
+             if ($entry->contentType() == 'page') {
+                 return [
+                     'id'    => $entry->id(),
+                     'title' => $entry->get('title'),
+                     'type'  => 'Pages',
+                 ];
+             } elseif ($entry->contentType() == 'entry') {
+                 return [
+                     'id'    => $entry->id(),
+                     'title' => $entry->get('title'),
+                     'type'  => ucwords(str_replace('-', ' ', $entry->collectionName()))
+                 ];
+             } elseif ($entry->contentType() == 'term') {
+                 return [
+                     'id'    => $entry->id(),
+                     'title' => $entry->title(),
+                     'type'  => ucwords(str_replace('-', ' ', $entry->taxonomyName()))
+                 ];
+             }
+         });
+     }
 
     /**
      * Get the content type
@@ -364,39 +337,39 @@ class BigKahunaController extends Controller
      *
      * @return array
      */
-    private function saveJsonItems($pages)
-    {
-        $newpages = [];
-        foreach ($pages as $page) {
-            $id = $page['id'];
-            $content = Content::find($id);
+     private function saveJsonItems($pages)
+     {
+         $newpages = [];
+         foreach ($pages as $page) {
+             $id = $page['id'];
+             $content = Content::find($id);
 
-            if ($page['type'] == 'Custom') {
-                $newpages[] = (object) [
-                    'id'             => $id,
-                    'order'          => $page['order'],
-                    'type'           => $page['type'],
-                    'title'          => $page['title'],
-                    'original_title' => $page['original_title'],
-                    'url'            => $page['url'],
-                    'classname'      => $page['classname'],
-                    'linktitle'      => $page['linktitle'],
-                    'items'          => $this->saveJsonItems($page['items']),
-                    'pages'          => $page['pages']
-                ];
-            } else {
-                $newpages[] = (object) [
-                    'id'             => $id,
-                    'order'          => $page['order'],
-                    'type'           => $page['type'],
-                    'locales'        => $page['locales'],
-                    'classname'      => $page['classname'],
-                    'linktitle'      => $page['linktitle'],
-                    'items'          => $this->saveJsonItems($page['items']),
-                    'pages'          => $page['pages']
-                ];
-            }
-        }
-        return $newpages;
-    }
+             if ($page['type'] == 'Custom') {
+                 $newpages[] = (object) [
+                     'id'             => $id,
+                     'order'          => $page['order'],
+                     'type'           => $page['type'],
+                     'title'          => $page['title'],
+                     'original_title' => $page['original_title'],
+                     'url'            => $page['url'],
+                     'classname'      => $page['classname'],
+                     'linktitle'      => $page['linktitle'],
+                     'items'          => $this->saveJsonItems($page['items']),
+                     'pages'          => $page['pages']
+                 ];
+             } else {
+                 $newpages[] = (object) [
+                     'id'             => $id,
+                     'order'          => $page['order'],
+                     'type'           => $page['type'],
+                     'title'          => $page['title'],
+                     'classname'      => $page['classname'],
+                     'linktitle'      => $page['linktitle'],
+                     'items'          => $this->saveJsonItems($page['items']),
+                     'pages'          => $page['pages']
+                 ];
+             }
+         }
+         return $newpages;
+     }
 }

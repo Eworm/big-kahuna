@@ -17,12 +17,12 @@
                 <tbody id="tbody">
                     <tr v-for="(index, page) in allpages">
                         <td class="checkbox-col">
-                            <input type="checkbox" id="{{page[0].id}}" value="{{page[0].id}}" @change="handleChange($event)">
-                            <label for="{{page[0].id}}"></label>
+                            <input type="checkbox" id="{{page.id}}" value="{{page.id}}" @change="handleChange($event)">
+                            <label for="{{page.id}}"></label>
                         </td>
                         <td class="cell-title first-cell">
                             <span class="column-label"></span>
-                            {{ page[0].title }} <span class="text-muted">({{ page[0].type }})</span>
+                            {{ page.title }} <span class="text-muted">({{ page.type }})</span>
                         </td>
                     </tr>
                 </tbody>
@@ -110,33 +110,23 @@ export default {
         handleChange: function(e) {
 
             if (e.target.checked == true) {
+
                 // Find object by selected ID
                 const result = this.allpages.filter(function(el) {
-                    return el[0].id == e.target.id
-                });
-
-                const locales = [];
-                result[0].forEach(function(element, index) {
-                    locales.push({
-                        "locale": element.locale,
-                        "title": element.title,
-                        "url": element.url,
-                    });
+                    return el.id == e.target.id
                 });
 
                 // Push new object in possibleLinks
                 this.possibleLinks.push({
-                    id:                 result[0][0].id,
+                    id:                 result[0].id,
                     "order":            1,
-                    "original_title":   result[0][0].title,
-                    "type":             result[0][0].type,
+                    "title":            result[0].title,
+                    "original_title":   result[0].title,
+                    "type":             result[0].type,
                     "classname":        '',
                     "linktitle":        '',
                     "items":            [],
-                    "pages":            [],
-                    "locales":          locales,
-                    "custom_url":       result[0][0].custom_url,
-                    "custom_title":     result[0][0].custom_title
+                    "pages":            []
                 });
 
             } else {
