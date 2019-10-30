@@ -190,7 +190,7 @@ export default {
             var pages = JSON.parse(JSON.stringify(self.pages));
             pages = self.updateOrderIndexes(pages);
 
-            this.$http.post(cp_url('addons/big-kahuna/save/' + this.menu), { pages: pages }).success(function(data) {
+            this.$http.post(cp_url('addons/big-kahuna/save/' + this.menu), { pages: pages, locale: self.locale }).success(function(data) {
                 self.getPages();
                 self.changed = false;
                 self.saving = false;
