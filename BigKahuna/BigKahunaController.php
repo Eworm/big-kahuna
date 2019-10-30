@@ -47,12 +47,11 @@ class BigKahunaController extends Controller
      */
     public function edit(Request $request)
     {
-        $locale = $this->storage->getJSON($request->menu);
-        // dd($locale['locale']);
+        $menu = $this->storage->getJSON($request->menu);
 
         return $this->view('edit', [
             'items' => $this->getItems($request),
-            'locale' => $locale['locale'],
+            'locale' => $menu['locale'],
             'menu' => $request->menu
         ]);
     }
@@ -95,7 +94,7 @@ class BigKahunaController extends Controller
      */
     public function destroy(Request $request)
     {
-        Storage::delete('site/storage/addons/BigKahuna/'.$request->menu.'.json');
+        Storage::delete('site/storage/addons/BigKahuna/' . $request->menu . '.json');
 
         return [
             'success' => true,
@@ -139,9 +138,9 @@ class BigKahunaController extends Controller
     public function json(Request $request)
     {
         $pages = $this->storage->getJSON($request->menu);
-        if (!empty($pages)) {
+        if (!empty($pages['pages'])) {
             return [
-                'pages' => $this->getJsonItems($pages)
+                'pages' => $this->getJsonItems($pages['pages'])
             ];
         }
     }
@@ -318,10 +317,10 @@ class BigKahunaController extends Controller
         });
 
         // Grab the JSON payload
-        $pages = $this->request->input('pages');
+        $pages = $this->request->all();
 
         // Save a new json with only the above options
-        $this->storage->putJSON($request->menu, $this->saveJsonItems($pages));
+        $this->storage->putJSON($request->menu, $pages);
 
         // Emit event
         event(new AddonSettingsSaved('site/storage/addons/BigKahuna/' . $request->menu . '.json', $pages));
@@ -331,45 +330,4 @@ class BigKahunaController extends Controller
             'message' => 'Pages updated successfully.'
         ];
     }
-
-    /**
-     * Return a single branch object for saving
-     *
-     * @return array
-     */
-     private function saveJsonItems($pages)
-     {
-         $newpages = [];
-         foreach ($pages as $page) {
-             $id = $page['id'];
-             $content = Content::find($id);
-
-             if ($page['type'] == 'Custom') {
-                 $newpages[] = (object) [
-                     'id'             => $id,
-                     'order'          => $page['order'],
-                     'type'           => $page['type'],
-                     'title'          => $page['title'],
-                     'original_title' => $page['original_title'],
-                     'url'            => $page['url'],
-                     'classname'      => $page['classname'],
-                     'linktitle'      => $page['linktitle'],
-                     'items'          => $this->saveJsonItems($page['items']),
-                     'pages'          => $page['pages']
-                 ];
-             } else {
-                 $newpages[] = (object) [
-                     'id'             => $id,
-                     'order'          => $page['order'],
-                     'type'           => $page['type'],
-                     'title'          => $page['title'],
-                     'classname'      => $page['classname'],
-                     'linktitle'      => $page['linktitle'],
-                     'items'          => $this->saveJsonItems($page['items']),
-                     'pages'          => $page['pages']
-                 ];
-             }
-         }
-         return $newpages;
-     }
 }
