@@ -58,7 +58,6 @@ export default {
     },
 
     ready: function() {
-        console.log(this.locale);
         this.getPages();
     },
 

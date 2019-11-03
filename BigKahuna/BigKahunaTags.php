@@ -17,7 +17,7 @@ class BigKahunaTags extends Tags
         // Get the pages from storage and return proper html
         $pages = $this->storage->getJSON($this->getParam('menu'));
         if ($pages) {
-            return $this->getItems($pages['pages']);
+            return $this->getItems($pages['pages'], $pages['locale']);
         }
     }
 
@@ -26,7 +26,7 @@ class BigKahunaTags extends Tags
      *
      * @return html
      */
-     private function getItems($pages, $root = true)
+     private function getItems($pages, $locale, $root = true)
      {
          $menu                   = ($this->getParam('menu')) ? ' ' . $this->getParam('menu') : "";
          $id                     = ($this->getParam('id')) ? $this->getParam('id') : "";
@@ -67,7 +67,7 @@ class BigKahunaTags extends Tags
                  $html .= '<li class="' . $itemClass . $isParent . $myClassname .'">';
              } else {
                  $isactive = '';
-                 if ($content->absoluteUrl() == $actual_link || $this->getChildActiveStatus($page, $actual_link)) {
+                 if ($content->in($locale)->absoluteUrl() == $actual_link || $this->getChildActiveStatus($page, $actual_link)) {
                      $isactive = ' ' . $activeClass;
                  }
 
@@ -79,7 +79,7 @@ class BigKahunaTags extends Tags
                  $html .= '<a href="' . $page['url'] . '" title="' . $myLinkTitle . '" rel="external">';
              } else {
                  // An internal link
-                 $html .= '<a href="' . $content->absoluteUrl() . '" title="' . $myLinkTitle . '">';
+                 $html .= '<a href="' . $content->in($locale)->absoluteUrl() . '" title="' . $myLinkTitle . '">';
              }
 
              $html .= $page['title'];

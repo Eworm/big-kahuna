@@ -428,7 +428,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 
     ready: function ready() {
-        console.log(this.locale);
         this.getPages();
     },
 
@@ -998,7 +997,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         var _this = this;
 
         this.getPages();
-        console.log(this.locale);
         Mousetrap.bindGlobal('mod+s', function (e) {
             e.preventDefault();
             _this.save();

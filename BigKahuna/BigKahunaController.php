@@ -149,7 +149,7 @@ class BigKahunaController extends Controller
         $pages = $this->storage->getJSON($request->menu);
         if (!empty($pages['pages'])) {
             return [
-                'pages' => $this->getJsonItems($pages['pages'])
+                'pages' => $this->getJsonItems($pages['pages'], $pages['locale'])
             ];
         }
     }
@@ -159,7 +159,7 @@ class BigKahunaController extends Controller
      *
      * @return array
      */
-     private function getJsonItems($pages)
+     private function getJsonItems($pages, $locale)
      {
          $newpages = [];
          foreach ($pages as $item) {
@@ -171,11 +171,11 @@ class BigKahunaController extends Controller
                  'order'          => $item['order'],
                  'type'           => $item['type'],
                  'title'          => $item['title'],
-                 'original_title' => $this->itemTitle($item),
-                 'url'            => $this->itemUrl($item),
+                 'original_title' => $this->itemTitle($item, $locale),
+                 'url'            => $this->itemUrl($item, $locale),
                  'classname'      => $this->itemClassname($item),
                  'linktitle'      => $this->itemLinkTitle($item),
-                 'items'          => $this->getJsonItems($item['items']),
+                 'items'          => $this->getJsonItems($item['items'], $locale),
                  'pages'          => $item['pages']
              ];
          }
@@ -187,7 +187,7 @@ class BigKahunaController extends Controller
      *
      * @return string
      */
-    private function itemTitle($item)
+    private function itemTitle($item, $locale)
     {
         $id = $item['id'];
         $content = Content::find($id);
@@ -195,7 +195,7 @@ class BigKahunaController extends Controller
         if ($item['type'] == 'Custom') {
             return $item['original_title'];
         } else {
-            return $content->get('title');
+            return $content->in($locale)->get('title');
         }
     }
 
@@ -204,7 +204,7 @@ class BigKahunaController extends Controller
      *
      * @return string
      */
-    private function itemUrl($item)
+    private function itemUrl($item, $locale)
     {
         $id = $item['id'];
         $content = Content::find($id);
@@ -212,7 +212,7 @@ class BigKahunaController extends Controller
         if ($item['type'] == 'Custom') {
             return $item['url'];
         } else {
-            return $content->absoluteUrl();
+            return $content->in($locale)->absoluteUrl();
         }
     }
 
