@@ -28,6 +28,18 @@ Which will return something like this:
 
 _As you can see the name is added as a class so you can target the right menu more easily in css._
 
+## Localization
+To make the localized menus as flexible as possible (and keep the ui clean) you have to create a menu for each locale. You can choose a locale when creating a new menu.
+
+This is a example of using the different menus in your theme:
+
+    {{ if locale == 'en' }}
+        {{ big_kahuna menu="menu-en" }}
+    {{ else }}
+        {{ big_kahuna menu="menu-nl" }}
+    {{ endif }}
+
+
 ## Parameters
 You can change the defaults with the following parameters:
 
