@@ -33,7 +33,12 @@ class BigKahunaController extends Controller
         foreach ($menus_storage as $menu) {
             $add = str_replace('site/storage/addons/BigKahuna/', '', $menu);
             $add = str_replace('.json', '', $add);
-            $menus[] = $add;
+            $menu = $this->storage->getJSON($add);
+            $locale = $menu['locale'];
+            $menus[] = [
+                'name' => $add,
+                'locale' => $locale
+            ];
         }
 
         return $this->view('index', [

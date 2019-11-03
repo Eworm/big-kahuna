@@ -18,35 +18,35 @@
 
                             @foreach ($menus as $menu)
 
-                                @if (substr( $menu, 0, 1 ) !== ".")
+                                @if (substr( $menu['name'], 0, 1 ) !== ".")
 
                                     <tr>
                                         <td class="cell-title first-cell">
                                             <span class="column-label">Title</span>
-                                            <a href="{{ route('addons.menu_editor.edit', $menu) }}" title="Edit {{ ucwords(str_replace('-', ' ', $menu)) }}">
-                                                {{ ucwords(str_replace('-', ' ', $menu)) }}
+                                            <a href="{{ route('addons.menu_editor.edit', $menu) }}" title="Edit {{ ucwords(str_replace('-', ' ', $menu['name'])) }}">
+                                                {{ ucwords(str_replace('-', ' ', $menu['name'])) }}
                                             </a>
                                         </td>
 
                                         <td class="cell-slug">
                                             <span class="column-label">Tag</span>
                                             <span v-pre>
-                                                <code>&lcub;&lcub; big_kahuna menu="{{ $menu }}" &rcub;&rcub;</code>
+                                                <code>&lcub;&lcub; big_kahuna menu="{{ $menu['name'] }}" &rcub;&rcub;</code>
                                             </span>
                                         </td>
 
-                                        {{-- <td class="cell-slug">
+                                        <td class="cell-slug">
                                             <span class="column-label">Locale</span>
                                             <span>
-                                                {{ $locale }}
+                                                {{ $menu['locale'] }}
                                             </span>
-                                        </td> --}}
+                                        </td>
 
                                         <td class="column-actions">
                                             <div class="btn-group action-more">
                                                 <button type="button" class="btn-more dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="icon icon-dots-three-vertical"></i> </button>
                                                 <ul class="dropdown-menu">
-                                                    <li class="warning" @click="deleteMenu('{{ $menu }}')">
+                                                    <li class="warning" @click="deleteMenu('{{ $menu['name'] }}')">
                                                         <a href="#" title="Delete this menu">Delete</a>
                                                     </li>
                                                 </ul>
