@@ -280,16 +280,17 @@ class BigKahunaController extends Controller
          $return_entries = [];
          foreach ($entries as $entry) {
             $id = $entry->id();
-            if ($entry->contentType() == 'page') {
+            $title = $entry->in($locale)->get('title');
+            if ($entry->contentType() == 'page' && $title != null) {
                 $return_entries[] = [
                     'id'    => $id,
-                    'title' => $entry->in($locale)->get('title'),
+                    'title' => $title,
                     'type'  => 'Pages',
                 ];
             } elseif ($entry->contentType() == 'entry') {
                 $return_entries[] = [
                     'id'    => $id,
-                    'title' => $entry->in($locale)->get('title'),
+                    'title' => $title,
                     'type'  => ucwords(str_replace('-', ' ', $entry->collectionName()))
                 ];
             } elseif ($entry->contentType() == 'term') {
