@@ -85,7 +85,7 @@ export default {
                 var url = cp_url('addons/big-kahuna/allpages?locale=' + this.locale);
 
                 if (this.searchTerm.length > 0) {
-                    url = url + '?q=' + this.searchTerm;
+                    url = url + '&q=' + this.searchTerm;
                 }
 
                 this.$http.get(url, function(data) {

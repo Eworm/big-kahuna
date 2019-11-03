@@ -454,7 +454,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             var url = cp_url('addons/big-kahuna/allpages?locale=' + this.locale);
 
             if (this.searchTerm.length > 0) {
-                url = url + '?q=' + this.searchTerm;
+                url = url + '&q=' + this.searchTerm;
             }
 
             this.$http.get(url, function (data) {

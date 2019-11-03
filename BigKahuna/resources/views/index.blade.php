@@ -35,6 +35,13 @@
                                             </span>
                                         </td>
 
+                                        {{-- <td class="cell-slug">
+                                            <span class="column-label">Locale</span>
+                                            <span>
+                                                {{ $locale }}
+                                            </span>
+                                        </td> --}}
+
                                         <td class="column-actions">
                                             <div class="btn-group action-more">
                                                 <button type="button" class="btn-more dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="icon icon-dots-three-vertical"></i> </button>

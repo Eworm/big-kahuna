@@ -269,36 +269,33 @@ class BigKahunaController extends Controller
          }
 
          $entries = $items->filter(function ($entry) use ($locale) {
-         // $entries = $items->map(function ($entry) use ($locale) {
-
-             if ($entry->hasLocale($locale)) {
-
-                $id = $entry->id();
-
-                if ($entry->contentType() == 'page') {
-                    return [
-                        'id'    => $id,
-                        'title' => $entry->in($locale)->get('title'),
-                        'type'  => 'Pages',
-                    ];
-                } elseif ($entry->contentType() == 'entry') {
-                    return [
-                        'id'    => $id,
-                        'title' => $entry->in($locale)->get('title'),
-                        'type'  => ucwords(str_replace('-', ' ', $entry->collectionName()))
-                    ];
-                } elseif ($entry->contentType() == 'term') {
-                    return [
-                        'id'    => $id,
-                        'title' => $entry->in($locale)->title(),
-                        'type'  => ucwords(str_replace('-', ' ', $entry->taxonomyName()))
-                    ];
-                }
-
-             }
+            return $entry->hasLocale($locale);
          });
 
-         return $entries;
+         $return_entries = [];
+         foreach ($entries as $entry) {
+            $id = $entry->id();
+            if ($entry->contentType() == 'page') {
+                $return_entries[] = [
+                    'id'    => $id,
+                    'title' => $entry->in($locale)->get('title'),
+                    'type'  => 'Pages',
+                ];
+            } elseif ($entry->contentType() == 'entry') {
+                $return_entries[] = [
+                    'id'    => $id,
+                    'title' => $entry->in($locale)->get('title'),
+                    'type'  => ucwords(str_replace('-', ' ', $entry->collectionName()))
+                ];
+            } elseif ($entry->contentType() == 'term') {
+                $return_entries[] = [
+                    'id'    => $id,
+                    'title' => $entry->in($locale)->title(),
+                    'type'  => ucwords(str_replace('-', ' ', $entry->taxonomyName()))
+                ];
+            }
+        }
+        return $return_entries;
      }
 
     /**
