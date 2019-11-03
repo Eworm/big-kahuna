@@ -254,18 +254,18 @@ class BigKahunaController extends Controller
          $items = Content::all();
 
          if ($request->has('q')) {
-             $items = $items->filter(function ($item) use ($request) {
+             $items = $items->filter(function ($item) use ($request, $locale) {
 
                  if ($item->contentType() == 'page') {
-                     if (stripos($item->get('title'), $request->q) !== false || stripos($item->id(), $request->q) !== false || stripos($item->path(), $request->q) !== false) {
+                     if (stripos($item->in($locale)->get('title'), $request->q) !== false || stripos($item->id(), $request->q) !== false || stripos($item->path(), $request->q) !== false) {
                          return true;
                      }
                  } elseif ($item->contentType() == 'entry') {
-                     if (stripos($item->get('title'), $request->q) !== false || stripos($item->id(), $request->q) !== false || stripos($item->collectionName(), $request->q) !== false) {
+                     if (stripos($item->in($locale)->get('title'), $request->q) !== false || stripos($item->id(), $request->q) !== false || stripos($item->collectionName(), $request->q) !== false) {
                          return true;
                      }
                  } elseif ($item->contentType() == 'term') {
-                     if (stripos($item->title(), $request->q) !== false || stripos($item->id(), $request->q) !== false || stripos($item->taxonomyName(), $request->q) !== false) {
+                     if (stripos($item->in($locale)->title(), $request->q) !== false || stripos($item->id(), $request->q) !== false || stripos($item->taxonomyName(), $request->q) !== false) {
                          return true;
                      }
                  }
