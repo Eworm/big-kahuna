@@ -29,7 +29,7 @@
 
                     <div class="col-md-5">
 
-                        <bkfilter></bkfilter>
+                        <bkfilter v-bind:locale="locale"></bkfilter>
 
                         <bkcustomlink></bkcustomlink>
 

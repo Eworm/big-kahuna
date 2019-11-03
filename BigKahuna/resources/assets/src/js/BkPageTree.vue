@@ -25,7 +25,8 @@ export default {
             pages: [],
             allpages: [],
             arePages: true,
-            name: []
+            name: [],
+            locale: ''
         }
     },
 
@@ -51,6 +52,7 @@ export default {
 
     ready: function() {
         this.getPages();
+        console.log(this.locale);
         Mousetrap.bindGlobal('mod+s', (e) => {
             e.preventDefault();
             this.save();

@@ -412,6 +412,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 // <script>
 
 /* harmony default export */ __webpack_exports__["default"] = ({
+
+    props: ['locale'],
+
     data: function data() {
 
         return {
@@ -425,6 +428,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 
     ready: function ready() {
+        console.log(this.locale);
         this.getPages();
     },
 
@@ -447,7 +451,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     methods: {
 
         getPages: _.debounce(function () {
-            var url = cp_url('addons/big-kahuna/allpages');
+            var url = cp_url('addons/big-kahuna/allpages?locale=' + this.locale);
 
             if (this.searchTerm.length > 0) {
                 url = url + '?q=' + this.searchTerm;
@@ -966,7 +970,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             pages: [],
             allpages: [],
             arePages: true,
-            name: []
+            name: [],
+            locale: ''
         };
     },
 
@@ -993,6 +998,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         var _this = this;
 
         this.getPages();
+        console.log(this.locale);
         Mousetrap.bindGlobal('mod+s', function (e) {
             e.preventDefault();
             _this.save();

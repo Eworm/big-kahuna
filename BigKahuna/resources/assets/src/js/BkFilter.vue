@@ -44,6 +44,8 @@
 
 export default {
 
+    props: ['locale'],
+
     data() {
 
         return {
@@ -56,6 +58,7 @@ export default {
     },
 
     ready: function() {
+        console.log(this.locale);
         this.getPages();
     },
 
@@ -79,7 +82,7 @@ export default {
 
         getPages: _.debounce(
             function () {
-                var url = cp_url('addons/big-kahuna/allpages');
+                var url = cp_url('addons/big-kahuna/allpages?locale=' + this.locale);
 
                 if (this.searchTerm.length > 0) {
                     url = url + '?q=' + this.searchTerm;
@@ -100,7 +103,7 @@ export default {
                 var checkboxes = document.querySelectorAll('#bigkahuna .checkbox-col > input')
 
                 checkboxes.forEach(function(box) {
-                  box.checked = false
+                    box.checked = false
                 })
             } else {
                this.$dispatch("setFlashError", 'Uh oh! Select one or more items')

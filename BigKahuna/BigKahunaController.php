@@ -2,6 +2,7 @@
 
 namespace Statamic\Addons\BigKahuna;
 
+use Statamic\Data\Data;
 use Statamic\API\Config;
 use Statamic\API\Page;
 use Statamic\API\Collection;
@@ -48,10 +49,11 @@ class BigKahunaController extends Controller
     public function edit(Request $request)
     {
         $menu = $this->storage->getJSON($request->menu);
+        $locale = $menu['locale'];
 
         return $this->view('edit', [
-            'items' => $this->getItems($request),
-            'locale' => $menu['locale'],
+            'items' => $this->getItems($request, $locale),
+            'locale' => $locale,
             'menu' => $request->menu
         ]);
     }
@@ -109,8 +111,10 @@ class BigKahunaController extends Controller
      */
     public function allpages(Request $request)
     {
+        $locale = $request['locale'];
+
         return [
-            'allpages' => $this->getItems($request),
+            'allpages' => $this->getItems($request, $locale),
         ];
     }
 
@@ -240,7 +244,7 @@ class BigKahunaController extends Controller
      *
      * @return json
      */
-     private function getItems($request)
+     private function getItems($request, $locale)
      {
          $items = Content::all();
 
@@ -264,27 +268,37 @@ class BigKahunaController extends Controller
              });
          }
 
-         return $items->map(function ($entry) {
-             if ($entry->contentType() == 'page') {
-                 return [
-                     'id'    => $entry->id(),
-                     'title' => $entry->get('title'),
-                     'type'  => 'Pages',
-                 ];
-             } elseif ($entry->contentType() == 'entry') {
-                 return [
-                     'id'    => $entry->id(),
-                     'title' => $entry->get('title'),
-                     'type'  => ucwords(str_replace('-', ' ', $entry->collectionName()))
-                 ];
-             } elseif ($entry->contentType() == 'term') {
-                 return [
-                     'id'    => $entry->id(),
-                     'title' => $entry->title(),
-                     'type'  => ucwords(str_replace('-', ' ', $entry->taxonomyName()))
-                 ];
+         $entries = $items->filter(function ($entry) use ($locale) {
+         // $entries = $items->map(function ($entry) use ($locale) {
+
+             if ($entry->hasLocale($locale)) {
+
+                $id = $entry->id();
+
+                if ($entry->contentType() == 'page') {
+                    return [
+                        'id'    => $id,
+                        'title' => $entry->in($locale)->get('title'),
+                        'type'  => 'Pages',
+                    ];
+                } elseif ($entry->contentType() == 'entry') {
+                    return [
+                        'id'    => $id,
+                        'title' => $entry->in($locale)->get('title'),
+                        'type'  => ucwords(str_replace('-', ' ', $entry->collectionName()))
+                    ];
+                } elseif ($entry->contentType() == 'term') {
+                    return [
+                        'id'    => $id,
+                        'title' => $entry->in($locale)->title(),
+                        'type'  => ucwords(str_replace('-', ' ', $entry->taxonomyName()))
+                    ];
+                }
+
              }
          });
+
+         return $entries;
      }
 
     /**
