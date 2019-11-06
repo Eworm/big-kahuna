@@ -32,7 +32,9 @@ class BigKahunaTags extends Tags
          $id                     = ($this->getParam('id')) ? $this->getParam('id') : "";
          $class                  = ($this->getParam('class')) ? $this->getParam('class') : "nav";
          $itemClass              = ($this->getParam('item_class')) ? $this->getParam('item_class') : "nav__item";
+         $linkClass              = ($this->getParam('link_class')) ? $this->getParam('link_class') : "nav__link";
          $parentClass            = ($this->getParam('parent_class')) ? $this->getParam('parent_class') : "nav__item--parent";
+         $parentLinkClass        = ($this->getParam('parent_link_class')) ? $this->getParam('parent_link_class') : "nav__item--toggle";
          $submenu_class          = ($this->getParam('submenu_class')) ? $this->getParam('submenu_class') : "submenu";
          $submenu_item_class     = ($this->getParam('submenu_item_class')) ? $this->getParam('submenu_item_class') : "submenu__item";
          $activeClass            = ($this->getParam('active_class')) ? $this->getParam('active_class') : "is--active";
@@ -51,9 +53,11 @@ class BigKahunaTags extends Tags
          }
 
          foreach ($pages as $page) {
-             $id             = $page['id'];
-             $myClassname    = ' ' . $page['classname'];
-             $isParent       = $page['items'] ? ' ' . $parentClass : '';
+             $id               = $page['id'];
+             $myClassname      = ' ' . $page['classname'];
+             $isParent         = $page['items'] ? ' ' . $parentClass    : '';
+             $isParentLink     = $page['items'] ? ' ' . $parentLinkClass: '';
+             $parentAttributes = $page['items'] ? ' data-toggle="' . $parentClass . '" aria-haspopup="true" aria-expanded="false"': '';
 
              if ($page['linktitle'] != '') {
                  $myLinkTitle = $page['linktitle'];
@@ -76,10 +80,10 @@ class BigKahunaTags extends Tags
 
              if ($page['type'] == 'Custom') {
                  // A custom link
-                 $html .= '<a href="' . $page['url'] . '" title="' . $myLinkTitle . '" rel="external">';
+                 $html .= '<a class="' . $linkClass . $isParentLink . '"' . $parentAttributes . ' href="' . $page['url'] . '" title="' . $myLinkTitle . '" rel="external">';
              } else {
                  // An internal link
-                 $html .= '<a href="' . $content->in($locale)->absoluteUrl() . '" title="' . $myLinkTitle . '">';
+                 $html .= '<a class="' . $linkClass . $isParentLink . '"' . $parentAttributes . ' href="' . $content->in($locale)->absoluteUrl() . '" title="' . $myLinkTitle . '">';
              }
 
              $html .= $page['title'];
