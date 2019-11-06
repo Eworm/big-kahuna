@@ -57,7 +57,7 @@ class BigKahunaTags extends Tags
              $myClassname      = ' ' . $page['classname'];
              $isParent         = $page['items'] ? ' ' . $parentClass    : '';
              $isParentLink     = $page['items'] ? ' ' . $parentLinkClass: '';
-             $parentAttributes = $page['items'] ? ' data-toggle="' . $parentClass . '" aria-haspopup="true" aria-expanded="false"': '';
+             $parentAttributes = $page['items'] ? ' data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"': '';
 
              if ($page['linktitle'] != '') {
                  $myLinkTitle = $page['linktitle'];
