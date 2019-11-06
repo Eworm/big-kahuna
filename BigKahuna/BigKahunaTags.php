@@ -91,7 +91,7 @@ class BigKahunaTags extends Tags
 
              if ($page['items']) {
                  // Return the submenu html
-                 $html .= $this->getItems($page['items'], false);
+                 $html .= $this->getItems($page['items'], $locale, false);
              }
 
              $html .= '</li>';
