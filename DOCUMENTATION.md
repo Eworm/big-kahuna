@@ -59,8 +59,14 @@ The class for feedback for the current page. Defaults to 'is--active'. This clas
 **item\_class**  
 The class for every root li. Defaults to 'nav__item'.
 
+**link\_class**
+The class for every link items. Defaults to 'nav__link'.
+
 **parent\_class**  
 The class for li items with a submenu. Defaults to 'nav__item--parent'.
+
+**parent\_link\_class**
+The class for link items with a submenu. Defaults to 'nav__item--toggle'.
 
 ### A submenu list
 **submenu\_class**  
@@ -71,4 +77,5 @@ The class for every li element in a submenu. The default is 'submenu__item'.
 
 ### Stuff not on the menu
 * Custom links to external sites get a `rel="external"` on the link tag.
+* Links with submenu items get a `data-toggle="dropdown"` to support Bootstrap dropdown menus.
 * Since the 'is--active' class is added to an li, it's best to use something like `.is--active > a` in your stylesheet for feedback classes. That way the submenu links don't inherit the active style.
