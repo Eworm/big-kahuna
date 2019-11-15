@@ -164,20 +164,21 @@ class BigKahunaController extends Controller
          $newpages = [];
          foreach ($pages as $item) {
              $id = $item['id'];
-             $content = Content::find($id);
 
-             $newpages[] = (object) [
-                 'id'             => $id,
-                 'order'          => $item['order'],
-                 'type'           => $item['type'],
-                 'title'          => $item['title'],
-                 'original_title' => $this->itemTitle($item, $locale),
-                 'url'            => $this->itemUrl($item, $locale),
-                 'classname'      => $this->itemClassname($item),
-                 'linktitle'      => $this->itemLinkTitle($item),
-                 'items'          => $this->getJsonItems($item['items'], $locale),
-                 'pages'          => $item['pages']
-             ];
+             if (Content::exists($id) || $item['type'] == 'Custom') {
+                 $newpages[] = (object) [
+                     'id'             => $id,
+                     'order'          => $item['order'],
+                     'type'           => $item['type'],
+                     'title'          => $item['title'],
+                     'original_title' => $this->itemTitle($item, $locale),
+                     'url'            => $this->itemUrl($item, $locale),
+                     'classname'      => $this->itemClassname($item),
+                     'linktitle'      => $this->itemLinkTitle($item),
+                     'items'          => $this->getJsonItems($item['items'], $locale),
+                     'pages'          => $item['pages']
+                 ];
+             }
          }
          return $newpages;
      }
@@ -195,7 +196,9 @@ class BigKahunaController extends Controller
         if ($item['type'] == 'Custom') {
             return $item['original_title'];
         } else {
-            return $content->in($locale)->get('title');
+            if ($content) {
+                return $content->in($locale)->get('title');
+            }
         }
     }
 
@@ -212,7 +215,9 @@ class BigKahunaController extends Controller
         if ($item['type'] == 'Custom') {
             return $item['url'];
         } else {
-            return $content->in($locale)->absoluteUrl();
+            if ($content) {
+                return $content->in($locale)->absoluteUrl();
+            }
         }
     }
 
