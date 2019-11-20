@@ -72,7 +72,7 @@ class BigKahunaTags extends Tags
              } else {
                  if ($content) {
                      $isactive = '';
-                     if ($content->in($locale)->absoluteUrl() == $actual_link || $this->getChildActiveStatus($page, $actual_link)) {
+                     if ($content->in($locale)->url() == $actual_link || $this->getChildActiveStatus($page, $actual_link)) {
                          $isactive = ' ' . $activeClass;
                      }
                  }
@@ -85,7 +85,7 @@ class BigKahunaTags extends Tags
              } else {
                  // An internal link
                  if ($content) {
-                     $html .= '<a class="' . $linkClass . $isParentLink . '"' . $parentAttributes . ' href="' . $content->in($locale)->absoluteUrl() . '" title="' . $myLinkTitle . '">';
+                     $html .= '<a class="' . $linkClass . $isParentLink . '"' . $parentAttributes . ' href="' . $content->in($locale)->url() . '" title="' . $myLinkTitle . '">';
                  }
              }
 
@@ -111,7 +111,7 @@ class BigKahunaTags extends Tags
         foreach ($page['items'] as $child) {
             $child_content = Content::find($child['id']);
 
-            if ($child_content && $child_content->absoluteUrl() == $actual_link) {
+            if ($child_content && $child_content->url() == $actual_link) {
                 return true;
             } else {
                 return $this->getChildActiveStatus($child, $actual_link);

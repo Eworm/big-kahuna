@@ -216,7 +216,7 @@ class BigKahunaController extends Controller
             return $item['url'];
         } else {
             if ($content) {
-                return $content->in($locale)->absoluteUrl();
+                return $content->in($locale)->url();
             }
         }
     }
