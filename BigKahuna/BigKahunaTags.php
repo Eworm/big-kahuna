@@ -39,7 +39,7 @@ class BigKahunaTags extends Tags
          $submenu_item_class     = ($this->getParam('submenu_item_class')) ? $this->getParam('submenu_item_class') : "submenu__item";
          $activeClass            = ($this->getParam('active_class')) ? $this->getParam('active_class') : "is--active";
 
-         $actual_link = (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on' ? "https" : "http") . "://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]";
+         $actual_link = "$_SERVER[REQUEST_URI]";
 
          $html = '';
 
