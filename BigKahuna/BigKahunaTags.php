@@ -58,6 +58,7 @@ class BigKahunaTags extends Tags
              $isParent         = $page['items'] ? ' ' . $parentClass    : '';
              $isParentLink     = $page['items'] ? ' ' . $parentLinkClass: '';
              $parentAttributes = $page['items'] ? ' data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"': '';
+             $isactive         = '';
 
              if ($page['linktitle'] != '') {
                  $myLinkTitle = $page['linktitle'];
@@ -71,7 +72,6 @@ class BigKahunaTags extends Tags
                  $html .= '<li class="' . $itemClass . $isParent . $myClassname .'">';
              } else {
                  if ($content) {
-                     $isactive = '';
                      if ($content->in($locale)->url() == $actual_link || $this->getChildActiveStatus($page, $actual_link)) {
                          $isactive = ' ' . $activeClass;
                      }
