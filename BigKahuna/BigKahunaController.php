@@ -285,7 +285,7 @@ class BigKahunaController extends Controller
          $return_entries = [];
          foreach ($entries as $entry) {
             $id = $entry->id();
-            $title = $entry->in($locale)->get('title');
+            $title = $entry->in($locale)->get('title') ?: $entry->get('title');
             if ($entry->contentType() == 'page' && $title != null) {
                 $return_entries[] = [
                     'id'    => $id,
